@@ -1,0 +1,73 @@
+\chapter{Higher modalities}
+\label{chap:modalities}
+
+\section{Modalities}
+\label{sec:modalities}
+
+\begin{defi}
+  \label{def:modality}
+  A left exact modality is the data of
+  \begin{enumerate}[(i)]
+  \item A predicate $P:\Type \to \HProp$
+  \item For every type $A$, a type
+    $\modal A$ such that $P(\modal A)$
+  \item For every type $A$, a map $\eta_A:A \to
+    \modal A$
+  \end{enumerate}
+  such that
+  \begin{enumerate}[(i)]
+    \setcounter{enumi}{3}
+  \item For every types $A$ and $B$, if $P(B)$ then
+    \[ \left\{
+        \begin{array}{rcl}
+          (\modal A \to B) & \to & (A \to B) \\
+          f & \mapsto & f \circ \eta_A
+        \end{array} \right. \] %
+    is an equivalence.
+  \item for any $A:\Type$ and $B:A \to \Type$ such that $P(A)$
+    and $\prod_{x:A} P(B x)$, then $P\left( \sum_{x:A} B(x)\right)$
+  \item for any $A:\Type$ and $x,y:A$, if $\modal A$ is
+    contractible, then $\modal (x=y)$ is contractible.
+  \end{enumerate}
+  Conditions (i) to (iv) define a {\em reflective subuniverse}, (i) to
+  (v) a {\em modality}.
+\end{defi}
+
+\section{Examples of modalities}
+\label{sec:modalities-examples}
+
+\subsection{The identity modality}
+\label{ssec:id_mod}
+
+Let us begin with the most simple modality one can imagine: the one
+doing nothing. We can define it by letting $\modal A \defeq A$ for any type
+$A$, and $\eta_A \defeq \idmap$. Obviously, the desired computation
+rules are satisfied, so that the identity modality is indeed a
+left-exact modality.
+
+It might sound useless to consider such a modality, but it can be
+precious when looking for properties of modalities: if it does not
+hold for the identity modality, it cannot hold for an abstract one.
+
+
+\subsection{Truncations}
+\label{ssec:truncations}
+
+The first class of non-trivial examples might be the {\em truncations}
+modalities.
+
+\subsection{Double negation modality}
+\label{ssec:notnot}
+
+The double negation modality $\modal A \defeq \lnot\lnot A$ is a
+modality. Unfortunately, it appears that every type is collapsed to an
+$\HProp$, thus it cannot be used as-is. The main purpose of this
+thesis, in particular chapter~\ref{chap:sheaf} is to extend this
+modality into a better one.
+
+\section{New type theories}
+\label{sec:translation}
+
+\section{Truncated modalities}
+\label{sec:trunc_modalities}
+

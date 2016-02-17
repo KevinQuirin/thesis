@@ -1,0 +1,206 @@
+%% Packages %%
+
+%\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+%\usepackage{lmodern} %police latin modern
+\usepackage[english]{babel}
+\usepackage{mathbbol} %permet \mathbb{1} \Lbrack \Rbrack ...
+\usepackage{amsmath,amssymb,amsthm,amsfonts} %packages AMS
+\usepackage{wasysym}
+\usepackage{calrsfs} %\mathcal{} plus rondes
+\usepackage{enumerate} %permet de changer le type de numÃ©rotation dans enumerate
+%\usepackage[nottoc]{tocbibind} %affiche la bibliographie dans la table des matiÃ¨res
+\usepackage{graphicx} %permet d'afficher des images
+\usepackage{titlesec,titletoc} %modifie les titres et la table des matiÃ¨res
+\usepackage{lettrine} %permet les lettrines
+\usepackage[colorlinks=true,linkcolor=black,urlcolor=blue]{hyperref} %permet les liens hypertextes ( avec \href{lien}{texte} )
+
+%% Dimensions %%
+
+%\setlength{\topmargin}{0cm}
+%\setlength{\footskip}{2cm}
+%\setlength{\textheight}{22cm}
+%\setlength{\oddsidemargin}{0cm} 
+%\setlength{\evensidemargin}{0cm}
+%\setlength{\textwidth}{17cm}
+
+
+%\setlength{\parindent}{0cm}
+%\setlength{\parskip}{.5\baselineskip} %espace entre les paragraphes
+
+%% Titres des sections, subsections ... %%
+
+%\titlespacing*{\section}{-1cm}{2em}{.5em} % {nom}{indentation}{espace avant}{espace aprÃ¨s}
+%\titlespacing*{\subsection}{-.5cm}{1.5em}{.5em}
+
+
+%% ThÃ©orÃ¨mes %%
+
+\newtheoremstyle{theoreme}
+ {20pt} %espace avant le théorème
+ {20pt} %espace après le théorème
+ {\slshape} %fonte du texte
+ {} %indentation
+ {\bfseries} %fonte du titre
+ {} %ponctuation aprÃ¨s le titre
+ {\newline} %espace aprÃ¨s le titre
+ {\thmname{#1}\thmnumber{ #2}\thmnote{~:~#3}} %forme du titre
+
+
+\theoremstyle{theoreme} 
+\newtheorem{thm}{Theorem}
+\newtheorem{cor}[thm]{Corollary}
+\newtheorem{prop}[thm]{Proposition}
+\newtheorem{defi}[thm]{Definition}
+\newtheorem{lem}[thm]{Lemma}
+
+\newenvironment{prooflem}%
+    {\renewcommand{\qedsymbol}{$\Diamond$}%
+     \begin{proof}}%
+    {\end{proof}%
+     \renewcommand{\qedsymbol}{$\square$}}
+
+\newenvironment{rmq}% 
+	{\noindent \textsc{Nota}~\textendash~}%
+	{\medskip}
+
+\newenvironment{exm}%
+	{\noindent \textsc{Example}~\textendash~}%
+	{\medskip}
+
+\newenvironment{rmqs}%
+	{\noindent \textsc{Notae}~:~ \medskip%
+	 \begin{list}%
+		{\textendash}%
+		{\setlength{\itemsep}{2ex}}}%
+	{\end{list} \medskip}
+
+\newenvironment{exms}%
+	{\noindent \textsc{Examples}~:~ \medskip%
+	 \begin{list}%
+		{\textendash}%
+		{\setlength{\itemsep}{2ex}}}%
+	{\end{list} \medskip}
+
+\newenvironment{nota}% 
+	{\noindent \textsc{Notation}~\textendash~}%
+	{\medskip}
+
+%% Maths %%
+
+        % HoTT %
+\usepackage[all]{xy}
+\def\dar[#1]#2{\ar@<-#2>[#1]\ar@<#2>[#1]} %double arrows in xy
+\def\tar[#1]#2{\ar@<#2>[#1]\ar@<0pt>[#1]\ar@<-#2>[#1]} %triple arrows in xy
+\DeclareMathOperator{\Type}{Type}
+\DeclareMathOperator{\HProp}{HProp}
+\DeclareMathOperator{\IsHProp}{IsHProp}
+\DeclareMathOperator{\nat}{nat}
+\DeclareMathOperator{\Unit}{Unit}
+\DeclareMathOperator{\im}{Im}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\Contr}{Contr}
+\DeclareMathOperator{\IsContr}{IsContr}
+\DeclareMathOperator{\IsEquiv}{IsEquiv}
+\DeclareMathOperator{\precompose}{\mathrm{precompose}}
+\DeclareMathOperator{\idmap}{\mathrm{idmap}}
+
+\newcommand \defeq {\overset{de\hspace{-0.2ex}f}{=}}
+
+\def\mymathhyphen{{\hbox{-}}}
+
+\newcommand{\IsType}[1]
+{\mathop{\mathrm{Is\mymathhyphen}#1\mathrm{\mymathhyphen type}} }
+
+\newcommand{\modal}{\ensuremath{\ocircle}}
+\newcommand \True {\mathrm{true}}
+\newcommand \False {\mathrm{false}}
+\newcommand \closure[1] {\overline{#1}}
+\newcommand \Char[1] {\chi_{#1}}%{\mathrm{char}(#1)}
+\newcommand \E {\mathcal{E}}
+\newcommand \Hom[1] {\mathrm{Hom}_{#1}}
+\newcommand \Sh[1] {\mathrm{Sh}_{#1}}
+\newcommand \squash[1] {\| #1 \| }
+\newcommand \separated {\mathop{\square_{n+1}} }
+\newcommand \fib[2] {\mathrm{fib}_{#1}(#2)}
+\newcommand \colim[1] {\mathrm{colim}(Q)}
+\newcommand \zero {\mathbf{0}}
+\newcommand \one {\mathbf{1}}
+\newcommand \two {\mathbf{2}}
+
+	% DiffÃ©rentielles %
+\newcommand{\diff}[1]{\mathrm{d}#1} %Ã©lÃ©ment diffÃ©rentiel
+\newcommand{\dpart}[2]{\frac{\partial #1}{\partial #2}} %dÃ©rivÃ©e partielle d'ordre 1
+
+	% Ensembles %
+\newcommand{\N}{\mathbb{N}} %entiers naturels
+\newcommand{\R}{\mathbb{R}} %rÃ©els
+\newcommand{\Q}{\mathbb{Q}} %rationnels
+\newcommand{\Z}{\mathbb{Z}} %entiers relatifs
+\newcommand{\C}{\mathbb{C}} %complexe
+\newcommand{\K}{\mathbb{K}} %corps
+\newcommand{\perm}{\mathfrak{S}} %permutations
+
+	% Fonctions %
+\newcommand{\fonction}[5]{ %{nom de la fonction}{ensemble de dÃ©part}{ensemble d'arrivÃ©e}{nom de la variable}{image de la variable}
+	#1 \, \colon \left.
+	 \begin{array}{ccl}
+		#2 & \longrightarrow & #3 \\
+		#4 & \longmapsto & #5
+	\end{array}
+	\right.
+}
+
+\def\restriction#1#2{\mathchoice %restriction d'une fonction Ã  un ensemble
+              {\setbox1\hbox{${\displaystyle #1}_{\scriptstyle #2}$}
+              \restrictionaux{#1}{#2}}
+              {\setbox1\hbox{${\textstyle #1}_{\scriptstyle #2}$}
+              \restrictionaux{#1}{#2}}
+              {\setbox1\hbox{${\scriptstyle #1}_{\scriptscriptstyle #2}$}
+              \restrictionaux{#1}{#2}}
+              {\setbox1\hbox{${\scriptscriptstyle #1}_{\scriptscriptstyle #2}$}
+              \restrictionaux{#1}{#2}}}
+\def\restrictionaux#1#2{{#1\,\smash{\vrule height .8\ht1 depth .85\dp1}}_{\,#2}} 
+
+	% OpÃ©rateurs %
+\DeclareMathOperator{\rk}{Rk} %rang
+\DeclareMathOperator{\vect}{Vect} %espace vectoriel engendrÃ©
+\DeclareMathOperator{\mat}{mat} %matrice
+%\DeclareMathOperator{\im}{Im} %image d'une application
+\DeclareMathOperator{\Ker}{Ker} %noyau
+\DeclareMathOperator{\diag}{diag} %matrice diagonale
+\DeclareMathOperator{\jac}{Jac} %jacobien
+\DeclareMathOperator{\tr}{Tr} %Trace
+
+\newcommand*{\EnsQ}[2]%
+{\ensuremath{%
+   \raisebox{.32ex}{\ensuremath{#1}}/\!\raisebox{-.60ex}{\ensuremath{#2}}}}
+
+%% Autres %% 
+
+ % Annexes %
+% \newenvironment{annexe}% s'utilise par \begin{annexe} \end{annexe}, et \subsection{titre} pour chaque annexe.
+% {\newpage%
+% \setcounter{subsection}{0}%
+% \renewcommand{\thesubsection}{\Alph{subsection}}%
+% \renewcommand{\thesection}{}%
+% \addcontentsline{toc}{section}{\protect\numberline{}\hspace{-16pt}Annexes} %BRICOLAGE Ã  revoir
+% \section*{Annexes}}%
+% {\newpage}
+
+ % Lettrines %
+\renewcommand{\LettrineFontHook}{\fontfamily{yfrak} \selectfont \color[gray]{0.7}}
+
+ % Tableaux de fractions %
+\newenvironment{fracarray}[1]%
+{\renewcommand{\arraystretch}{1.4}%
+ \begin{array}{#1}%
+}%
+{\end{array}%
+ \renewcommand{\arraystretch}{1}%
+}
+
+ % AbbrÃ©viations %
+\newcommand{\ie}{\emph{i.e}}
+\newcommand{\eg}{\emph{e.g}}
+\newcommand{\etc}{\emph{etc.}}
