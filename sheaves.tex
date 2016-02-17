@@ -7,5 +7,80 @@
 \section{Sheaves in topoi}
 \label{sec:sheaf_topos}
 
-\section{Sheaf theory}
+In this section, we will rather work in an arbitrary topos rather in type theory. The next section will present a
+generalisation of the results presented here.
+
+Let us fix for the whole section a topos $\mathcal E$, with subobject
+classifier $\Omega$. A {\em Lawvere-Tierney topology} on $\mathcal E$
+is a way to modify slightly truth values of $\mathcal E$. It allows to
+speak about {\em locally true} things instead of {\em true} things.
+
+\begin{defi}[Lawvere-Tierney topology~\cite{maclanemoerdijk}]\label{defi:LT}
+  A Lawvere-Tierney topology is an endomorphism $j:\Omega \to \Omega$
+  preserving $\True$ ($j \ \True = \True$), idempotent ($j\circ j =
+  j$) and commuting with products ($j \circ \wedge = \wedge \circ (j,j)$).
+\end{defi}
+
+A classical example of Lawvere-Tierney topology is given by double
+negation. Other examples are given by Grothedieck topologies, in the
+sense
+\begin{thm}[{\cite[V.1.2]{maclanemoerdijk}}]
+  Every Grothendieck topology $J$ on a small category $\mathbf C$ determines a
+  Lawvere-Tierney topology $j$ on the presheaf topos
+  $\mathbf{Sets}^{\mathbf C^{\mathbf{op}}}$.
+\end{thm}
+
+Any Lawvere-Tierney topology $j$ on $\mathcal E$ induces a closure operator
+$A \mapsto \closure{A}$ on subobjects. If we see a subobject $A$ of $E$
+as a characteristic function $\Char{A}$, the closure $\closure{A}$
+corresponds to the subobject of $E$ whose characteristic function is 
+%
+\[
+\Char{\closure{A}} = j \circ \Char{A}.
+\]%
+%
+A subobject $A$ of $E$ is said to
+be dense when $\closure{A} = E$.
+
+Then, we are interested in objects of $\mathcal E$ for which it is
+impossible to make a distinction between objects and their dense
+subobjects, \ie{} for which ``true'' and ``locally true''
+coincide. Such objects are called {\em sheaves}, and are defined as
+
+\begin{defi}[Sheaves{\cite[V.2]{maclanemoerdijk}}]
+  On object $F$ of $\mathcal E$ is a sheaf (or $j$-sheaf) if for every
+  dense monomorphism $m: A \hookrightarrow E$ in $\mathcal E$, the
+  canonical map $\Hom{\mathcal E}(E,F) \rightarrow \Hom{\mathcal E}(A,F)$ is an
+isomorphism.
+\end{defi}
+
+One can show that $\Sh{\mathcal E}$, the full sub-category of
+$\mathcal E$ given by
+sheaves, is again a topos, with classifying object
+%
+\[
+\Omega_j = \{ P \in \Omega \ | \ j P  = P \}.
+\]
+
+Lawvere-Tienrey sheafification is a way to build a left adjoint $\mathbf{a}_j$ to the
+inclusion $\mathcal E \hookrightarrow \Sh(\mathcal E)$, exhibiting
+$\Sh(\mathcal E)$ as a reflective subcategory of $\mathcal E$. In
+particular, that implies that logical principles valid in $\mathcal E$
+are still valid in $\Sh(\mathcal E)$.
+
+For any object $E$ of $\mathcal E$, $\mathbf{a}_j(E)$ is defined as in
+the following diagram
+\[
+  \xymatrix{ 
+    E \ar[rr]^{\{\cdot\}_E} \ar@{->>}[d]_{\theta_E} && \Omega^E \ar[d]^{j^E}\\
+    E' \ar@{^{(}->}[rr] \ar[dr]_{\text{closure}} && \Omega_j^E \\
+    & \mathbf{a}_j(E) \ar[ur]&
+  }
+\]
+
+The proof that $\mathbf a_j$ defines a left adjoint to the inclusion
+can be found in~\cite{maclanemoerdijk}.
+
+
+\section{Sheaves in homotopy type theory}
 \label{sec:sheaf_hott}
