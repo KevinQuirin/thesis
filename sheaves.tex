@@ -368,6 +368,18 @@ $\Type_{n+1}$. The second step will build, from any separated type
 $T:\Type_{n+1}$, a sheaf $\modal_{n+1}(T)$ ; one can show that
 $\modal_{n+1}$ is indeed the left-exact modality we are searching.
 
+Let $n$ be a fixed truncation index, and $\modal_n$ a left-exact
+modality on $\Type_n$, compatible with $\modal_{-1}$ as in
+\begin{cond}\label{cond:hprop}
+  For any mere proposition $P$ (where $\widehat P$ is $P$ seen as a
+  $\Type_n$),  $\modal_n \widehat P = \modal_{-1} P$ and the
+  following coherence diagram commutes
+  \[\xymatrix{
+    P \ar@{->}^{\sim}[r] \ar[d]_{\eta_{-1}} & \widehat P \ar[d]^{\eta_n} \\
+    \modal_{-1} P \ar@{->}^{\sim}[r] & \modal_n \widehat P 
+  }\]
+\end{cond}
+
 \subsubsection{From types to separated types}
 \label{sssec:type_to_sep}
 
@@ -398,7 +410,7 @@ $j$-subobject classifier $\Omega_j$.
 
 \begin{proof}
 We use the following lemma:
-\begin{lem}
+\begin{lem}\label{lem:embed-sep}
   A $(n+1)$-truncated type $T$ with an embedding $f : T \to U$
   into a separated $(n+1)$-truncated type $U$ is itself separated.
 \end{lem}
@@ -659,3 +671,237 @@ This proves the following proposition
 As this modality is just a step in the construction, we do not need to
 show that it is left exact (actually, it is not)x, we will only do it for the sheafification
 modality.
+
+\todo{Check from here}
+
+\subsection{From Separated Type to Sheaf}
+\label{ssec:separated-to-sheaf}
+
+%\nt{put the definition of $\modal_{n+1}$ upfront}
+For any $T$ in $\Type_{n+1}$, 
+$\modal_{n+1}T$ is defined as the closure of $\separated T$,
+seen as a subobject of $T \to \Type_n^\modal$. 
+%
+$\modal_{n+1}T$ can be given explicitly by
+\[
+\modal_{n+1} T \ \defeq \sum_{u:T \to \Type_n^\modal} \modal_{-1}\left\| \sum_{a:T} 
+            (\lambda t,~\modal_n (a=t)) = u\right\|.
+\]%
+
+To prove that $\modal_{n+1} T$ is a sheaf for any $T:\Type_{n+1}$, we
+use the following lemma.
+\begin{lem}
+  Let $X:\Type_{n+1}$ and $U$ be a sheaf. If $X$ embeds
+  in $U$, and is closed in $U$, then $X$ is a sheaf.
+\end{lem}
+\begin{proof}
+  Let $f:X\to U$ be the considered embedding. We have already seen in
+  lemma~\ref{lem:embed-sep} that, as $U$ is separated, $X$ is too.
+
+  Let $E:\Type$ and
+  $\chi:E\to\HProp$ dense in $E$. Let $\phi:\sumD e E {\chi\, e} \to
+  X$. Then $f\circ \phi$ can be extended to a map $g:E\to U$.
+\end{proof}
+As $T\to \Type_n^\modal$ is a sheaf, and $\modal_{n+1}T$ is closed in
+$T\to \Type_n^\modal$, $\modal_{n+1}T$ is a sheaf. We now prove that
+it forms a reflective subuniverse.
+
+\begin{prop}
+  $(\modal_{n+1},\nu)$ defines a reflective subuniverse.
+\end{prop}
+\begin{proof}
+  Let $T,Q:\Type_{n+1}$ such that $Q$ is a sheaf. Let $f:T\to Q$.
+  Because $Q$ is a sheaf, it is in particular separated;
+  % 
+  thus we can extend $f$ to $\separated f:\separated T\to Q$.
+
+  But as $\modal_{n+1} T$ is the closure of $\separated T$, $\separated T$ is dense
+  into $\modal_{n+1} T$, so the sheaf property of $Q$ allows to extend
+  $\separated f$ to $\modal_{n+1} f:\modal_{n+1} T \to Q$.
+
+  As all these steps are universal, the composition is.
+\end{proof}
+
+Using the same technique as in proposition~\ref{prop:sep-mod}, we have
+\begin{prop}
+  $(\modal_{n+1},\nu)$ defines a modality.
+\end{prop}
+
+It remains to show that $\modal_{n+1}$ is left exact and is compatible
+with $\modal_{-1}$. To do that, we need to extend the notion of
+compatibility and show that actually every modality $\modal_{n+1}$ is
+compatible with $\modal_n$ on lower homotopy types.
+\begin{prop} \label{prop:compatibility}
+  If $T:\Type_n$, then $\modal_{n+1} \widehat T = \modal_n T$, where $\widehat T$ is $T$ seen as a
+  $\Type_{n+1}$.
+\end{prop}
+\begin{proof}
+  We prove it by induction on $n$:
+  \begin{itemize}
+  \item For $n=-1$: Let $T:\HProp$. Then
+    \[
+      \modal_{0} \widehat T = \sum_{u:T \to \Type_n^\modal} \modal_{-1}\left( \sum_{a:T} 
+      (\lambda t,~\modal_{-1} (a=t)) = u\right)
+    \]%
+    because the type inside the truncation is already in $\HProp$.
+    Now, let define $\phi : \modal_{-1} T \to \modal_0T$ by
+    \[\phi t = (\lambda t',\, \one
+      ;\kappa)\]%
+    where $\kappa$ is defined by $\modal_{-1}$-induction on
+    $t$. Indeed, as $T$ is an $\HProp$, $(a=t) \simeq \one$. 
+    Let $\psi : \modal_0T\to \modal_{-1} T$ by obtaining the
+    witness $a:T$ (which is possible because we are trying to inhabit
+    a modal proposition), and letting $\psi (u;x) = \eta_T a$.
+    These two maps form an equivalence (the section and retraction are
+    trivial because the equivalence is between mere propositions).
+  \item Suppose now that $\modal_{n+1}$ is compatible with all $\modal_k$ on
+    lower homotopy types. Let $\modal_{n+2}$ be as above, and let
+    $T:\Type_{n+1}$. Then, as $\modal_{n+1}$ is compatible with $\modal_{n}$, and
+    $(a=t)$ is in $\Type_n$,
+    \[
+      \modal_{n+2} \widehat T= \hspace{-1em} \sum_{u:T \to
+        \Type_{n+1}^\modal} 
+      \hspace{-1em} \modal_{-1}\left\| \sum_{a:T} 
+        (\lambda t,~\modal_{n} (a=t)) = u\right\|.
+    \]%
+    It remains to prove that for every $(u,x)$ inhabiting the
+    $\Sigma$-type above, $u$ is in $T\to\Type_n^\modal$, \ie that for
+    every $t:T$, $\IsType n (u\, t)$.  But for any truncation index
+    $p$,
+    the type $\IsType p X:\HProp$ is a sheaf as soon as $X$ is, so we can get rid
+    of $\modal_{-1}$ and of the truncation, which tells us that for
+    every 
+    $t:T$, $u\, t = \modal_n(a=t) : \Type_n$. \qedhere
+  \end{itemize}
+\end{proof}
+This proves in particular that $\modal_{n+1}$ is compatible with
+$\modal_{-1}$ in the sense of condition~\ref{cond:hprop}.
+
+The last step is the left-exactness of $\modal_{n+1}$. Let $T$ be in
+$\Type_{n+1}$ such that $\modal_{n+1} T$ is contractible.  Thanks to the just
+shown compatibility between $\modal_{n+1}$ and $\modal_n$ for
+$\Type_n$, left exactness means that for any $x,y: T$,
+$\modal_n(x=y)$ is contractible.
+
+Using a proof by univalence as we have done for proving $\modal_n (a=b) = (\mu_T(a) =
+\mu_T (b))$ in Proposition~\ref{lem:sepiscolim}, we can show that:
+\begin{prop}
+  For all $a,b:T$, $\modal_n(a=b) \!=\! (\nu_T a = \nu_T b)$.
+\end{prop}
+
+As $\modal_{n+1} T$ is contractible, path spaces of $\modal_{n+1} T$ are
+contractible, in particular $(\nu_T a=\nu_T b)$, which proves left
+exactness.
+
+\subsection{Summary}
+\label{ssec:summary}
+
+Starting from any left-exact modality $\modal_{-1}$ on $\HProp$, we
+have defined for any truncation level $n$, a new left-exact modality
+$\modal_n$ on $\Type_n$, which corresponds to $\modal_{-1}$ when
+restricted to $\HProp$.
+
+
+When $\modal_{-1}$ is consistent (in the sense of
+proposition~\ref{prop:consistent}), 
+$\modal_{n}\zero=\modal_{-1}\zero$ is also not inhabited, hence the homotopy type theory induced by
+$\modal_n$ is consistent. 
+%
+In particular, the modality induced by the double negation modality on
+$\HProp$ is consistent.
+
+In topos theory, the topos of Lawvere-Tierney sheaves for the double
+negation topology is a boolean topos. In homotopy type theory, this
+result can be expressed as:
+
+\begin{prop}
+  $(\modal_{\lnot\lnot})_n$, the modality obtained by sheafifica\-tion
+  of the double negation modality,
+  %
+  induces a type theory where the propositional excluded middle law holds.
+\end{prop}
+
+Combined with forcing in type theory~\cite{jaber2012extending}, it
+should be possible to lift the proof of independence of the continuum
+hypothesis to a classical setting, which is where the continuum hypothesis is
+really meaningful.  However, we haven't worked out the details and left
+this for future work.
+
+
+\subsection{Extension to Type}
+\label{ssec:extension-type}
+
+In the previous section, we have defined a (countably) infinite family of
+modalities $\Type_i \to \Type_i$. One can extend them to whole
+$\Type$ by composing with truncation:
+
+\begin{lem}\label{lem:type}
+  Let $\modal_i:\Type_i \to \Type_i$ be a modality. Then $\modal
+  \defeq \modal_i
+  \circ \|\cdot\|_i : \Type \to \Type$ is a modality in the sense
+  of~\cite[Section 7.7]{hottbook}
+\end{lem}
+
+If $\modal_{-1}$ is the double negation modality on $\HProp$ and
+$i=-1$, $\modal$ is exactly the double negation modality on $\Type$
+described in~\ref{ssec:notnot}.
+Chosing $i\geqslant 0$ is a refinement of this double negation
+modality on $\Type$: it will collapse every type to a $\Type_i$,
+instead of an $\HProp$.
+
+Obviously, as truncation modalities are not left-exact~\cite[Exercise
+7.11]{hottbook}, $\modal$ isn't either. But in the following sense, when
+restricted to $i$-truncated types, it is:
+\begin{lem}
+  Let $A:\Type_i$. Then if $\modal(A)$ is contractible, for any $x,y:A$,
+  $\modal(x=y)$ is contractible.
+\end{lem}
+\begin{proof}
+  For $i$-truncated types, $\modal = \modal_i$, and $\modal_i$ is left-exact.
+\end{proof}
+
+The compatibility between the modalities $\modal_n$ and between the
+modalities $\|\cdot \|_n$ allow us to chose the truncation index as
+high as desired.
+Taking it as a non-fixed parameter allows to work in an
+universe where the new principle ({\em e.g.} mere excluded middle) is
+true for any explicit truncated type. Indeed, $i$ can be chosen
+dynamically along a proof, and thus be increased as much as needed,
+without changing results for lower truncated types.
+
+By proposition~\ref{prop:consistent}, these left-exact modalities
+induces a consistent type theory. Furthermore, the univalence remains
+true in this new type theory in the following sense:
+\begin{prop}\label{prop:univalence}
+  Let $n$ be a given truncation index, and $\modal$ the modality
+  associated to $n$ as defined in lemma~\ref{lem:type}. Then, for
+  any type $A,B:\Type_n^\modal$, if $\varphi$ is the canonical arrow
+  $$A = B \to A\simeq B,$$
+  then $\IsEquiv(\varphi)$ is modal.
+\end{prop}
+\begin{proof}
+  The first thing to notice is that, if $X$ and $Y$ are modal, and
+  $f:X \to Y$, then the mere proposition $\IsEquiv f$ is also modal.
+  Therefore, it suffices to show that both $A=B$ and $A\simeq B$ are
+  modal. By proposition~\ref{prop:mod_prop}, $A=B$ is modal. 
+  Moreover, $(A\simeq B) \simeq \sum_{f:A\to B} \IsEquiv
+  f$. Therefore, as $A$ and $B$ are modal, $A\simeq B$ is too. 
+
+  Hence, $\IsEquiv \varphi$ is modal.
+\end{proof}
+
+We can view sheafification in terms of model of type theory but
+because of the resulting modality on $\Type$ is not left exact, we
+need to restrict ourselves to a type theory with only one universe.
+%
+Let $\mathfrak M$ be a model of homotopy type theory with one
+universe.
+%
+Using the modality $\modal_{\lnot \lnot}$ (for any level $n$) associated to the
+sheafification, there is a model $\modal_{\lnot \lnot} \mathfrak M$ of type theory
+with one universe (using results in
+Section~\ref{sec:new-type-theories}), where excluded middle is true, and
+which is univalent (as shown in Proposition~\ref{prop:univalence}).
+%
+This model transformation can better be described as a program
+transformation, as done in the next section.  
