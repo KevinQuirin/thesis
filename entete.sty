@@ -13,7 +13,9 @@
 \usepackage{graphicx} %permet d'afficher des images
 \usepackage{titlesec,titletoc} %modifie les titres et la table des matiÃ¨res
 \usepackage{lettrine} %permet les lettrines
-\usepackage[colorlinks=true,linkcolor=black,urlcolor=blue]{hyperref} %permet les liens hypertextes ( avec \href{lien}{texte} )
+\usepackage[colorlinks=true,linkcolor=black,urlcolor=blue]{hyperref}
+% permet les liens hypertextes ( avec \href{lien}{texte} )
+\usepackage{todonotes}
 
 %% Dimensions %%
 
@@ -94,6 +96,7 @@
 \def\tar[#1]#2{\ar@<#2>[#1]\ar@<0pt>[#1]\ar@<-#2>[#1]} %triple arrows in xy
 \DeclareMathOperator{\Type}{Type}
 \DeclareMathOperator{\HProp}{HProp}
+\DeclareMathOperator{\HSet}{HSet}
 \DeclareMathOperator{\IsHProp}{IsHProp}
 \DeclareMathOperator{\nat}{nat}
 \DeclareMathOperator{\Unit}{Unit}
@@ -104,6 +107,7 @@
 \DeclareMathOperator{\IsEquiv}{IsEquiv}
 \DeclareMathOperator{\precompose}{\mathrm{precompose}}
 \DeclareMathOperator{\idmap}{\mathrm{idmap}}
+\DeclareMathOperator{\cocone}{cocone}
 
 \newcommand \defeq {\overset{de\hspace{-0.2ex}f}{=}}
 
@@ -113,8 +117,8 @@
 {\mathop{\mathrm{Is\mymathhyphen}#1\mathrm{\mymathhyphen type}} }
 
 \newcommand{\modal}{\ensuremath{\ocircle}}
-\newcommand \True {\mathrm{true}}
-\newcommand \False {\mathrm{false}}
+\newcommand \True {\top}
+\newcommand \False {\bot}
 \newcommand \closure[1] {\overline{#1}}
 \newcommand \Char[1] {\chi_{#1}}%{\mathrm{char}(#1)}
 \newcommand \E {\mathcal{E}}
@@ -123,10 +127,17 @@
 \newcommand \squash[1] {\| #1 \| }
 \newcommand \separated {\mathop{\square_{n+1}} }
 \newcommand \fib[2] {\mathrm{fib}_{#1}(#2)}
-\newcommand \colim[1] {\mathrm{colim}(Q)}
+\newcommand \colim {\mathrm{colim}}
 \newcommand \zero {\mathbf{0}}
 \newcommand \one {\mathbf{1}}
 \newcommand \two {\mathbf{2}}
+\newcommand{\sumD}[3]{\sum_{#1:#2}\, #3}
+\newcommand{\prodD}[3]{\prod_{#1:#2}\, #3}
+\newcommand{\homot}{\sim}
+
+\DeclareMathOperator{\issep}{IsSeparated}
+\DeclareMathOperator{\issheaf}{IsSheaf}
+\DeclareMathOperator{\KP}{KP}
 
 	% DiffÃ©rentielles %
 \newcommand{\diff}[1]{\mathrm{d}#1} %Ã©lÃ©ment diffÃ©rentiel

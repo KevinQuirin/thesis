@@ -81,6 +81,581 @@ the following diagram
 The proof that $\mathbf a_j$ defines a left adjoint to the inclusion
 can be found in~\cite{maclanemoerdijk}.
 
+One classical example of use of sheafification is the construction,
+from any topos, of a boolean topos negating the continuum
+hypothesis. More precisely:
+
+\begin{thm}[Negation of CH~{\cite[VI.2.1]{maclanemoerdijk}}]
+  There exists a Boolean topos satisfying the axiom of choice, in
+  which the continuum hypothesis fails.
+\end{thm}
+
+The proof actually follows almost exactly the famous proof of the
+construction by Paul Cohen of a model of ZFC negating the continuum
+hypothesis~\cite{cohen1966}. Together with the model of constructible
+sets $\mathfrak L$ by Kurt Gödel~\cite{godel40}, it proves that CH is
+independent of ZFC, solving first Hilbert's problem.
+
 
 \section{Sheaves in homotopy type theory}
 \label{sec:sheaf_hott}
+
+The idea of this section is to consider sheafification in topoi as
+only the first step towards sheafification in type theory. 
+We note that axioms for a Lawvere-Tierney topology on the subobject
+classifier $\Omega$ of a topos are very close to
+those of a modality on $\Omega$. We will extensively use this idea,
+applying it to every subobject classifier $\Type_n$ we described
+in~\ref{sec:hott}\todo[fancyline]{Fix the reference}. The subobject
+classifier $\Omega$ of a topos is seen as the {\em truth values} of the
+topos, which corresponds to the type $\HProp$ in our setting ; the
+topos is considered proof irrelevant, corresponding to our
+$\HSet$. Sheafification in topoi is thus a way, when translated to the
+setting of homotopy type theory, to build, from a left-exact modality on
+$\HProp$, a left-exact modality on $\HSet$. Our hope in this section
+is to iterate this construction by applying it to the subobject
+classifier $\HSet$ equipped with a left-exact modality, to build a new
+left-exact modality on $\Type_1$, and so on. 
+
+The first thing we can
+note is that such a construction will not allow to reach every type:
+it is known that there exists types with no finite truncation
+level~\cite[Example 8.8.6]{hottbook}. Even worse, some types are not
+even the limit of its successive truncations, even in a hypercomplete
+setting~\cite{morelvv}. It suggests that defining a sheafification
+functor for all truncated types won't give (at least easily) a
+sheafification functor on whole $\Type$.
+Another issue that can be pointed is the complexity of proofs. If, in
+a topos-theoretic setting, everything is proof-irrelevant, it won't be
+the case for higher settings, forcing us to prove results that were
+previously true on the nose. This will oblige us to write long and
+technical proofs of coherence, and more deeply, to modify completely
+some lemmas, such as Proposition~\cite[IV.7.8]{maclanemoerdijk},
+stating that epimorphisms are coequalizers of their kernel pair.
+
+The main idea is thus to follow as closely as possible the
+topos-theoretic construction, and change as few times as possible to
+make it work in our higher setting.
+
+Note that the principles we want to add are added directly from the
+$\HProp$ level, the extension to all truncated types is automatic. The
+choice of the left-exact modality on $\HProp$ is thus crucial. For the
+rest of the section, we fix one, note $\modal_{-1}$. The reader can
+think of the double negation $\modal_{\lnot\lnot}$ defined
+in~\ref{ssec:notnot}. We will define, by induction on the truncation
+level, left-exact modalities on all $\Type_n$, as in the following
+theorem.
+
+\begin{thm}\label{thm:main}
+  The sequence defined by induction by
+  \[ \begin{array}{l}
+   \modal : \forall \ (n : nat), \ \Type_n \to \Type_n 
+   \\
+    \modal_{-1\phantom{n}}(T) \defeq \mathop{j} T \\
+
+      \displaystyle{\modal_{n+1}(T)} \defeq  
+      \displaystyle{\sum_{u:T \to \Type_n^\modal} \!\!\!\!\modal_{-1} 
+      \left\|
+      \sum_{a:T} u= (\lambda t,~\modal_n (a=t))
+      \right\|}
+    \end{array}
+\]
+defines a sequence of left-exact modalities, coherent with each others
+in the sense that the following diagram commutes for any $P:\Type_n$,
+where $\hat P$ is $P$ seen as an inhabitant of $\Type_{n+1}$.
+\[ \xymatrix{
+    P \ar@{->}^{\sim}[r] \ar[d]_{\eta_{n}} & \widehat P \ar[d]^{\eta_{n+1}} \\
+    \modal_{n} P \ar@{->}^{\sim}[r] & \modal_{n+1} \widehat P 
+  } \]
+\end{thm}
+
+\subsection{Sheaf theory}
+\label{ssec:sheaves}
+
+Let $n$ be a truncation index greater that $-1$, and $\modal_n$ be the
+left-exact modality given by our induction hypothesis. As in the
+topos-theoretic setting, we will define what it means for a type to be
+a $n$-sheaf (or just ``sheaf'' if the context is clear), and consider
+the reflective subuniverses of these sheaves ; the reflector will
+exactly be the sheafification functor.
+The main issue to give the ``good'' definition is the choice of the
+subobject classifier in which dense subobjects will be chosen: two
+choices appears, $\HProp$ and $\Type_n$ ; we will actually use
+both. What guided our choice is the crucial property that the type of
+all $n$-sheaves has to be a $(n+1)$-sheaf.
+
+From the modality $\modal_n$, one can build a {\em closure operator}.
+
+\begin{defi}
+  Let $E$ be a type. 
+  \begin{itemize}
+
+  \item The {\em closure} of a subobject of $E$ with
+  n-truncated homotopy fibers (or $n$-subobject of $E$, for short),
+  classified by $\chi : E \to \Type_n$, is the subobject of $E$
+  classified by $\modal_n \circ \chi$.
+
+  
+\item An $n$-subobject of $E$ classified by $\chi$ is said to be {\em
+    closed in $E$} if it is equal to its closure, \ie{} if
+  $\chi = \modal_n \circ \chi$.
+
+  
+\item An $n$-subobject of $E$ classified by $\chi$ is said to be {\em
+    dense in $E$} if its closure is $E$, \ie{} if 
+  $\modal_n \circ \chi = \lambda e, \one$ 
+  \end{itemize}
+\end{defi}
+
+
+Topos-theoretic sheaves are characterized by a property of existence
+and uniqueness, which will be translated, as usual, into a proof that
+a certain function is an equivalence.
+
+\begin{defi}[Restriction]
+  Let $E,F:\Type$ and $\chi:E\to\Type$. We define the {\em
+    restriction map} $\Phi_E^\chi$ as follows
+  \[
+    \fonction{\Phi_E^\chi}{E\to F}{\sumD e E {\chi e} \to F}{f}{f\circ \pi_1}.
+  \]
+\end{defi}
+
+Here, we need to distinguish between
+dense $(-1)$-subobjects, that will be used in the definition of
+sheaves, and dense $n$-subobjects, that will be used in the definition
+of separated types. 
+
+\begin{defi}[Separated Type]
+  A type $F$ in $\Type_{n+1}$ is {\em separated} if for any type $E$, and
+  all dense $n$-subobject of $E$ classified by $\chi$,
+  $\Phi_E^\chi$ is an embedding.
+\end{defi}
+
+With topos theory point of view, it means that given a map $\sum_{e:E}
+\chi\, e \to F$,
+if there is an extension $\tilde f:E\to F$, then it is unique, as in
+ \[ \xymatrix{
+    \sumD e E {\chi e} \ar[r]^-f \ar[d]_{\pi_1} & F \\
+    E \ar@{-->}[ru]_{!}&
+  }\]
+\begin{defi}[Sheaf]
+  A type $F$ of $\Type_{n+1}$ is a {\em $(n+1)$-sheaf} if it is
+  separated, and for any type $E$ and all dense $(-1)$-subobject of
+  $E$ classified by $\chi$, $\Phi_E^\chi$ is an
+  equivalence.
+\end{defi}
+
+In topos-theoretic words, it means that given a map $f : \sum_{e:E}
+\chi\, e\to F$, one can
+extend it uniquely to $\tilde f:E \to F$, as in 
+ \[ \xymatrix{
+    \sumD e E {\chi e} \ar[r]^-f \ar[d]_{\pi_1} & F \\
+    E \ar@{-->}[ru]_{\exists !}&
+  }\]
+
+Note that these definitions are almost the same as the ones
+in~\cite{maclanemoerdijk}. The main difference is that {separated}
+is defined for $n$-subobjects, while {sheaf} only for
+$(-1)$-subobjects. It might seem bizarre to make such a distinction,
+but the following proposition gives a better understanding of the situation.
+\begin{prop}
+  A type $F$ is $\Type_{n+1}$ is separated if, and only if all its
+  path types are $n$-modal, ie
+  \[ \prodD {x,y} F {\left( \modal_n(x=y) \right) = (x=y)}.\]
+\end{prop}
+
+A $(n+1)$-sheaf is hence just a type satisying the usual property of sheaves
+(\ie{} existence of uniqueness of arrow extension from dense
+$(-1)$-subobjects), with the condition that all its path types are
+$n$-sheaves. It is a way to force the compatibility of the modalities we
+are defining.
+
+
+On can check that the property $\issep$ (resp. $\issheaf$) is $\HProp$:
+given a $X:\Type_{n+1}$, there is only one way for it to be separated
+(resp. a sheaf). In particular, when needed to prove equality between
+two sheaves, it suffices to show the equality between the underlying
+types.
+
+
+As said earlier, these definitions allow us to prove the fundalemental
+property that the type of all $n$-sheaves is itself a $(n+1)$-sheaf
+(this can be viewed as an equivalent definition of left-exactness).
+
+\begin{prop}\label{prop:sheaf-is-sheaf}
+  $\Type_n^\modal$ is a $(n+1)$-sheaf.
+\end{prop}
+
+\begin{proof}
+  We have two things to prove here : separation, and sheafness.
+  \begin{itemize}
+  \item Let $E:\Type$ and $\chi:E\to\Type$, dense in $E$. 
+    Let $\phi_1,\phi_2:E \to
+    \Type_n^\modal$, such that $\phi_1 \circ \pi_1 = \phi_2 \circ
+    \pi_1$ and let $x:E$. We show $\phi_1(x) = \phi_2(x)$ using
+    univalence.
+    
+    As $\chi$ is dense, we have a term $m_x : \modal_n(\chi\, x)$.
+    But as $\phi_2(x)$ is modal, we can obtain a term $h_x : \chi\,
+    x$. 
+    As $\phi_1$ and $\phi_2$ are equal on $\sumD e E {\chi\, e}$, we
+    have an arrow $\phi_1(x) \to \phi_2(x)$.
+    The same method leads to an arrow $\phi_2 (x) \to \phi_1 (x)$, and
+    one can
+    prove that they are each other inverse.
+  \item Now, we prove that $\Type_n^\modal$ is a sheaf. Let $E:\Type$ and
+  $\chi:E \to \HProp$, dense in $E$. Let $f:\sum_{e:E} \chi\, e \to
+  \Type_n^\modal$. We want to extend $f$ into a map $E \to \Type_n^\modal$.
+
+  We define $g$ as $g(e) = \modal_n \left( \fib \phi {e} \right)$,
+  where
+  \[ \phi : \sum_{b:\sumD e E {\chi\, e}} (f\,
+    b) \to E\]
+  defined by $\phi(x) = (x_1)_1$.
+  Using the following lemma, one can prove that the map $f\mapsto g$
+  defines an inverse of $\Phi_E^\chi$.
+  \begin{lem}
+    Let $A,B,C:\Type_n$, $f:A\to B$ and $g:B\to C$.
+    Then
+    if all fibers of $f$ and $g$ are $n$-truncated, then
+      \[\left( \prodD c C {\modal_n(\fib {g \circ f} c)}\right) \simeq
+      \modal_n \left(  
+        \sumD w {\fib g c} {\modal_n (\fib f {w_1})}
+      \right).\]
+  \end{lem}
+  \begin{prooflem}
+    This is just a modal counterpart of the property characterizing
+    fibers of composition of function.
+  \end{prooflem}
+  \end{itemize}
+\end{proof}
+
+Another fundamental property on sheaves we will need is that the type of (dependent)
+functions is a sheaf as soon as its codomain is a sheaf.
+
+\begin{prop}\label{prop:sheaf-forall}
+  If $A:\Type_{n+1}$ and $B:A \to \Type_{n+1}$ such that for any
+  $a:A$, $(B~a)$ is a sheaf, then $\prodD a A {B\, a}$ is a sheaf.
+\end{prop}
+\begin{proof}
+  Again, when proving equivalences, we will only define the maps. The
+  proofs of section and retraction are technical, not really
+  interesting, and present in the formalisation.
+  \begin{itemize}
+  \item {\em Separation:} Let $E:\Type$ and $\chi:E \to \Type_n$ dense
+    in $E$. Let $\phi_1,\phi_2:E\to \prodD a A {B\, a}$ equal on
+    $\sumD e E{\chi\, e}$ \ie{} such that $\phi_1\circ \pi_1 = \phi_2\circ
+    \pi_1$.
+    Then for any $a:A$, $(\lambda x:E,~\phi_1(x, a))$
+    and $(\lambda x:E,~\phi_2(x,a))$
+    coincide on $\sum_{e:E}(\chi\, e)$, and as $B\, a$ is separated,
+    they coincide also on all $E$.
+  \item {\em Sheaf:} Let $E:\Type$, $\chi:E\to \HProp$ dense in $E$ and
+    $f:\sumD e E {\chi\, e}\to \prodD a A{B\,a}$. Let $a:A$ ; the
+    map $(\lambda x,~f(x,a))$ is valued in the sheaf $B\, a$, so it
+    can be extended to all $E$, allowing $f$ to be extended to all
+    $E$.
+  \end{itemize}
+\end{proof}
+
+\subsection{Sheafification}
+\label{ssec:sheafification}
+
+The sheafification process will be defined in two steps. The first
+one will build, from any $T:\Type_{n+1}$, a separated object $\separated
+T:\Type_{n+1}$ ; one can show that $\separated$ defines a modality on
+$\Type_{n+1}$. The second step will build, from any separated type
+$T:\Type_{n+1}$, a sheaf $\modal_{n+1}(T)$ ; one can show that
+$\modal_{n+1}$ is indeed the left-exact modality we are searching.
+
+\subsubsection{From types to separated types}
+\label{sssec:type_to_sep}
+
+
+Let $T : \Type_{n+1}$. We define $\separated T$ as the image of
+$\modal_n^T \circ \{\cdot\}_T$, as in
+\[\xymatrix{
+    T \ar[r]^{\{\cdot\}_T} \ar[d]_{\mu_T} & \left(\Type_n\right)^T \ar[d]^{\modal_n^T} \\
+  \separated T \ar[r]& \left( \Type_n^\modal \right)^T
+}, \]%
+where $\{\cdot\}_T$ is the singleton map $\lambda (t:T),~\lambda
+(t':T),~t=t'$. 
+%
+$\separated T$ can be given explicitly by
+%
+\begin{align*}
+\separated T &\defeq \im (\lambda~t:T,~\lambda~ t',~ \modal_n (t = t')) \\
+          &\defeq \sumD u{T \to \Type_n^\modal} {\left\| \sumD a A
+            {(\lambda t,~\modal_n (a=t)) = u}\right\|}.
+\end{align*}
+%
+This corresponds to the free separated object used in the topos-theoretic construction, but using $\Type_n^\modal$ instead of the
+$j$-subobject classifier $\Omega_j$.
+%
+\begin{prop}
+  For any $T:\Type_{n+1}$, $\separated T$ is separated.  
+\end{prop}
+
+\begin{proof}
+We use the following lemma:
+\begin{lem}
+  A $(n+1)$-truncated type $T$ with an embedding $f : T \to U$
+  into a separated $(n+1)$-truncated type $U$ is itself separated.
+\end{lem}
+\begin{prooflem}
+  Let $E:\Type$ and $\chi:E\to\Type_n$ dense in $E$. Let
+  $\phi_1,\phi_2:\sumD e E {\chi\, e} \to T$ such that $\phi_1 \circ
+  \pi_1 \homot \phi_2 \circ \pi_1$. Post\todo[fancyline]{Post
+    or Pre?}composing by $f$ yields an homotopy $f \circ \phi_1 \circ
+  \pi_1 \homot f \circ \phi_2 \circ \pi_1$. As $f\circ\phi_1,f\circ
+  \phi_2 : \sumD e E {\chi\, e} \to U$, and $U$ is separated, we can
+  deduce $f \circ \phi_1 \homot f \circ \phi_2$. As $f$ is an
+  embedding, $\phi_1 \homot \phi_2$.
+\end{prooflem}
+As $\separated T$ embeds in $\left( \Type_n^\modal \right)^T$, we only
+have to show that the latter is separated. But it is the case because
+$\Type_n^\modal$ is a sheaf (by Proposition~\ref{prop:sheaf-is-sheaf})
+and a function type is a sheaf as soon
+as its codomain is a sheaf (by Proposition~\ref{prop:sheaf-forall}).
+\end{proof}
+
+We will now show that $\separated$ defines a modality, with unit map
+$\mu$. The left-exactness of $\modal_{n+1}$ will come from the second
+part of the process.
+The first thing to show that $\separated T$
+is universal among separated type below $T$. 
+In the topos-theoretic sheafification, it comes easily from the fact
+that epimorphims are coequalizers of their kernel pairs. As it is not
+true anymore in our setting, we will use its generalization,
+proposition~\ref{prop:cech}.%
+%
+Here is a sketch of the proof:
+as $\mu_T$ is a surjection (it is defined by the surjection-embedding
+factorization), $\separated T$ is the colimit of its iterated kernel
+pair. Hence, for any type $Q$ defining a cocone on $\KP(\mu_T)$, there
+is a unique arrow $\separated T\to Q$. What remains to show is any
+separated type $Q$ defines a cocone on $\KP(\mu_T)$ ; we will actually
+show that any separated type $Q$ defines a cocone on
+$\|\KP(\mu_T)\|_{n+1}$, which is enough. We do it by
+defining another diagram $\mathring T$, equivalent to $\|\KP(\mu_T)\|_{n+1}$, for
+which it is easy to define a cocone into any separated type $Q$.
+
+
+This comes from the
+following construction which connects $\separated T$ to the colimit of
+the iterated kernel pair of $\mu_T$.
+
+\begin{defi}
+  Let $X:\Type$. Let $\mathring T_X$ be the higher inductive type
+  generated by
+  \begin{itemize}
+  \item $\mathring t:~\|X\|_{n+1} \to \mathring T_X$
+  \item $\mathring \alpha:~\forall a\, b:\|X\|_{n+1},~\modal (a=b) \to
+    \mathring t(a) = \mathring t(b)$
+  \item $\mathring \alpha_1:~\forall a:\|X\|_{n+1},~
+    \mathring \alpha(a , a, \eta_{a=a} 1) = 1$
+  \end{itemize}
+
+  We view $\mathring T$ as the coequalizer of
+  \[
+    \xymatrix{\displaystyle{\sumD {a,b}{\|X\|_{n+1}} {\modal (a=b)}} \ar@<-.5ex>[r]_-{\pi_2} \ar@<.5ex>[r]^-{\pi_1}
+      & \|X\|_{n+1}
+    }\]%
+  preserving $\eta_{a=a} 1$.
+
+  We consider the diagram $\mathring T$ :
+  \[\xymatrix{\|X\|_{n+1} \ar[r] & \|\mathring T_{X}\|_{n+1} \ar[r] & \|\mathring
+  T_{\mathring T_X} \|_{n+1} \ar[r] & \cdots} \]%
+\end{defi}
+
+
+The main result we want about $\mathring T$ is the following:
+\begin{lem}\label{lem:sepiscolim}
+  Let $T:\Type_{n+1}$. Then $\separated T$ is the $(n+1)$-colimit of the
+  diagram $\mathring T$.
+\end{lem}
+
+The key point of the proof is that diagrams $\mathring T$ and $\|\KP(\mu_T)\|_{n+1}$
+are equivalent.
+We will need the following lemma:
+
+\begin{lem}\label{lem:Omono}
+  Let $A,S:\Type_{n+1}$, $S$ separated, and $f:A \to S$. Then if 
+  \begin{equation}
+    \label{eq:Omono}
+    \forall a,b:A,~f (a) = f (b) \simeq \modal (a=b),
+  \end{equation}
+  then
+  \[\forall a,b:\|\KP_f\|_{n+1},~|\tilde f|_{n+1} (a) = |\tilde f|_{n+1} (b) \simeq \modal (a=b).\]
+\end{lem}
+
+\begin{proof}[Sketch of proof]
+  By induction on truncation, we need to show that 
+  \[\forall a,b:\KP_f,~\tilde f (|a|_{n+1}) = \tilde f (|b|_{n+1} )\simeq
+  \modal (|a|_{n+1}=|b|_{n+1}).\]%
+  We use the encode-decode~\cite[Section 8.9]{hottbook} method to characterize $\tilde f (|a|_{n+1})
+  = x$, and the result follows. We refer to the formalization for details.
+\end{proof}
+
+This lemmas allows to prove that, in the iterated kernel pair diagram
+of $f$
+\[
+  \xymatrix{
+    X \ar[r] \ar[rrd]_f & \KP(f) \ar[r] \ar[rd]^{f_1} & \KP(f_1)
+    \ar[r] \ar[d]_{f_2} & \KP(f_2) \ar[r] \ar[ld]^{f_3}& \cdots \\
+    && S &&
+  }
+\]
+if $f$ satisties~\ref{eq:Omono}, then each $|f_i|_{n+1}$ does.
+
+\begin{rmq}
+It is clear that if $A$ and $B$ are equivalent types, and $\forall a,b:A,~f (a) = f (b) \simeq \modal
+(a=b)$, then 
+\[
+    \mathrm{Coeq}_1 \left( 
+      \xymatrix{
+        \displaystyle{\sumD {a,b} A {f a = f b}} \ar@<-.5ex>[r]_-{\pi_2} \ar@<.5ex>[r]^-{\pi_1} & A
+      }
+    \right)
+    \simeq \mathrm{Coeq}_1 \left( 
+      \xymatrix{\displaystyle{\sumD {a,b} B {\modal (a=b)}} \ar@<-.5ex>[r]_-{\pi_2} \ar@<.5ex>[r]^-{\pi_1} & B}
+    \right)
+  \]
+\end{rmq}
+
+\begin{proof}[Proof of lemma~\ref{lem:sepiscolim}]
+  As said, it suffices to show that $\|C(\mu_T)\|_{n+1} =
+  \mathring T$.
+
+  \[
+    \xymatrix{%
+     \|\KP^0(\mu_T)\|_{n+1} \ar[r] \ar[d]^*[@]{\hbox to 0pt{\hss$\sim$\hss}}&
+     \|\KP^1(\mu_T)\|_{n+1} \ar[r] \ar[d]^*[@]{\hbox to
+       0pt{\hss$\sim$\hss}} & 
+     \|\KP^2(\mu_T)\|_{n+1} \ar[r] \ar[d]^*[@]{\hbox to
+       0pt{\hss$\sim$\hss}} & \cdots \\
+     \mathring T_0 \ar[r] & \mathring T_1 \ar[r] &  \mathring T_2
+     \ar[r] &\cdots
+    }
+  \]
+  The first equivalence is trivial. Let's then start with the
+  second. What we need to show is
+  \[ \|\KP(\mu_T)\|_{n+1} \simeq \|\mathring T_T\|_{n+1}, \]
+  \ie{}
+  \[
+    \mathrm{Coeq}_1 \left( 
+      \xymatrix{
+        \displaystyle{\sumD {a,b} T {\mu_T a = \mu_T b}} \ar@<-.5ex>[r]_-{\pi_2} \ar@<.5ex>[r]^-{\pi_1} & T
+      }
+    \right)
+    \simeq \mathrm{Coeq}_1 \left( 
+      \xymatrix{\displaystyle{\sumD {a,b} T{\modal (a=b)}} \ar@<-.5ex>[r]_-{\pi_2} \ar@<.5ex>[r]^-{\pi_1} & T}
+    \right).
+  \]
+  
+  By the previous remark, it suffices to show that $\mu_T$ satisfies condition~(\ref{eq:Omono}),
+  \ie{} $\forall a,b:T$, $\modal_n (a=b) = (\mu_T a =
+  \mu_T b)$. By univalence, we want arrows in both ways, forming an
+  equivalence.
+  \begin{itemize}
+  \item Suppose $p : (\mu_T a = \mu_T b)$. Then projecting $p$ along
+    first components yields $q : \prodD t T {\modal_n(a=t)} = \modal_n (b=t)
+    $.
+    Taking for example $t=b$, we deduce $\modal_n (a=b) = \modal_n(b=b)$,
+    and the latter is inhabited by $\eta_{b=b} 1$.
+  \item Suppose now $p : \modal_n(a=b)$. Let $\iota$ be the first
+    projection from $\separated T \to (T \to \Type_n^\modal)$. $\iota$ is
+    an embedding, thus it suffices to prove $\iota (\mu_T a) = \iota
+    (\mu_T b)$, \ie{} $\prodD t T{\modal_n (a=t) = \modal_n (b=t)}$. The latter
+    remains true by univalence.
+  \end{itemize}
+  The fact that these two form an equivalence is technical, we refer to
+  the formalization for an explicit proof.
+
+
+  Let's show the other equivalences by induction. Suppose that, for a
+  given $i:\N$, $\|\KP^i(\mu_T)\|_{n+1} \simeq \mathring T_i$. We want
+  to prove $\|\KP^{i+1}(\mu_T)\|_{n+1} \simeq \mathring T_{i+1}$, \ie{}
+
+  \[
+    \begin{split}
+    \left\|\mathrm{Coeq}_1 \left( 
+      \xymatrix{
+        \displaystyle{\sumD {a,b}{\KP^i(\mu_T)} {f_{i} a = f_{i} b}} \ar@<-.5ex>[r]_-{\pi_2} \ar@<.5ex>[r]^-{\pi_1} & \KP^i(\mu_T)
+      }
+    \right)\right\|_{n+1}
+    \\ \simeq 
+    \left\|\mathrm{Coeq}_1 \left( 
+      \xymatrix{\displaystyle{\sumD {a,b} {\|\mathring T_i\|_{n+1}} {\modal (a=b)}} \ar@<-.5ex>[r]_-{\pi_2} \ar@<.5ex>[r]^-{\pi_1} & \|\mathring T_i\|_{n+1}}
+    \right)\right\|_{n+1}
+    \end{split}
+  \]
+  where $f_{i}$ is the map $\KP^i(\mu_T) \to \separated T$. But
+  lemma~\ref{lem:Omono} just asserted that $f_i$
+  satisfies~\ref{eq:Omono}, hence the previous nota yields the result.
+  
+  One would need to show that, modulo these equivalences, the arrows
+  of the two diagrams are equal. We leave that to the reader, who can
+  refers to the formalization if needed.
+\end{proof}
+
+Now, let $Q$ be any separated $\Type_{n+1}$, and $f:X \to Q$. Then the
+following diagram commutes
+
+\[\xymatrix{
+\|X\|_{n+1} \ar[r] \ar[rd] & \|\mathring T_{X}\|_{n+1} \ar[r] \ar[d] & \|\mathring
+  T_{\mathring T_X} \|_{n+1} \ar[ld] \ar[r] & \cdots \\
+  & Q &&
+} \]% 
+
+But we know (lemma~\ref{lem:sepiscolim}) that $\separated T$ is the
+$(n+1)$-colimit of the diagram $\mathring T$, thus there is an universal
+arrow $\separated T \to Q$.
+%
+This is enough to state the following proposition.
+\begin{prop}\label{prop:sep-subu}
+  $(\separated,\mu)$ defines a reflective subuniverse on $\Type_{n+1}$.
+\end{prop}
+
+To show that $\separated$ is a modality, it remains to show that
+separation is a property stable under sigma-types.
+%
+Let $A:\Type_{n+1}$ be a sheaf and $B:A \to \Type_{n+1}$ be a sheaf
+family. We want to show that $\sumD x A {B\, x}$ is separated. Let $E$
+be a type, and $\chi:E\to\Type_n$ a dense subobject of E.
+
+Let $f,g$ be two maps from $\sumD e E {\chi\,e}$ to $\sumD x A
+{B\, x}$, equal when precomposed with $\pi_1$.
+\[\xymatrix @R=4em @C=4em{
+  \sumD e E {\chi\, e} \ar@<-2pt>[r]_{g\circ\pi_1}
+  \ar@<2pt>[r]^{f\circ \pi_1} \ar[d]_{\mathrm{dense}}& \sumD x A {B\, x} \\
+  E \ar@<-2pt>[ru]_{g} \ar@<2pt>[ru]^{f}&
+}\]%
+We can restrict the previous diagram to 
+\[\xymatrix @R=4em @C=5em{
+  \sumD e E {\chi\, e} \ar@<-2pt>[r]_{\pi_1\circ g\circ\pi_1} \ar@<2pt>[r]^{\pi_1\circ f\circ \pi_1} \ar[d]_{\mathrm{dense}}& A \\
+  E \ar@<-2pt>[ru]_{\pi_1\circ g} \ar@<2pt>[ru]^{\pi_1\circ f}&
+}\]%
+and as $A$ is separated, $\pi_1\circ f = \pi_1 \circ g$.
+For the second components, let $x:E$. Notice that 
+$\sumD y E {x = y}$ has a dense $n$-subobject, $\sumD y {\sumD e E {\chi\,
+  e}} {x=y_1}$:
+
+\[\xymatrix@C=8em@R=4em{
+  \sumD y {\sumD e E {\chi\,
+  e}} {x=y_1} \ar@<2pt>[r]^{\qquad \pi_2\circ f\circ\pi_1\circ \pi_1}
+\ar@<-2pt>[r]_{\qquad \pi_2\circ g\circ \pi_1\circ \pi_1}
+\ar[d]_{\mathrm{dense}}& B\,x \\
+  \sumD y E {x = y} \ar@<2pt>[ur]^{\pi_2\circ f\circ \pi_1} \ar@<-2pt>[ur]_{\pi_2\circ g\circ \pi_1}&
+}\]%
+Using the separation property of $B\,x$, one can show that second
+components, transported correctly along the first components equality,
+are equal. The complete proof can be found in the formalization.
+This proves the following proposition
+\begin{prop}\label{prop:sep-mod}
+  $(\separated,\mu)$ defines a modality on $\Type_{n+1}$.
+\end{prop}
+
+As this modality is just a step in the construction, we do not need to
+show that it is left exact (actually, it is not)x, we will only do it for the sheafification
+modality.
