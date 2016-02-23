@@ -3,6 +3,143 @@
 
 \section{Dependent type theory}
 \label{sec:mltt}
+$a:A$: judgement ``$a$ is of type
+  $A$''\nomenclature{$a:A$}{Judgement ``$a$ is of type $A$''}
+
+\subsection{Empty and Unit types}
+\label{ssec:unit_empty}
+
+The first two types we will see are the Empty type (denoted
+$\zero$\nomenclature{$\zero$}{Empty type}) and the Unit type (denoted
+$\one$\nomenclature{$\one$}{Unit type}).
+These are respectively the types with zero and one elements (named $\unittt$). Those two
+types are dual to each other:
+\begin{itemize}
+\item having a term of type $\zero$ in the context allows to prove
+  anything, while having a term of type $\one$ in the context is
+  useless
+\item dually, giving a term of type $\one$ is trivial, while giving a
+  term of type $\zero$ is impossible (if the theory if consistent).
+\end{itemize}
+
+\begin{center}
+  \AxiomC{$\Gamma\vdash x:\zero$}
+  \AxiomC{$X:\Type$}
+  \RightLabel{$\zero$-\textsc{elim}}
+  \BinaryInfC{$\Gamma \vdash X$}
+  \DisplayProof
+  \qquad
+  \AxiomC{}
+  \RightLabel{$\one$-\textsc{intro}}
+  \UnaryInfC{$\Gamma\vdash \unittt:\one$}
+  \DisplayProof
+\end{center}
+
+Under the propositions-as-types principle, $\zero$ is the type always
+false, and $\one$ the type always true. With a categorical point of
+view, $\zero$ is an initial object and $\one$ is a terminal object.
+
+\subsection{Coproduct}
+\label{ssec:coproduct}
+$A+B$: coproduct of $A$ and $B$\nomenclature{$A+B$}{Coproduct of
+  types}
+
+\begin{center}
+  \AxiomC{$\Gamma\vdash a:A$}
+  \RightLabel{$+$-$\textsc{intro}_L$}
+  \UnaryInfC{$\Gamma\vdash \inl a : A+B$}
+  \DisplayProof
+  \qquad
+  \AxiomC{$\Gamma\vdash b:B$}
+  \RightLabel{$+$-$\textsc{intro}_R$}
+  \UnaryInfC{$\Gamma\vdash \inr b : A+B$}
+  \DisplayProof
+  \vspace{1em}
+
+  \AxiomC{$\Gamma\vdash p:A+B$}
+  \AxiomC{$\Gamma,x:A\vdash c_A:C$}
+  \AxiomC{$\Gamma,x:B\vdash c_B:C$}
+  \RightLabel{$+$-\textsc{elim}}
+  \TrinaryInfC{$\Gamma,\vdash\mathrm{sum\_rect}(p,c_A,c_B) : C$}
+  \DisplayProof
+\end{center}
+
+
+\subsection{Dependent product}
+\label{ssec:pi}
+$A\to B$: types of arrows from $A$ to $B$\nomenclature{$A\to B$}{Type of arrows from $A$ to $B$}
+
+$\prodD a A {B\, a}$ or $(x:A) \to B\, x$: dependent product over
+$B$\nomenclature{$\prodD a A {B\, a}$}{Dependent product over $B$}
+
+\begin{center}
+  \AxiomC{$\Gamma,x:A\vdash b:B$}
+  \RightLabel{$\prod$-\textsc{intro}}
+  \UnaryInfC{$\Gamma\vdash \lambda\, (x:A),\, b : \prodD x A B$}
+  \DisplayProof
+  \qquad
+  \AxiomC{$\Gamma\vdash f:\prodD x A B$}
+  \AxiomC{$\Gamma\vdash a:A$}
+  \RightLabel{$\prod$-\textsc{elim}}
+  \BinaryInfC{$\Gamma\vdash f(a):B[a/x]$}
+  \DisplayProof
+\end{center}
+
+\subsection{Dependent sum}
+\label{ssec:sigma}
+$A\times B$: product of $A$ and $B$\nomenclature{$A\times B$}{Product of types}
+
+
+$\sumD a A {B\, a}$: dependent sum over $B$\nomenclature{$\sumD a A {B\, a}$}{Dependent sum over $B$}
+
+\begin{center}
+  \AxiomC{$\Gamma,x:A\vdash B:\Type$}
+  \AxiomC{$\Gamma\vdash x:A$}
+  \AxiomC{$\Gamma\vdash b:B[a/x]$}
+  \RightLabel{$\sum$-\textsc{intro}}
+  \TrinaryInfC{$\Gamma\vdash (a,b):\sumD x a B$}
+  \DisplayProof
+  \vspace{1em}
+
+  \AxiomC{$\Gamma\vdash p:\sumD x A B$}
+  \RightLabel{$\sum$-$\textsc{intro}_1$}
+  \UnaryInfC{$\Gamma\vdash \pi_1 p: A$}
+  \DisplayProof
+  \qquad
+  \AxiomC{$\Gamma\vdash p:\sumD x A B$}
+  \RightLabel{$\sum$-$\textsc{intro}_2$}
+  \UnaryInfC{$\Gamma\vdash \pi_2 p: B[\pi_1 p/x]$}
+  \DisplayProof
+\end{center}
+
+\subsection{Inductive types}
+\label{ssec:inductive}
+
+\subsection{Paths type}
+\label{ssec:path}
+$a=_A b$ or $a=b$: type of paths from $a$ to $b$ in
+$A$\nomenclature{$a=_A b$}{Type of paths from $a$ to $b$ in
+  $A$}\nomenclature{$a=b$}{Type of paths from $a$ to $b$}
+
+$1$ or $\idpath$ or $1_x$ or $\idpath_x$: constructor of
+$x=x$\nomenclature{$1_x$ or $1$}{Constant path over
+  $x$}\nomenclature{$\idpath_x$ or $\idpath$}{Constant path over $x$}
+
+\begin{center}
+  \AxiomC{$\Gamma\vdash a:A$}
+  \RightLabel{$=$-\textsc{intro}}
+  \UnaryInfC{$\Gamma\vdash \idpath_a : a =_A a$}
+  \DisplayProof
+  \vspace{1em}
+
+  \AxiomC{$\Gamma\vdash P:A\to\Type$}
+  \AxiomC{$\Gamma\vdash x,y:A$}
+  \AxiomC{$\Gamma\vdash p:x=_A y$}
+  \AxiomC{$\Gamma\vdash w:P\, x$}
+  \RightLabel{$=$-\textsc{elim}}
+  \QuaternaryInfC{$\Gamma\vdash \transport_P^p(x) : P\, y$}
+  \DisplayProof
+\end{center}
 
 \section{Univalence axiom}
 \label{sec:ua}
@@ -10,7 +147,13 @@
 \section{Higher Inductives Types}
 \label{sec:hit}
 
+\subsection{Truncations}
+\label{ssec:trunc}
+
+$\|A\|_n$: $n$-truncation of $A$%
+  \nomenclature{$\Vert\cdot\Vert$}{$n$-truncation of types}
+
+\nomenclature{$\vert\cdot\vert_n$}{$n$-truncation of terms or arrows}
+
 \section{Introduction to homotopy type theory}
 \label{sec:hott}
-
-

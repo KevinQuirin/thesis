@@ -632,8 +632,8 @@ This is enough to state the following proposition.
 To show that $\separated$ is a modality, it remains to show that
 separation is a property stable under sigma-types.
 %
-Let $A:\Type_{n+1}$ be a sheaf and $B:A \to \Type_{n+1}$ be a sheaf
-family. We want to show that $\sumD x A {B\, x}$ is separated. Let $E$
+Let $A:\Type_{n+1}$ be a separated type and $B:A \to \Type_{n+1}$ be a
+family of separated types. We want to show that $\sumD x A {B\, x}$ is separated. Let $E$
 be a type, and $\chi:E\to\Type_n$ a dense subobject of E.
 
 Let $f,g$ be two maps from $\sumD e E {\chi\,e}$ to $\sumD x A
@@ -669,10 +669,8 @@ This proves the following proposition
 \end{prop}
 
 As this modality is just a step in the construction, we do not need to
-show that it is left exact (actually, it is not)x, we will only do it for the sheafification
+show that it is left exact (actually, it is not), we will only do it for the sheafification
 modality.
-
-\todo{Check from here}
 
 \subsection{From Separated Type to Sheaf}
 \label{ssec:separated-to-sheaf}
@@ -691,16 +689,34 @@ $\modal_{n+1}T$ can be given explicitly by
 To prove that $\modal_{n+1} T$ is a sheaf for any $T:\Type_{n+1}$, we
 use the following lemma.
 \begin{lem}
-  Let $X:\Type_{n+1}$ and $U$ be a sheaf. If $X$ embeds
-  in $U$, and is closed in $U$, then $X$ is a sheaf.
+  Any closed $(-1)$-subobject of a sheaf is a sheaf.
+  % Let $X:\Type_{n+1}$ and $U$ be a sheaf. If $X$ embeds
+  % in $U$, and is closed in $U$, then $X$ is a sheaf.
 \end{lem}
 \begin{proof}
-  Let $f:X\to U$ be the considered embedding. We have already seen in
-  lemma~\ref{lem:embed-sep} that, as $U$ is separated, $X$ is too.
-
+  Let $U$ be a sheaf, and $\kappa:U\to \HProp$ be a closed
+  $(-1)$-subobject. 
   Let $E:\Type$ and
   $\chi:E\to\HProp$ dense in $E$. Let $\phi:\sumD e E {\chi\, e} \to
-  X$. Then $f\circ \phi$ can be extended to a map $g:E\to U$.
+  \sumD u U {\kappa\, u}$. As $\pi_1 \circ \phi$ is a map $\sumD e E
+  {\chi\, e} \to U$ and $U$ is a sheaf, it can be extended into
+  $\psi:E\to U$. As $\kappa$ is closed, it suffices now to prove
+  $\prodD e E {\modal_n(\kappa\, (\psi\, e))}$ to obtain a map
+  $E\to\sumD u U {\kappa\, u}$.
+
+  Let $e:E$. As $\chi$ is dense, we have a term $w:\modal_n(\chi\,e)$,
+  and by $\modal_n$-induction, a term $\widetilde w:\chi\, e$.
+  Then, by retraction property, $\psi(e) = \phi(e,\widetilde w)$, and by $\pi_2
+  \circ \phi$, we have hence our term of type $\kappa(\psi\, e)$.
+
+
+
+  % Let $f:X\to U$ be the considered embedding. We have already seen in
+  % lemma~\ref{lem:embed-sep} that, as $U$ is separated, $X$ is too.
+
+  % Let $E:\Type$ and
+  % $\chi:E\to\HProp$ dense in $E$. Let $\phi:\sumD e E {\chi\, e} \to
+  % X$. Then $f\circ \phi$ can be extended to a map $g:E\to U$.
 \end{proof}
 As $T\to \Type_n^\modal$ is a sheaf, and $\modal_{n+1}T$ is closed in
 $T\to \Type_n^\modal$, $\modal_{n+1}T$ is a sheaf. We now prove that
@@ -722,10 +738,35 @@ it forms a reflective subuniverse.
   As all these steps are universal, the composition is.
 \end{proof}
 
-Using the same technique as in proposition~\ref{prop:sep-mod}, we have
+% Using the same technique as in proposition~\ref{prop:sep-mod}, we
+% have
+Then:
 \begin{prop}
   $(\modal_{n+1},\nu)$ defines a modality.
 \end{prop}
+\begin{proof}
+  The proof use the same ideas as in
+  subsection~\ref{sssec:type_to_sep}. Let $A:\Type_{n+1}$ a sheaf and
+  $B:A\to\Type_{n+1}$ a sheaf family. By
+  proposition~\ref{prop:sep-mod}, we already know that $\sumD a A {B\,
+    a}$ is separated. Let $E$ be a type, and $\chi:E\to \HProp$ a
+  dense subobject. Let $f:\sumD e E {\chi\, e} \to \sumD x A {B\, x}$
+  ; we want to extend it into a map $E\to \sumD x A {B\, x}$.
+
+  \[
+    \xymatrix{
+      \sumD e E {\chi\, e} \ar[r]^f \ar[d] & \sumD x A {B\, x} \\
+      E \ar@{.>}[ru]&
+    }
+  \]
+
+  As $A$ is a sheaf, and $\pi_1\circ f:\sumD e E {\chi\, e}
+  \to A$, wa can recover an map $g_1:E \to A$. We then want to show
+  $\prodD e E {B(g_1\, e)}$. Let $e:E$. As $\chi$ is dense, we have a
+  term $w:\modal_n(\chi\, e)$, and as $B(g_1\, e)$ is a sheaf, we can
+  recover a term $\widetilde w:\chi\, e$. Then $g_1(e) =
+  f(e,\widetilde w)$, and $\pi_2\circ f$ gives the result.
+\end{proof}
 
 It remains to show that $\modal_{n+1}$ is left exact and is compatible
 with $\modal_{-1}$. To do that, we need to extend the notion of
@@ -739,10 +780,12 @@ compatible with $\modal_n$ on lower homotopy types.
   We prove it by induction on $n$:
   \begin{itemize}
   \item For $n=-1$: Let $T:\HProp$. Then
-    \[
-      \modal_{0} \widehat T = \sum_{u:T \to \Type_n^\modal} \modal_{-1}\left( \sum_{a:T} 
+    \begin{align*}
+      \modal_{0} \widehat T &\defeq \sum_{u:T \to \Type_n^\modal} \modal_{-1}\left\| \sum_{a:T} 
+      (\lambda t,~\modal_{-1} (a=t)) = u\right\|_{-1} \\
+      &= \sum_{u:T \to \Type_n^\modal} \modal_{-1}\left( \sum_{a:T} 
       (\lambda t,~\modal_{-1} (a=t)) = u\right)
-    \]%
+    \end{align*}
     because the type inside the truncation is already in $\HProp$.
     Now, let define $\phi : \modal_{-1} T \to \modal_0T$ by
     \[\phi t = (\lambda t',\, \one
@@ -762,10 +805,10 @@ compatible with $\modal_n$ on lower homotopy types.
       \modal_{n+2} \widehat T= \hspace{-1em} \sum_{u:T \to
         \Type_{n+1}^\modal} 
       \hspace{-1em} \modal_{-1}\left\| \sum_{a:T} 
-        (\lambda t,~\modal_{n} (a=t)) = u\right\|.
+        (\lambda t,~\modal_{n} (a=t)) = u\right\|_{-1}.
     \]%
     It remains to prove that for every $(u,x)$ inhabiting the
-    $\Sigma$-type above, $u$ is in $T\to\Type_n^\modal$, \ie that for
+    $\Sigma$-type above, $u$ is in $T\to\Type_n^\modal$, \ie{} that for
     every $t:T$, $\IsType n (u\, t)$.  But for any truncation index
     $p$,
     the type $\IsType p X:\HProp$ is a sheaf as soon as $X$ is, so we can get rid
@@ -783,10 +826,10 @@ shown compatibility between $\modal_{n+1}$ and $\modal_n$ for
 $\Type_n$, left exactness means that for any $x,y: T$,
 $\modal_n(x=y)$ is contractible.
 
-Using a proof by univalence as we have done for proving $\modal_n (a=b) = (\mu_T(a) =
+Using a proof by univalence as we have done for proving $\modal_n (a=b) \simeq (\mu_T(a) =
 \mu_T (b))$ in Proposition~\ref{lem:sepiscolim}, we can show that:
 \begin{prop}
-  For all $a,b:T$, $\modal_n(a=b) \!=\! (\nu_T a = \nu_T b)$.
+  For all $a,b:T$, $\modal_n(a=b) \simeq (\nu_T a = \nu_T b)$.
 \end{prop}
 
 As $\modal_{n+1} T$ is contractible, path spaces of $\modal_{n+1} T$ are

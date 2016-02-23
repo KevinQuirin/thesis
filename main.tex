@@ -1,7 +1,14 @@
 \documentclass[a4paper, 10pt, draft]{memoir}
 \usepackage{entete}
+\usepackage[style=alphabetic]{biblatex}
+\usepackage{csquotes}
+\bibliography{biblio}
 
-\setcounter{tocdepth}{2}
+\usepackage[refpage, intoc]{nomencl}
+\makenomenclature
+
+\usepackage{bussproofs}
+\setcounter{tocdepth}{1}
 
 \author{Kevin \textsc{Quirin}}
 \title{Lawvere-Tierney Sheafification in Homotopy Type Theory}
@@ -83,6 +90,8 @@
 \input{conclusion}
 
 \backmatter%
-\bibliographystyle{alpha}
-\bibliography{biblio}
+\input{notations}
+\printnomenclature[10em]
+% \bibliographystyle{alpha}
+\printbibliography
 \end{document}
