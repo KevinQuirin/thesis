@@ -220,7 +220,10 @@ identity types. They allow us to talk about propositional equality
 between inhabitants of a type. The identity type over $A$ will be
 noted $a=_A b$ or $a=b$ if $A$ can be inferred from context
 \nomenclature{$a=_A b$}{Type of paths from $a$ to $b$ in
-  $A$}\nomenclature{$a=b$}{Type of paths from $a$ to $b$}.
+  $A$}\nomenclature{$a=b$}{Type of paths from $a$ to $b$}. What is
+great about identity type over $A$ is that its definition does not
+depend on the type $A$. If $a,b:A$, $a=_A b$ is defined as the
+inductive type whose only constructor is $\idpath:\prodD a A {a=_A a}$.
 
 $1$ or $\idpath$ or $1_x$ or $\idpath_x$: constructor of
 $x=x$\nomenclature{$1_x$ or $1$}{Constant path over
