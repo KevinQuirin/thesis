@@ -56,6 +56,7 @@
 \newtheorem{defi}[thm]{Definition}
 \newtheorem{lem}[thm]{Lemma}
 \newtheorem{cond}[thm]{Condition}
+\newtheorem{ax}[thm]{Axiom}
 
 \newenvironment{prooflem}%
     {\renewcommand{\qedsymbol}{$\Diamond$}%
@@ -112,6 +113,8 @@
 \DeclareMathOperator{\inl}{inl}
 \DeclareMathOperator{\inr}{inr}
 \DeclareMathOperator{\transport}{transport}
+%\DeclareMathOperator{\IsEquiv}{IsEquiv}
+
 
 \newcommand \defeq {\overset{de\hspace{-0.2ex}f}{=}}
 
@@ -128,6 +131,7 @@
 \newcommand \Char[1] {\chi_{#1}}%{\mathrm{char}(#1)}
 \newcommand \E {\mathcal{E}}
 \newcommand \Hom[1] {\mathrm{Hom}_{#1}}
+\newcommand \Obj {\mathrm{Obj}}
 \newcommand \Sh[1] {\mathrm{Sh}_{#1}}
 \newcommand \squash[1] {\| #1 \| }
 \newcommand \separated {\mathop{\square_{n+1}} }
@@ -140,8 +144,17 @@
 \newcommand{\sumD}[3]{\sum_{#1:#2}\, #3}
 \newcommand{\prodD}[3]{\prod_{#1:#2}\, #3}
 \newcommand{\homot}{\sim}
-
-
+\newcommand{\retr}{\mathrm{retr}}
+\newcommand{\sect}{\mathrm{sect}}
+\newcommand{\adj}{\mathrm{adj}}
+\newcommand{\ap}[1]{\mathrm{ap}_{#1}}
+\newcommand{\inv}[1]{#1^{-1}}
+\newcommand{\concat}[2]{#1\cdot #2}
+\newcommand{\happly}{\mathrm{happly}}
+\newcommand{\Sone}{\mathbb{S}^1}
+\newcommand{\baseS}{\mathrm{base}}
+\newcommand{\loopS}{\mathrm{loop}}
+\newcommand{\coeq}[2]{\mathrm{Coeq}^{#1,#2}}
 
 \DeclareMathOperator{\issep}{IsSeparated}
 \DeclareMathOperator{\issheaf}{IsSheaf}

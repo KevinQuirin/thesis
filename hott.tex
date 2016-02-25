@@ -6,6 +6,11 @@
 $a:A$: judgement ``$a$ is of type
   $A$''\nomenclature{$a:A$}{Judgement ``$a$ is of type $A$''}
 
+\subsection{Universes}
+\label{ssec:universes}
+
+Talk here about the universes.
+
 \subsection{Empty and Unit types}
 \label{ssec:unit_empty}
 
@@ -159,6 +164,9 @@ The introduction and elimination rules are:
   \DisplayProof
 \end{center}
 
+The projections $\pi_1$ and $\pi_2$ will sometimes be noted, when
+applied to a term $u$, $u_1$ and $u_2$.
+
 \begin{rmq}
   We note that the terminology might be confusing: the dependent
   generalization of products are dependent sums, while dependent
@@ -223,11 +231,13 @@ noted $a=_A b$ or $a=b$ if $A$ can be inferred from context
   $A$}\nomenclature{$a=b$}{Type of paths from $a$ to $b$}. What is
 great about identity type over $A$ is that its definition does not
 depend on the type $A$. If $a,b:A$, $a=_A b$ is defined as the
-inductive type whose only constructor is $\idpath:\prodD a A {a=_A a}$.
+inductive type whose only constructor is \[\idpath:\prodD a A {a=_A a}\]
+($\idpath_x$ will sometimes be just noted $1_x$, or even
+$1$)\nomenclature{$\idpath_x$ or $1_x$}{Constant path
+  over$x$}\nomenclature{$\idpath$ or $1$}{Constant path}.
 
-$1$ or $\idpath$ or $1_x$ or $\idpath_x$: constructor of
-$x=x$\nomenclature{$1_x$ or $1$}{Constant path over
-  $x$}\nomenclature{$\idpath_x$ or $\idpath$}{Constant path over $x$}
+
+
 
 \begin{center}
   \AxiomC{$\Gamma\vdash a:A$}
@@ -236,14 +246,40 @@ $x=x$\nomenclature{$1_x$ or $1$}{Constant path over
   \DisplayProof
   \vspace{1em}
 
-  \AxiomC{$\Gamma,x:A\vdash P:\Type$}
+  
   \AxiomC{$\Gamma\vdash a,b:A$}
-  \AxiomC{$\Gamma\vdash p:a=_A b$}
-  \AxiomC{$\Gamma\vdash w:P[a/x]$}
+  \noLine
+  \UnaryInfC{$\Gamma\vdash q:a=_A b$}
+  \AxiomC{$\Gamma,x:A,y:A,p:x=_A y\vdash P:\Type$}
+  \noLine
+  \UnaryInfC{$\Gamma,z:A\vdash w:P[z,z,1/x,y,p]$}
   \RightLabel{$=$-\textsc{elim}}
-  \QuaternaryInfC{$\Gamma\vdash \transport_P^p(w) : P[b/x]$}
+  \BinaryInfC{$\Gamma\vdash \mathrm{path\_ind}_P^q(w) : P[a,b,q/x,y,p]$}
   \DisplayProof
 \end{center}
+
+The elimination principle should be looked closer. Lets simplify to
+understand how it works: suppose that the type family $P$ depends only
+on two objects $x,y:A$. Then if $C$ is reflexive, \ie{} if $C(x,x)$ is
+always inhabited, then whenever $x=y$, $C(x,y)$ is inhabited too.
+
+Path-induction, also known as ``$J$ principle'', allow us to state
+the following:
+\begin{lem}[{\cite[Lemma 2.3.1]{hottbook}}]
+  Let $A:\Type$ and $P:A\to\Type$ a type family over $A$. Then if
+  $p:x=_A y$, there is a function $\transport_P^p :P\, x\to P\, y$.
+\end{lem}
+\begin{proof}
+  Let's do this proof to use path-induction for the first time. Let
+  $Q$ be the type family indexed by $x,y:A$ 
+  \[ Q(x,y) := P\, x \to P\, y. \]
+  Then by path-induction, it suffices to define $Q(x,x)$. The latter
+  is clearly inhabited by $\idmap_{P\, x}$.
+\end{proof}
+
+Path-induction might be the most powerful tool we can use. For
+example, most of the lemmas we will see in section~\ref{sec:hott} can
+be proved using path-induction.
 
 \subsection{Summary}
 \label{ssec:mltt_summary}
@@ -274,11 +310,281 @@ We can summarize the situation in the following array:
 \end{tabular}
 \renewcommand{\arraystretch}{1}
 
-\section{Univalence axiom}
+\section{Identity types and Univalence axiom}
 \label{sec:ua}
+
+Identity types are very useful to assert propositional equalities
+between object. Note that it does not characterize {\em judgemental}
+equality, which we consider here as belonging to the meta-theory (some
+theories, as Voevodsky's Homotopy Type System~\cite{hts}, implemented
+in proof assistant Andromeda~\cite{andromeda}). 
+One can prove that identity types give each type a structure of a
+$\omega$-groupoid, \ie{} the structure of a $\omega$-category where
+all arrows are invertible. For example, identity types over a type $A$
+satisfies:
+
+\begin{itemize}
+\item Reflexivity: for all $x:A$, \[1_x:x=x\]
+\item Transitivity: for all $x,y,z:A$, $p:x=y$ and $q:y= z$, \[\concat p
+ q: x = z\nomenclature{$\concat p q$}{Concatenation of paths}\]
+\item Symmetry: for all $x,y:A$ and $p:x=y$, $\inv p:
+  y=x$\nomenclature{$\inv p$}{Inverse of path}
+\item Reflexivity and symmetry behave well together: for all $x,y:A$
+  and $p:x=y$, \[\concat p {\inv p} = 1_x\text{ and } \concat {\inv p}
+    p = 1_y\]
+  Note that these paths are respectively in types $x=x$ and $y=y$.
+\item Reflexivity and associativity behave well together: for all
+  $x,y:A$ and $p:x=y$, 
+  \[\concat p 1 = p \text{ and } \concat 1 p = p\]
+\item Associativity: for all $w,x,y,z:A$ and $p:w=x$, $q:x=y$,
+  $r:y=z$,
+  \[\concat p {(\concat q r)} = \concat {(\concat p q)} r\]
+\item Maclane pentagon: for all $v,w,x,y,z:A$, $p:v=w$, $q:w=x$, $r:x=y$ and
+  $s:y=z$, the following diagram involving associativities commutes
+\[
+  \xymatrix @!0 @R=4pc @C=3pc {
+    && \concat p {(\concat q {(\concat r s)})} \ar[dll] \ar[drr]&& \\
+    \concat {(\concat p q)} {(\concat r s)}\ar[dr] &&&& \concat p {(\concat
+      {(\concat q r)} s)}\ar[ld] \\
+    & \concat {(\concat {(\concat p q)} r)} \ar[rr] s && \concat {(\concat p
+      {(\concat q r)})} s &
+  }
+\]
+\item The coherences goes on and on.
+\end{itemize}
+
+A thing one can notice here is that we work in a proof-relevant
+setting. The types $x=y$ are just types, and thus can be inhabited by
+different objects. It might sound unfamiliar for mathematicians, but
+we will give in section~\ref{sec:hott} an interpretation of identity
+types justifying proof-relevance.
+
+Identity types also have a good behavior with respect to function. Let
+$A,B:\Type$ and $f:A \to B$ ; then
+\begin{itemize}
+\item For all $x,y:A$, there is a map $\ap f: x = y \to f(x) = f(y)$
+\item It is coherent with inverse: $\ap f \inv p = \inv{(\ap f p)}$
+\item It actually is coherent with the whole $\omega$-groupoid
+  structure. We refer to~\cite{hottbook} for more detailed results.
+\end{itemize}
+
+
+
+The fact that the 
+definition of identity types does not depend on the type might seem strange, but it
+actually allows to catch the equality one would want ; for example, we
+can characterize the equalities between dependent pairs:
+
+\begin{lem}[Paths in dependent sums]
+  Let $A:\Type$ and $B:A\to\Type$. Then, for any $u,v:\sumD x A {B\,
+    a}$, we have a term
+\[ \mathrm{path}_\Sigma : \sumD p {u_1 =_A v_1} {\transport_P^p u_2 = v_2} \to u = v.\]
+\end{lem}
+
+This characterization goes even further, as we can prove that
+$\mathrm{path}_\Sigma$ is an equivalence. Equivalences are very
+important objects in homotopy type theory, and are defined as
+\begin{defi}[Equivalence]
+  Let $A,B:\Type$ and $f:A\to B$. Wa say that $f$ is an equivalence,
+  noted $\IsEquiv(f)$, if there are:
+  \begin{itemize}
+  \item a map $g:B\to A$, called the inverse of $f$
+  \item a term $\displaystyle{\retr_f: \prodD x A {g(f(x)) = x}}$,
+    called the retraction of the equivalence
+  \item a term $\displaystyle{\sect_f: \prodD x A {f(g(x)) = x}}$,
+    called the section of the equivalence
+  \item a term $\displaystyle{\adj_f: \prodD x A {\ap f {\retr_f x} =
+        \sect_f(f\, x)}}$, called the adjunction of the equivalence
+  \end{itemize}
+  We say that $A$ and $B$ are equivalent, noted $A\simeq
+  B$\nomenclature{$\simeq$}{Equivalence of types}, if there is a
+  function $f:A\to B$ which is an equivalence.
+\end{defi}
+
+Hence, $\mathrm{path}_\Sigma$ allows us to prove equalities in a
+dependent sum $\sumD x A {B\, a}$, but its inverse allows us to prove,
+from an equality in the dependent sum, equalities in $A$ and in $B\, a$.
+
+Unfortunately, identity types does not allow to characterize
+equalities for all types. One example is paths in dependent
+products. In usual mathematics, one would like pointwise equality to
+be a sufficient (actually, a necessary and sufficient) property to
+state equality between function. In type theory, that would be phrased
+\begin{equation}\label{eq:funext}
+ \prodD x A {f\, x = g\, x} \to f = g.  
+\end{equation}
+But one can prove (see~\cite{streicher93} for a semantical proof) that
+this property, called {\em functional extensionality} cannot be proved
+from rules of dependent type theory.
+All we can say is that the backward function of~\ref{eq:funext} can be
+defined, called $\happly$:
+\[ \happly: f = g \to \prodD x A {f\, x = g\, x}. \]
+Functional extensionality will thus be stated as the axiom:
+\begin{ax}[Functional extensionality]
+  For any $A:\Type$ and $B:A\to\Type$, the arrow $\happly$ is an equivalence.
+\end{ax}
+In a way, that could solve our problem. But dependent products are not
+the only types for which we cannot characterize identity types; the
+same problem arises with identity types of the universe. An answer was
+proposed first by Martin Hofmann and Thomas Streicher in 1996
+in~\cite{Hofmann96thegroupoid}, and later (around 2005) by Vladimir
+Voevodsky: the univalence axiom. As for functional extensionality, it
+asserts that a certain arrow is an equivalence.
+
+\begin{ax}[Univalence axiom]
+  For any types $A,B:\Type$, the function
+  \[ \mathrm{idtoequiv} : A = B \to A\simeq B \]
+  is an equivalence.
+\end{ax}
+
+What is great about univalence axiom is that is seems to imply all
+other characterization of identity types. For example:
+\begin{lem}[{\cite{bauerLums_univalenceImpliesExt}}]
+  Univalence axiom implies functional extensionality.
+\end{lem}
+Another example the reader can think of is stream (and more generaly coindutive) extensionality:
+we want two streams (infinite list) to be equal when they are
+pointwise equal. It seems that univalence axiom implies it~\cite{licata14uafs}.
+
+The main issue with univalence is that it clearly oblige us to work in
+a proof-relevant setting ; indeed, there are for examples two distinct
+proofs of $\one+\one = \one+\one$: the identity, and the function
+swapping left and right.
 
 \section{Higher Inductives Types}
 \label{sec:hit}
+
+As seen in section~\ref{ssec:inductive}, one can define a type by
+giving only its constructors ; but we also saw in section~\ref{sec:ua}
+that our setting is proof-relevant. It means that a type is
+characterized not only by its objects, but also by its identity types
+between these objects, and identity types of these identity types,
+\etc{}
+Hence, we would like to be able, like for inductive types, to define a
+type by giving constructors for the objects, and constructors for the
+identity types, \etc{} Then, the constructed type is the type freely
+generated by the constructors, and whose identity types are freely
+generated by the constructors, \etc{}
+Unlike inductive types, it is not known if elimination rules of higher
+inductive type can easily (and automatically) be infered from the
+constructors. At the moment, we prefer to express them
+explicitly. As a general theory of hogher inductive types would be
+very hard, we will only give some fundamental examples.
+
+
+\subsection{The circle}
+\label{ssec:S1}
+
+The most basic example of higher inductive type is the circle
+$\Sone$. The circle consists of just a point, with a non-trivial
+path above this point. It is defined as the higher inductive type
+generated by
+\[ \left| 
+    \begin{array}{lll}
+      \baseS & : & \Sone \\
+      \loopS & : & \baseS = \baseS
+    \end{array}
+    \right.
+\]
+It can be pictured as
+\[
+  \xymatrix@R=0.1em{ \bullet \ar@(ur,ul)[]_\loopS \\ \baseS}
+\]
+As said, we give the elimination principle of the circle. We start by
+the non-dependent eliminator.
+\begin{lem}[Non-dependent elimination of $\Sone$]\label{lem:S1_rec}
+  Let $P$ be a type. If $b:P$ and $p:b = b$, then there is a map
+  \[\Sone_{\mathrm{rec}} : \Sone \to P \]
+  such that $\Sone_{\mathrm{rec}}(\baseS) \equiv b$ (judgementally) and
+  $\ap{\Sone_{\mathrm{rec}}}(\loopS) = p$ (propositionally).
+\end{lem}
+It says that if in $P$ you can find a ``copy'' of $\Sone$, then there
+is a ``good'' function $\Sone \to P$.
+The dependent eliminator is a bit more complicated, but still
+understandable.
+\begin{lem}[Dependent elimination of $\Sone$]\label{lem:S1_ind}
+  Let $P:\Sone\to\Type$ be a type family over $\Sone$. If
+  $b:P(\baseS)$ and $p:\transport_P^\loopS(b) = b$, then there is a term
+  \[ \Sone_{\mathrm{ind}} : \prodD x \Sone {P\, x}\]
+  such that $\Sone_{\mathrm{ind}}(base) \equiv b$ and
+  $\ap{\Sone_{\mathrm{ind}}}(\loopS) = p$.
+\end{lem}
+The most famous result about the circle is the computation of its
+homotopy group $\pi_1(\Sone)$.
+
+\begin{prop}[Fundamental group of $\Sone$~\cite{pi1s1}]
+  There is an equivalence
+  \[ (\baseS = \baseS) \simeq \Z \]
+  where $\Z \defeq \N+\N+\one$.
+\end{prop}
+
+\subsection{Coequalizers}
+\label{ssec:coeq}
+
+Another example of higher inductive type is the computation of
+coequalizers. In category theory, a coequalizer of two objects $a$ and
+$b$ with arrow $f,g\in\Hom{}(a,b)$ is a $c\in\Obj$ together with an arrow
+$q\in\Hom{}(b,c)$ such that $\xymatrix{
+    a \ar@<2pt>[r]^f \ar@<-2pt>[r]_g& b \ar[r]^q & c}$ commutes, and which is universal with respect to this property, in
+the sense that for any other object $c'\in\Obj$ with
+$q'\in\Hom{}(b,c')$, there is an unique arrow $d:\Hom{}(c,c')$. It
+might be seen as the diagram
+
+\[ 
+  \xymatrix{
+    a \ar@<2pt>[r]^f \ar@<-2pt>[r]_g& b \ar[r]^q \ar[rd]_{q'} & c\ar@{.>}[d]^-{!}_-{d} \\
+    & & c'
+  }
+\]
+
+In homotopy type theory, the coequalizer of two functions $f,g:A\to
+B$ is defined as the higher inductive type $\coeq f g$ generated by
+\[
+  \left| 
+    \begin{array}{lll}
+      q&:& B \to \coeq f g \\
+      \alpha&:& \prodD x A {q\circ f(x) = q\circ g(x)}
+    \end{array}
+  \right.
+\]
+
+Its elimination principles are:
+\begin{lem}[Elimination of coequalizer]
+  Let $A,B,f,g$ be as above. 
+  \begin{itemize}
+  \item Let $P:Type$. If there are terms $q':B\to P$ and
+    $\alpha':\prodD x A q'\circ f (x) = q'\circ g (x)$, then there is
+    a map
+    \[ \coeq{f}{g}_{\mathrm{rec}}: \coeq f g \to P \]
+    such that for all $b:B$, $\coeq{f}{g}_{\mathrm{rec}}(q\,  b) \equiv
+    q'\, b$ and $\ap{\coeq{f}{g}_{\mathrm{rec}}}(\alpha\, b) =
+    \alpha'\, b$.
+  \item Let $P:\coeq f g \to \Type$. If there are terms $q':\prodD b B
+    {P(q\, b)}$ and $\alpha':\prodD b B {\transport_P^{\alpha
+        b}(q'\circ f(b)) = q'\circ g(b)}$, then there is a dependent
+      map
+      \[ \coeq{f}{g}_{\mathrm{ind}}: \prodD x {\coeq f g} {P\, x}\]
+      such that for all $b:B$, $\coeq{f}{g}_{\mathrm{ind}}(q\, b) \equiv
+      q'\, b$ and $\ap{\coeq{f}{g}_{\mathrm{ind}}}(\alpha\, b) =
+      \alpha'\, b$.
+  \end{itemize}
+\end{lem}
+
+It satisfies the desired universal property in the following sense:
+\begin{itemize}
+\item If $Q$ is a type and $\varphi:\coeq f g \to Q$, then one can
+  define a map $\psi:B\to Q$ such that for all $b:B$, $q\circ f(b) =
+  q\circ g(b)$.
+\item One can prove that the map $\phi \mapsto \psi$ is an
+  equivalence: from any other type such that the diagram commutes,
+  there is an unique arrow $\coeq f g \to Q$.
+\end{itemize}
+
+Some results about coequalizers in homotopy type theory can be found
+in the form of Coq code in the HoTT/Coq library~\cite{hottlib}.
+
+\section{Introduction to homotopy type theory}
+\label{sec:hott}
 
 \subsection{Truncations}
 \label{ssec:trunc}
@@ -287,6 +593,3 @@ $\|A\|_n$: $n$-truncation of $A$%
   \nomenclature{$\Vert\cdot\Vert$}{$n$-truncation of types}
 
 \nomenclature{$\vert\cdot\vert_n$}{$n$-truncation of terms or arrows}
-
-\section{Introduction to homotopy type theory}
-\label{sec:hott}

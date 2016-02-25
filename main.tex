@@ -1,4 +1,4 @@
-\documentclass[a4paper, 10pt, draft]{memoir}
+\documentclass[a4paper, 10pt]{memoir}
 \usepackage{entete}
 \usepackage[style=alphabetic]{biblatex}
 \usepackage{csquotes}
@@ -14,6 +14,7 @@
 \title{Lawvere-Tierney Sheafification in Homotopy Type Theory}
 \date{2016}
 
+%Chapter Page
 \usepackage[T1]{fontenc}
 \usepackage{kpfonts}
 \setSingleSpace{1.1}
@@ -68,11 +69,50 @@
 }
 \chapterstyle{hansen}
 
+%% Titlepage
 
-
+\newlength\dropp
+\makeatletter
+\newcommand*{\titleDS}{\begingroup% DS Thesis
+\dropp=0.1\textheight
+%\vspace*{\drop}
+\centering
+{\Large\bfseries Lawvere-Tierney Sheafification in Homotopy Type Theory}\par
+\vspace{0.6\baselineskip}
+{By}\\[0.6\baselineskip]
+{Kevin~Quirin\\[0.6\baselineskip]
+%A Thesis Submitted to the Graduate\\[0.5\baselineskip]
+%Faculty of The University\\[0.5\baselineskip]
+%in Partial Fulfillment of the\\[0.5\baselineskip]
+%Requirements for the Degree of\\[0.5\baselineskip]
+%DEGREE\\[0.5\baselineskip]
+Major Subject: Computer Science}\par
+\flushleft
+{Approved by the \\
+Examining Committee:}\par
+\vspace{1.5\baselineskip}
+\rule{15em}{0.4pt}\\
+Pierre Cointe, Thesis Advisor \\[1\baselineskip]
+\rule{15em}{0.4pt}\\
+Nicolas Tabareau, Thesis Advisor \\[1\baselineskip]
+\rule{15em}{0.4pt}\\
+Carl F. Gau\ss, Göttingen\\[1\baselineskip]
+\rule{15em}{0.4pt}\\
+Euclid, Athens \\[1\baselineskip]
+\centering
+\vspace{1\baselineskip}
+Mines de Nantes \\
+[\baselineskip]
+2016\par
+\vfill
+\endgroup}
+\makeatother
 
 \begin{document}
-\maketitle
+\begin{titlingpage}
+  \titleDS
+\end{titlingpage}
+%\maketitle
 
 \frontmatter%
 
@@ -90,6 +130,7 @@
 \input{conclusion}
 
 \backmatter%
+\listoftodos[What remains to be done]
 \input{notations}
 \printnomenclature[10em]
 % \bibliographystyle{alpha}
