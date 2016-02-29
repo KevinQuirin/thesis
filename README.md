@@ -8,8 +8,9 @@ This repo is using a git pre-push hook. To use it:
 * Change pushlatex.sh as you need
 * Write what you want to grep in errors.grep.
 * In your master folder, run
-    chmod +x pushlatex
-    ln -s -f ../../pushlatex.sh .git/hooks/pre-push
+
+               chmod +x pushlatex.sh
+               ln -s -f ../../pushlatex.sh .git/hooks/pre-push
 
 The script does the following:
 * Compile main.tex with latexmk
