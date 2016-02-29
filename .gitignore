@@ -6,6 +6,8 @@
 *.fls
 *.out
 *.toc
+*.nls
+pushlatex.sh~
 
 ## Intermediate documents:
 *.dvi
@@ -14,6 +16,7 @@
 # *.ps
 # *.eps
 # *.pdf
+main.pdf
 
 ## Bibliography auxiliary files (bibtex/biblatex/biber):
 *.bbl
