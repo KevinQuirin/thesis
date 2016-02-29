@@ -8,3 +8,4 @@ git commit -a -m "Autocommit"
 git push
 git checkout master
 
+exit 0
