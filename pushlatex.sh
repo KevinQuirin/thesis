@@ -1,6 +1,6 @@
 #!/bin/bash
 branch=master
-if [ `git rev-parse - abbrev-ref HEAD` == "$branch" ]; then
+if [ `git rev-parse --abbrev-ref HEAD` == "$branch" ]; then
     latexmk -pdf main.tex
     pdflatex main.tex | grep -i -f errors.grep > errors.log
     
