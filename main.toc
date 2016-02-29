@@ -1,0 +1,102 @@
+\boolfalse {citerequest}\boolfalse {citetracker}\boolfalse {pagetracker}\boolfalse {backtracker}\relax 
+\defcounter {refsection}{0}\relax 
+\select@language {english}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{Acknowlegdments}{iii}{chapter*.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{Contents}{iv}{section*.4}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\chapternumberline {1}Introduction}{1}{chapter.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\chapternumberline {2}Homotopy type theory}{3}{chapter.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {2.1}Dependent type theory}{3}{section.2.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{Universes}{3}{subsection*.7}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{Empty and Unit types}{4}{subsection*.8}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{Coproduct}{4}{subsection*.9}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{Dependent product}{4}{subsection*.10}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{Dependent sum}{5}{subsection*.11}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{Inductive types}{5}{subsection*.12}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{Paths type}{6}{subsection*.13}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{Summary}{7}{subsection*.14}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {2.2}Identity types and Univalence axiom}{7}{section.2.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {2.3}Higher Inductives Types}{10}{section.2.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{The circle}{11}{subsection*.15}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{Coequalizers}{12}{subsection*.16}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{Suspension}{13}{subsection*.17}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {2.4}Introduction to homotopy type theory}{13}{section.2.4}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{Truncations}{16}{subsection*.19}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\chapternumberline {3}Higher modalities}{19}{chapter.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {3.1}Modalities}{19}{section.3.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {3.2}Examples of modalities}{20}{section.3.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{The identity modality}{20}{subsection*.22}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{Truncations}{20}{subsection*.23}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{Double negation modality}{20}{subsection*.24}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {3.3}New type theories}{20}{section.3.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {3.4}Truncated modalities}{20}{section.3.4}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {3.5}Translation}{20}{section.3.5}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\chapternumberline {4}Colimits}{21}{chapter.4}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {4.1}Colimits over graphs}{21}{section.4.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{Definitions}{21}{subsection*.26}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{Properties of colimits}{23}{subsection*.28}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{Towards highly coherent colimits}{23}{subsection*.29}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {4.2}Van Doorn's and Boulier's constructions}{23}{section.4.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {4.3}Towards groupoid objects}{23}{section.4.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\chapternumberline {5}Sheaves in homotopy type theory}{25}{chapter.5}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {5.1}Sheaves in topoi}{25}{section.5.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {5.2}Sheaves in homotopy type theory}{27}{section.5.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{Sheaf theory}{28}{subsection*.31}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{Sheafification}{31}{subsection*.32}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{From types to separated types}{32}{subsubsection*.33}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{From Separated Type to Sheaf}{36}{subsection*.35}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{Summary}{39}{subsection*.37}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{Extension to Type}{39}{subsection*.38}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {5.3}Forcing in type theory}{41}{section.5.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\chapternumberline {6}Conclusion and future works}{43}{chapter.6}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{List of Notations}{47}{chapter*.42}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{Bibliography}{49}{section*.44}
+\contentsfinish 

@@ -1,0 +1,20 @@
+\nomenclatureentry{a$a:A$@[{$a:A$}]\begingroup Judgement ``$a$ is of type $A$''\nomeqref {2.0}|nompageref}{3}
+\nomenclatureentry{a$\zero$@[{$\zero$}]\begingroup Empty type\nomeqref {2.0}|nompageref}{4}
+\nomenclatureentry{a$\one$@[{$\one$}]\begingroup Unit type\nomeqref {2.0}|nompageref}{4}
+\nomenclatureentry{a$A+B$@[{$A+B$}]\begingroup Coproduct of   types\nomeqref {2.0}|nompageref}{4}
+\nomenclatureentry{a$\prodD a A   {B\, a}$@[{$\prodD a A   {B\, a}$}]\begingroup Dependent product over $B$\nomeqref {2.0}|nompageref}{5}
+\nomenclatureentry{a$(x:A)\to (B\, a)$@[{$(x:A)\to (B\, a)$}]\begingroup Dependent product over $B$\nomeqref {2.0}|nompageref}{5}
+\nomenclatureentry{a$A\to B$@[{$A\to B$}]\begingroup Type of arrows from $A$ to $B$\nomeqref {2.0}|nompageref}{5}
+\nomenclatureentry{a$A\times   B$@[{$A\times   B$}]\begingroup Product of types\nomeqref {2.0}|nompageref}{5}
+\nomenclatureentry{a$\sumD a A {B\, a}$@[{$\sumD a A {B\, a}$}]\begingroup Dependent sum over   $B$\nomeqref {2.0}|nompageref}{5}
+\nomenclatureentry{a$\N$@[{$\N$}]\begingroup Type of naturals\nomeqref {2.0}|nompageref}{5}
+\nomenclatureentry{a$a=_A b$@[{$a=_A b$}]\begingroup Type of paths from $a$ to $b$ in   $A$\nomeqref {2.0}|nompageref}{6}
+\nomenclatureentry{a$a=b$@[{$a=b$}]\begingroup Type of paths from $a$ to $b$\nomeqref {2.0}|nompageref}{6}
+\nomenclatureentry{a$\idpath_x$ or $1_x$@[{$\idpath_x$ or $1_x$}]\begingroup Constant path   over$x$\nomeqref {2.0}|nompageref}{6}
+\nomenclatureentry{a$\idpath$ or $1$@[{$\idpath$ or $1$}]\begingroup Constant path\nomeqref {2.0}|nompageref}{6}
+\nomenclatureentry{a$\concat p q$@[{$\concat p q$}]\begingroup Concatenation of paths\nomeqref {2.0}|nompageref}{7}
+\nomenclatureentry{a$\inv p$@[{$\inv p$}]\begingroup Inverse of path\nomeqref {2.0}|nompageref}{7}
+\nomenclatureentry{a$\simeq$@[{$\simeq$}]\begingroup Equivalence of types\nomeqref {2.0}|nompageref}{9}
+\nomenclatureentry{a$\Sigma   A$@[{$\Sigma   A$}]\begingroup Suspension of a type\nomeqref {2.1}|nompageref}{13}
+\nomenclatureentry{a$\Vert\cdot\Vert$@[{$\Vert\cdot\Vert$}]\begingroup $n$-truncation of types\nomeqref {2.1}|nompageref}{17}
+\nomenclatureentry{a$\vert\cdot\vert_n$@[{$\vert\cdot\vert_n$}]\begingroup $n$-truncation of terms or arrows\nomeqref {2.1}|nompageref}{17}
