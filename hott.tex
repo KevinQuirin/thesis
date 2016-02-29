@@ -1,15 +1,47 @@
 \chapter{Homotopy type theory}
 \label{chap:hott}
 
+\todo[inline]{Write an intro to chapter HoTT}
+
 \section{Dependent type theory}
 \label{sec:mltt}
-$a:A$: judgement ``$a$ is of type
-  $A$''\nomenclature{$a:A$}{Judgement ``$a$ is of type $A$''}
+
+In Zermelo-Frank\ae l set theory, the most basic assertion is
+\[ x\in E\]
+where $x$ and $E$ are sets. 
+In dependent type theory, a similar judgement can be
+\[a:A, \]\nomenclature{$a:A$}{Judgement ``$a$ is of type $A$''}
+to be read as ``$a$ is of type $A$''. The main difference with
+membership relation is that an element $a$ has one and only one type,
+while we can say $x\in E$ and $x\in F$ for the same element $x$ in set
+theory (it is the definition of $x\in E\cap F$).
+
+Dependent (or Martin-L\'of, due to its inventor~\cite{mltt}) type
+theory is based on the Curry-Howard correspondance~\cite{Howard80}, or
+propositions-as-types principle. Indeed, we do not need to make a
+difference between types an propositions. Hence $a:A$ will be read
+``$a$ is of type $A$'' when $A$ is seen as a type, and ``$a$ is a
+proof of $A$'' when $A$ is seen as a proposition. In the rest of this
+section~\ref{sec:mltt}, we present the different types used to build
+dependent type theory. It is not intended to be complete ; for example
+we sometimes only give the non-dependent elimination rules to ease the
+reading. The reader
+can refer to~\cite{nordstrom2001martin} or~\cite{hottbook} for a more
+detailed introduction.
+
 
 \subsection{Universes}
 \label{ssec:universes}
-
-Talk here about the universes.
+In dependent type theory, types are also terms of a universe
+$\Type$. Of course, we want the universe $\Type$ to be itself a type,
+and the Russel's paradox is close here.
+We solve the problem by using a cumulative hierarchy of universe
+\[ \Type^0 : \Type^1 : \Type^2 :\cdots \]
+every universe $\Type^i$ is of type $\Type^{i+1}$. Cumulativity means
+that if $A:\Type^k$ and $k<m$, then $A:\Type^m$. The handling of
+universes level can be done automatically by proof assistants such as Coq,
+and we will thus use only a ``type of type'' $\Type$, to be understood
+in a polymorphic way.
 
 \subsection{Empty and Unit types}
 \label{ssec:unit_empty}
@@ -236,9 +268,6 @@ inductive type whose only constructor is \[\idpath:\prodD a A {a=_A a}\]
 $1$)\nomenclature{$\idpath_x$ or $1_x$}{Constant path
   over$x$}\nomenclature{$\idpath$ or $1$}{Constant path}.
 
-
-
-
 \begin{center}
   \AxiomC{$\Gamma\vdash a:A$}
   \RightLabel{$=$-\textsc{intro}}
@@ -439,10 +468,10 @@ asserts that a certain arrow is an equivalence.
 
 What is great about univalence axiom is that is seems to imply all
 other characterization of identity types. For example:
-\begin{lem}[{\cite{bauerLums_univalenceImpliesExt}}]
+\begin{lem}[{\cite{bauerLums_univalenceImpliesExt}\cite{licata14uafs}}]
   Univalence axiom implies functional extensionality.
 \end{lem}
-Another example the reader can think of is stream (and more generaly coindutive) extensionality:
+Another example the reader can think of is the type of streams (and more generaly coindutive) extensionality:
 we want two streams (infinite list) to be equal when they are
 pointwise equal. It seems that univalence axiom implies it~\cite{licata14uafs}.
 
@@ -583,13 +612,266 @@ It satisfies the desired universal property in the following sense:
 Some results about coequalizers in homotopy type theory can be found
 in the form of Coq code in the HoTT/Coq library~\cite{hottlib}.
 
+\subsection{Suspension}
+\label{ssec:susp}
+
+There is a way to see any type $A$ as the identity type of another
+type: the suspension of $A$, noted $\Sigma A$\nomenclature{$\Sigma
+  A$}{Suspension of a type}. It is the higher inductive type generated
+by
+\newcommand{\merid}{\mathrm{merid}}
+\[ \left|
+    \begin{array}{lll}
+      N&:& \Sigma A \\
+      S&:& \Sigma A\\
+      \merid&:& A \to (N = S)
+    \end{array}
+\right. \]
+
+Its elimination principle are:
+\begin{lem}[Elimination of suspension]
+  Let $A$ be a type.
+  \begin{itemize}
+  \item Let $P:\Type$. If there are $n,s:B$ and $m:A\to (n=s)$, then
+    there is a map
+    \[\Sigma^A_{\mathrm{rec}} : \Sigma A \to B\]
+    such that $\Sigma^A_{\mathrm{rec}}(N) \equiv n$,
+    $\Sigma^A_{\mathrm{rec}}(S)\equiv s$ and for all $a:A$,
+    $\ap{\Sigma^A_{\mathrm{rec}}}(\merid(a)) = m(a)$
+  \item Let $P:\Sigma A\to \Type$. If there are $n:P(N)$, $s:P(S)$ and
+    $m:\prodD a A {\transport_P^{\merid(a)} n = s}$, then there is a
+    dependent map
+    \[ \Sigma^A_{\mathrm{ind}} : \prodD a A {P\, a}\]
+    such that $\Sigma^A_{\mathrm{ind}}(S) \equiv s$,
+    $\Sigma^A_{\mathrm{ind}}(N)\equiv n$ and
+    $\ap{\Sigma^A_{\mathrm{ind}}}(\merid(a)) = m(a)$.
+  \end{itemize}
+\end{lem}
+
+The first thing we can notice is that $\Sigma(\one+\one) \simeq
+\Sone$~\cite[Lemma 6.5.1]{hottbook}. Actually, we can define the
+sequence of $n$-spheres inductively by
+\[
+  \begin{array}{ll}
+    \mathbb S^0 &\defeq \one+\one \\
+    \mathbb S^{n+1} &\defeq \Sigma \mathbb S^n
+  \end{array}
+\]
+
 \section{Introduction to homotopy type theory}
 \label{sec:hott}
+
+It is now time to really introduce homotopy type theory: it is the sum
+of sections~\ref{sec:mltt},~\ref{sec:ua} and~\ref{sec:hit}. In other
+words, homotopy type theory is just dependent type theory, augmented
+with univalence axiom and higher inductive types. We promised in
+section~\ref{sec:ua} an interpretation of identity types. In homotopy
+type theory, we view types as topological spaces and inhabitants of types
+as points of these spaces. Then, if $x,y:A$, the identity type $x=y$
+is viewed as the topological space of paths (or continuous maps
+$f:[0,1]\to A$ such that $f(0)=x$ and $f(1)=y$) between points $x$ and
+$y$ in $A$. As said, $x=y$ is itself a topological space, thus we can
+iterate the analogy. A path $r:p=q$ where $p,q:x=y$ are themselves
+paths is called a {\em homotopy} ; a path between paths between paths
+is called a {\em $2$-homotopy}, \etc{}
+The situation can be depicted as in figure~\ref{fig:paths}.
+\begin{figure}[h]
+  \centering
+  \includegraphics{path2}  
+  \caption{Paths: $a$ and $b$ are points, $p_1$ and $p_2$ paths, $H_1$
+  and $H_2$ homotopies.}
+  \label{fig:paths}
+\end{figure}
+Indeed, that interpretation allows to explain all properties of
+identity types.
+\begin{itemize}
+\item The equality $1_x$ is just the constant path 
+  \[ \fonction{1_x}{[0,1]}{A}{t}{x} \]
+\item The inverse $\inv \bullet$ is the function changing a path $f$ into
+  \[ \fonction{g}{[0,1]}{A}{t}{f(1-t)} \]
+\item The concatenation $\concat\bullet\bullet$ is the function
+  changing paths $f$ and $g$ into
+\[ \fonction{h}{[0,1]}{A}{t}%
+  { \left\{
+    \begin{array}{ll}
+      f\left(2t\right) &\text{if } t\in[0,\nicefrac12] \\
+      g\left(2t-1\right) &\text{if } t\in [\nicefrac12,1] 
+    \end{array}
+  \right.}
+\]
+\item A path between paths $f$ and $g$ between points $x$ and $y$ is a
+  continuous function
+  \[ 
+    \fonction{H}{[0,1]²}{A}{(u,v)}{H(u,v)}
+  \]
+  such that $H(t,0) = f(t)$, $H(t,1) = g(t)$, $H(0,s)=x$ and
+  $H(1,s)=y$. 
+  A homotopy is then a continuous deformation of $f$ into $g$, fixing
+  the ending points $x$ and $y$.
+\end{itemize}
+
+The table~\ref{fig:3pw} summarize the three points of view (type
+theoretic, groupoidal, homotopy theoretic). In the rest of the thesis,
+we will use any of the following name (\eg{} we will talk about
+``points of a type'', ``path betwenn inhabitants'', \etc{}).
+
+\begin{table}[h]
+  \centering
+  \begin{tabular}{|l|l|l|}
+    \hline
+    Type theory & Homotopy theory & $\omega$-groupoid \\
+    \hline \hline
+    Type & Topological space & $\omega$-groupoid \\
+    \hline
+    Inhabitant & Point & Object \\
+    \hline
+    Equality & Path & Morphism \\
+    \hline
+    $\idpath_x$ & Constant path & Identity morphism \\
+    \hline
+    $\inv\bullet$ & Inverse path & Inverse morphism \\
+    \hline
+    $\concat\bullet\bullet$ & Concatenation of paths & Composition of
+                                                       morphisms \\
+    \hline
+    Equality between equalities & Homotopy & $2$-morphism\\
+    \hline
+  \end{tabular}
+  \caption{Three points of view about HoTT}
+  \label{fig:3pw}
+\end{table}
+
+
+What homotopy theorists love to do is to compute fundamental groups
+(\ie{} the group of paths between two points) of
+different spaces~(\cite{wangxu}\todo[fancyline]{These references
+  were added without even opening them. Maybe a check would be good}
+\cite{hutchings2011introduction}). We
+can then categorized spaces with the level at which their homotopy
+groups become trivial. Voevodsky has realized that this notion admits
+a compact inductive definition internal to type theory, given by
+\begin{defi}[Truncated types]
+  $\IsType n$ is defined by induction on $n\geqslant -2$:
+  \begin{itemize}
+  \item $\IsType {(-2)}(X)$ if $X$ is a contractible type, \ie{} $X$
+    is inhabited by $c:X$, and every other point in $X$ is connected to $c$.
+  \item $\IsType {(n+1)}(X) \defeq \prod_{x,y:X} \IsType n (x=y).$
+  \end{itemize}
+  Then, $\Type_n \defeq \sum_{X:\Type} \IsType n(X)$.
+\end{defi}
+
+For the first values of $n$, there are different names:
+$(-2)$-truncated types are called {\em contractible types},
+$(-1)$-truncated types are called {\em h-propositions},
+$0$-truncated types are called {\em h-sets}. Following this,
+$\IsType{(-2)}$ is just $\Contr$, $\IsType{(-1)}$ is just $\IsHProp$
+and $\Type_{-1}$ is $\HProp$, and $\IsType0$ is just $\IsHSet$ and
+$\Type_0$ is $\HSet$. An explanation of this terminology might be
+helpful. Contractible types are types, inhabited by a center $c$, with
+paths between any point and $c$. A kind of magic thing about
+contractible types is the lemma
+\begin{lem}
+  If $A:\Type$ is contractible, then for any $x,y:A$, the type $x=y$
+  is contractible.
+\end{lem}
+Inductively, it means that paths types of any level over a contractible
+type is contractible. It can be seen as the fact that a contractible
+type contains only one point $c$, for which there is only one path
+$c=c$, \etc{} The canonical example of contractible type is $\one$,
+and actually, any contractible type is equivalent to $\one$.
+Then, h-propositions are types where any two points are connected by a
+path. The only difference with contractible types is that we allow the
+type not to be inhabited. H-propositions are then proof-irrelevant
+types, in the sense that under the propositions-as-types principle,
+any points $x$ and $y$ in an $\HProp$ are equal, with a unique
+equality, which is thus irrelevant.
+\begin{lem}[Example of h-propositions]
+  The following types are h-propositions:
+  \begin{itemize}
+  \item $\zero,\one$
+  \item $\IsEquiv(f)$ for any $A,B:\Type$ and $f:A\to B$.
+  \item $\IsType n(A)$ for any type $A:\Type$ and truncation index $n$.
+  \end{itemize}
+\end{lem}
+Now, by definition, h-sets are types for which identity types are in
+$\HProp$. The world of h-sets can thus be seen as the ``usual
+mathematical'' world, as it satisfies proof-irrelevance.
+
+The $n$-truncated types are stable under a lot of operations, as:
+\begin{lem}
+  Let $n\geqslant -2$ be a truncation index. Then
+  \begin{itemize}
+  \item If $A:\Type_n$ and $x,y:A$, then $\IsType n (x=y)$.
+  \item If $A:\Type_n$ and $B:A\to\Type_n$, then $\IsType n
+    \left(\sumD x A {B\, a}\right)$.
+  \item If $A:\Type$ and $B:A\to\Type_n$, then $\IsType n \left(\prodD
+      x A {B\, a}\right)$. Note that the source type needs not to be truncated.
+  \item If $X:\Type_n$, $Y:\Type$ and $X\simeq Y$, then $\IsType
+    n(Y)$.
+  \item If $X:\Type_n$, then $\IsType{(n+1)}(X)$.
+  \item We have $\IsType{(n+1)}{\Type_n}$.
+  \end{itemize}
+\end{lem}
+
+We although note that some types are not $n$-truncated for any
+$n$~\cite[Example 8.8.6]{hottbook} ; it is highly suspected for
+example that the sphere $\mathbb S^2$ is one of
+these $\infty$-truncated types (it is at least true in homotopy theory).
+
 
 \subsection{Truncations}
 \label{ssec:trunc}
 
-$\|A\|_n$: $n$-truncation of $A$%
-  \nomenclature{$\Vert\cdot\Vert$}{$n$-truncation of types}
+We present here a way to change any type into a $n$-truncated type, using
+truncations. The interested reader can read Nicolai Kraus' PhD
+thesis~\cite{phdkraus} consecrated to truncation levels in HoTT.
 
+Let $n\geqslant -1$ be a truncation index. The $n$-truncation of a
+type $A$ is the
+higher inductive type $\|A\|_n$ \nomenclature{$\Vert\cdot\Vert$}{$n$-truncation of types}
+ generated by
+\[
+  \left|
+    \begin{array}{lll}
+      \tr_n &:& A \to \|A\|_n \\
+      \alpha_{\tr}^n &:& \IsType n (\|A\|_n)
+    \end{array}
+  \right.
+\]
+If $a:A$, $\tr_n(a)$ will be noted $|a|_n$.
+The elimination principles are:
+\begin{lem}[Elimination principle of truncations]
+  Let $A:\Type$ and $n\geqslant -1$ be a truncation index.
+  \begin{itemize}
+  \item If $P:\Type$ such that $\IsType n(P)$ and $f:A \to P$, then
+    there is a map
+    \[|f|_n : \|A\|_n \to P\]
+    such that for all $a:A$, $|f|_n(|a|_n) \equiv f(a)$.
+  \item If $P:\|A\|_n \to \Type$ such that $\prodD x {\|A\|_n}
+    {\IsType n (P\, x)}$ and $f:\prodD a A {P(|a|_n)}$, then there is
+    a dependent map
+    \[|f|_n : \prodD x {\|A\|_n} {P\, x}\]
+    such that for all $a:A$, $|f|_n(|a|_n) \equiv f(a)$.
+  \end{itemize}
+\end{lem}
 \nomenclature{$\vert\cdot\vert_n$}{$n$-truncation of terms or arrows}
+Basically, this induction principle says that $\|A\|_n$ has contains
+as much data about $A$ than $A$ itself, but it can only be used to
+define a $n$-truncated type. It can be expressed as the following
+universal property:
+\begin{lem}[Universal property of truncations]
+  Let $A:\Type$ and $P:\Type_n$. Then the map
+\todo[fancyline]{Check post or pre}
+\[
+  \fonction{\precompose_{\tr_n}}{A\to P}{\|A\|_n \to P}{f}{f \circ \tr_n}
+\]
+is an equivalence.
+\end{lem}
+We will see in chapter~\ref{chap:modalities} that all $(\IsType
+n,\|\bullet\|_n)$ define {\em modalities}.
+
+
+
+\todo[inline]{Truncations : write me}
+$\|A\|_n$: $n$-truncation of $A$%
+ 

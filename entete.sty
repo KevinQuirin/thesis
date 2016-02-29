@@ -8,12 +8,13 @@
 \usepackage{amsmath,amssymb,amsthm,amsfonts} %packages AMS
 \usepackage{wasysym}
 \usepackage{calrsfs} %\mathcal{} plus rondes
-\usepackage{enumerate} %permet de changer le type de numÃ©rotation dans enumerate
+\usepackage{enumerate} %permet de changer le type de numÃ©rotation
+                       %dans enumerate
 %\usepackage[nottoc]{tocbibind} %affiche la bibliographie dans la table des matiÃ¨res
 \usepackage{graphicx} %permet d'afficher des images
 \usepackage{titlesec,titletoc} %modifie les titres et la table des matiÃ¨res
 \usepackage{lettrine} %permet les lettrines
-\usepackage[colorlinks=true,linkcolor=black,urlcolor=blue]{hyperref}
+\usepackage[colorlinks=true,linkcolor=black,urlcolor=blue,citecolor=gray]{hyperref}
 % permet les liens hypertextes ( avec \href{lien}{texte} )
 \usepackage{todonotes}
 
@@ -100,6 +101,7 @@
 \DeclareMathOperator{\HProp}{HProp}
 \DeclareMathOperator{\HSet}{HSet}
 \DeclareMathOperator{\IsHProp}{IsHProp}
+\DeclareMathOperator{\IsHSet}{IsHSet}
 \DeclareMathOperator{\nat}{nat}
 \DeclareMathOperator{\Unit}{Unit}
 \DeclareMathOperator{\im}{Im}
@@ -108,12 +110,13 @@
 \DeclareMathOperator{\IsContr}{IsContr}
 \DeclareMathOperator{\IsEquiv}{IsEquiv}
 \DeclareMathOperator{\precompose}{\mathrm{precompose}}
+\DeclareMathOperator{\postcompose}{\mathrm{postcompose}}
 \DeclareMathOperator{\idmap}{\mathrm{idmap}}
 \DeclareMathOperator{\cocone}{cocone}
 \DeclareMathOperator{\inl}{inl}
 \DeclareMathOperator{\inr}{inr}
 \DeclareMathOperator{\transport}{transport}
-%\DeclareMathOperator{\IsEquiv}{IsEquiv}
+\DeclareMathOperator{\tr}{tr}
 
 
 \newcommand \defeq {\overset{de\hspace{-0.2ex}f}{=}}
@@ -213,23 +216,13 @@
 \DeclareMathOperator{\Ker}{Ker} %noyau
 \DeclareMathOperator{\diag}{diag} %matrice diagonale
 \DeclareMathOperator{\jac}{Jac} %jacobien
-\DeclareMathOperator{\tr}{Tr} %Trace
+%\DeclareMathOperator{\tr}{Tr} %Trace
 
 \newcommand*{\EnsQ}[2]%
 {\ensuremath{%
    \raisebox{.32ex}{\ensuremath{#1}}/\!\raisebox{-.60ex}{\ensuremath{#2}}}}
 
 %% Autres %% 
-
- % Annexes %
-% \newenvironment{annexe}% s'utilise par \begin{annexe} \end{annexe}, et \subsection{titre} pour chaque annexe.
-% {\newpage%
-% \setcounter{subsection}{0}%
-% \renewcommand{\thesubsection}{\Alph{subsection}}%
-% \renewcommand{\thesection}{}%
-% \addcontentsline{toc}{section}{\protect\numberline{}\hspace{-16pt}Annexes} %BRICOLAGE Ã  revoir
-% \section*{Annexes}}%
-% {\newpage}
 
  % Lettrines %
 \renewcommand{\LettrineFontHook}{\fontfamily{yfrak} \selectfont \color[gray]{0.7}}
