@@ -209,6 +209,11 @@ Under the propositions-as-types principle, $A\times B$ is seen as the
 conjonction $A\land B$, and $\sumD x A {B\, a}$ is seen as the
 existentially quantified formula $\exists x\, B\, x$.
 
+If $A$ and $B$ are types, $f:A\to B$ and $b:B$, the particular
+dependent sum $\sumD a A {f\, a = b}$ is called the fiber of $f$ over
+$b$, noted $\fib f b$\nomenclature{$\fib f b$}{Fiber of $f$ over
+  $b$}. It describes the inverse image of $b$ by $f$.
+
 \subsection{Inductive types}
 \label{ssec:inductive}
 
@@ -813,12 +818,42 @@ The $n$-truncated types are stable under a lot of operations, as:
   \end{itemize}
 \end{lem}
 
-We although note that some types are not $n$-truncated for any
+\begin{rmq}
+Some types are not $n$-truncated for any
 $n$~\cite[Example 8.8.6]{hottbook} ; it is highly suspected for
 example that the sphere $\mathbb S^2$ is one of
-these $\infty$-truncated types (it is at least true in homotopy theory).
+these $\infty$-truncated types (it is at least true in homotopy theory).  
+\end{rmq}
 
 
+This stratification of types induces a stratification of functions. A
+function $f:A\to B$ is said to be $n$-truncated if all its homotopy
+fibers $\fib f b$ are $n$-truncated. If $B:\Type$, a type $A$ together
+with a $n$-truncated map $f:A\to B$ will be called a $n$-subobject of $B$.
+
+As in~\cite{sets_in_hott}, we can define a sequence of subobject
+classifiers, namely, $\Type_n$ classifies $n$-subobjects of a type
+$B$, in the sens that there is an equivalence
+\[\Xi : \sumD A \Type {\sumD f {A\to B} {\prodD b B
+{\IsType n\
+\fib{f}{b}}}} \xrightarrow{\sim} 
+ (B \to \Type_n)\]
+such that the diagram
+\[
+\xymatrix{
+  A \ar[r]^{\hspace{-1em} t_f} \ar[d]_f & \Type_n^\bullet \ar[d]^{\pi_1}\\
+  B \ar[r]_{\hspace{-1em} \chi_f} & \Type_n
+}
+\]
+is a pullback for any $f$ with
+ $n$-truncated homotopy fibers where $\Type_n^\bullet \defeq
+ \sumD A \Type A$ is the universe of pointed
+$n$-truncated types and 
+\[ t_f = \lambda a,~(\fib{f}{f(a)},(a,\mathrm{idpath})). \]
+
+We will use the equivalence $\Xi$ to define $n$-subobjects of a type
+$B$ either as a $n$-truncated map $A\to B$, either as a characteristic
+map $\chi:B\to\Type_n$.
 \subsection{Truncations}
 \label{ssec:trunc}
 
@@ -868,10 +903,31 @@ universal property:
 is an equivalence.
 \end{lem}
 We will see in chapter~\ref{chap:modalities} that all $(\IsType
-n,\|\bullet\|_n)$ define {\em modalities}.
+n,\|\bullet\|_n)$ define {\em modalities}. In particular, every
+truncation index $n$ yields a factorization system:
 
+\begin{prop}
+  Let $n\geqslant -1$ a truncation index. Then any map $f:A\to B$ can
+  be factored as a $n$-connected map followed by a $n$-truncated map,
+  where a map is $n$-connected if for all $b:B$, $\|\fib f b\|_n$ is contractible.
+\end{prop}
 
+In the rest of this thesis, we will only use this result with
+$n=-1$. In that case, $(-1)$-truncated functions are called {\em
+  embeddings}, and $(-1)$-connected functions are called {\em
+  surjections}. The factorization of a map $f:A\to B$ is given by
+\[
+  \xymatrix{
+    A \ar[rr]^f \ar[rd]^{\widetilde f} && B \\
+    & \im(f)  \ar[ru]^{\pi_1} &
+  }
+\]
+\begin{align*}
+  \im(f) &\defeq \sumD b B {\left\| \sumD a A {f\, a = b}
+  \right\|_{-1}} \\
+  \widetilde f &\defeq \lambda a:A,\, \left(f\, a,\left|(a,1_b)\right|_{-1}\right)
+\end{align*}
 
 \todo[inline]{Truncations : write me}
-$\|A\|_n$: $n$-truncation of $A$%
+
  

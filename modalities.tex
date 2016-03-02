@@ -46,9 +46,100 @@ type theory.
   (v) a {\em modality}.
 \end{defi}
 
+If $\modal$ is a modality, the type of modal types will be denoted
+$\Type^\modal$. Let us fix a left-exact modality $\modal$ for the rest
+of this section. A modality acts functorialy on $\Type$, in the sense
+that
+
+\begin{lem}[Functoriality of modalities]
+  Let $A,B:\Type$ and $f:A\to B$. Then there is a map $\modal f:\modal
+  A \to \modal B$ such that 
+  \begin{itemize}
+  \item $\modal f \circ \eta_A = \eta_B \circ f$
+  \item if $g:B\to C$, $\modal (g \circ f) = \modal g \circ \modal f$
+  \item if $\IsEquiv f$, then $\IsEquiv \modal f$.
+  \end{itemize}
+\end{lem}
+
 \begin{prop}\label{prop:mod_prop}
-  Here are the properties of modalities.
+  Any left-exact modality $\modal$ satisfies the following
+  properties\footnote{Properties needing only a reflective subuniverse
+    are annoted by (R), a modality by (M), a left-exact modality by (L)}.
+  \begin{itemize}
+  \item[\labelitemi(R)] $A$ is modal if and only if $\eta_A$ is an equivalence.
+  \item[\labelitemi(R)] $\one$ is modal.
+  \item[\labelitemi(R)] $\Type^\modal$ is closed under dependent
+    products, \ie{} $\prodD x A {B\, x}$ is modal as soon as all $B\,
+    x$ are modal.
+  \item[\labelitemi(R)] For any types $A$ and $B$, the map
+    \[ \modal(A\times B) \to \modal A \times\modal B \]
+    is an equivalence.
+  \item[\labelitemi(R)] If $A$ is modal, then for all $x,y:A$, $(x=y)$
+    is modal.
+  \item[\labelitemi(M)] For every type $A$ and $B:\modal(A)\to\Type^\modal$, then
+    \[ \fonction{-\circ\eta_A}{\prodD z {\modal A} {B\, x}}{\prodD a
+        A {B(\eta_A\, a)}}{f}{f\circ \eta_A} \]
+    is an equivalence.
+  \item[\labelitemi(L)] If $A:\Type_n$, then $\modal A:\Type_n$.
+  \item[\labelitemi(L)] $\Type^\modal$ is itself modal.
+  \item[\labelitemi(L)] If $X,Y:\Type$ and $f:X\to Y$, then the map
+    \[ \modal \left( \fib f y\right) \to \fib{\modal f}{\eta_B
+        y} \]
+    is an equivalence, and the following diagram commutes
+\[ \xymatrix{
+  \fib f y \ar[r]^\eta \ar[d]_\gamma & \modal \left(\fib f y \right) \ar[dl]\\
+  \fib{\modal f}{\eta_B y} & }\] 
+  \end{itemize}
 \end{prop}
+
+\begin{proof}
+  We only prove the last point.
+  It is straighforward to define a map
+  \[ \phi:\sumD x X  {f x = y}\to
+    \sumD x {\modal X} {\modal f x = \eta_Y y},\]
+  using $\eta$ functions.
+  We will use the following lemma to prove that the function induced
+  by $\phi$ defines an equivalence:
+  \begin{lem}
+    Let $X:\Type$, $Y:\Type^\modal$ and $f:X\to Y$. If for all $y:Y$,
+    $\modal (\fib f y)$ is contractible, then $\modal X \simeq Y$.
+  \end{lem}
+  % 
+  Hence we just need to check that every $\modal$-fiber $\modal(\fib \phi {x;p})$ is contractible.
+  Technical transformations allow one to prove
+  \[ \fib\phi{x;p} \simeq \fib s {y;p^{-1}}\]
+  for some $a:\modal X$, $b:\modal Y$ and 
+  \[ s:\fib{\eta_X}a \to \fib{\eta_Y}b.\]
+  % 
+  From definition of left exactness, one can deduce the following:
+  \begin{lem}
+    Let $A,B:\Type$. Let $f:A\to B$. If $\modal A$ and $\modal B$ are
+    contractible, then so is $\fib f b$ for any $b:B$.
+  \end{lem}
+  Thus, we just need to prove that $\modal(\fib {\eta_X} a)$ and
+  $\modal(\fib {\eta_Y} b)$ are contractible. But one can check that
+  $\eta$ maps always satisfy this property.
+  Finally, $\modal(\fib s{y;p^{-1}})$ is contractible, so $\modal(\fib \phi {x;p})$ also, and the result is proved.
+  % \kq{Finish that}
+
+  % \nt{Indeed, I can't follow the proof for the moment}
+\end{proof}
+
+% %\kq{Is the following usefull?}
+% In the same way, left exact modalities preserve homotopy types.
+% \begin{prop}
+%   Let $k \leq n$.
+%   If $P:\Type_k$, then $\modal \widehat P : \Type_k$, where $\widehat P$
+%   is $P$ seen as a $n$-type.
+% \end{prop}
+% \begin{proof}
+%   An $n$-truncated type $P$ can equivalently be described as a type for
+%   which the unique map to $\one$ is with $n$-truncated fibers. Thus, the
+%   property is a direct corollary of
+%   Proposition~\ref{sec:defin-basic-prop} and the fact that $\modal \one =
+%   \one$.
+% \end{proof}
+% \end{proof}
 
 \section{Examples of modalities}
 \label{sec:modalities-examples}
