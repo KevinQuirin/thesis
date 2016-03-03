@@ -80,6 +80,8 @@ that
     \[ \fonction{-\circ\eta_A}{\prodD z {\modal A} {B\, x}}{\prodD a
         A {B(\eta_A\, a)}}{f}{f\circ \eta_A} \]
     is an equivalence.
+  \item[\labelitemi(M)] If $A,B:\Type$ are modal, then so are $\IsType
+    n A$, $A\simeq B$ and $\IsEquiv f$ for all $f:A\to B$.
   \item[\labelitemi(L)] If $A:\Type_n$, then $\modal A:\Type_n$.
   \item[\labelitemi(L)] $\Type^\modal$ is itself modal.
   \item[\labelitemi(L)] If $X,Y:\Type$ and $f:X\to Y$, then the map
@@ -108,10 +110,11 @@ that
   Hence we just need to check that every $\modal$-fiber $\modal(\fib \phi {x;p})$ is contractible.
   Technical transformations allow one to prove
   \[ \fib\phi{x;p} \simeq \fib s {y;p^{-1}}\]
-  for some $a:\modal X$, $b:\modal Y$ and 
-  \[ s:\fib{\eta_X}a \to \fib{\eta_Y}b.\]
-  % 
-  From definition of left exactness, one can deduce the following:
+  for
+  \[
+    \fonction{s}{\fib{\eta_X}x}{\fib{\eta_Y}{\modal f\, x}}{(a,q)}{(f\, a,-)}
+  \]
+  But left-exctness allows to characterize the contractibility of fibers:
   \begin{lem}
     Let $A,B:\Type$. Let $f:A\to B$. If $\modal A$ and $\modal B$ are
     contractible, then so is $\fib f b$ for any $b:B$.
@@ -162,7 +165,7 @@ hold for the identity modality, it cannot hold for an abstract one.
 \label{ssec:truncations}
 
 The first class of non-trivial examples might be the {\em truncations}
-modalities.
+modalities, seen in~\ref{ssec:trunc}.
 
 \subsection{Double negation modality}
 \label{ssec:notnot}
@@ -178,16 +181,179 @@ modality into a better one.
 \label{sec:new-type-theories}
 
 \begin{prop}\label{prop:consistent}
-  
+  A left exact modality $\modal$ induces a consistent type theory if
+  and only if $\modal \zero$ can not be inhabited in the initial type
+  theory. In that case, the modality is said to be consistent.
 \end{prop}
+\begin{proof}
+  By condition (iv) of Definition~\ref{def:modality},
+  $\modal \zero$ is an initial object of $\Type^\modal$, and thus
+  corresponds to false for modal mere proposition.
+  % 
+  As $\modal \one = \one$, $\Type^\modal$ is consistent when
+  $\modal \zero \neq \one$, that is when there is no proof of
+  $\modal \zero$.
+\end{proof}
 
 \section{Truncated modalities}
 \label{sec:trunc_modalities}
 
+As for colimits, we define a truncated version of modalities, in order
+to use it in chapter~\ref{chap:sheaf}. Basically, a truncated modality
+is the same as a modality, but restricted to $\Type_n$. 
+
+\begin{defi}[Truncated modality]
+  \label{def:tr_mod}
+  Let $n\geq -1$ be a truncation index. A left exact modality at level
+  $n$ is the data of
+  \begin{enumerate}[(i)]
+  \item A predicate $P:\Type_n \to \HProp$
+  \item For every $n$-truncated type $A$, a $n$-truncated type
+    $\modal A$ such that $P(\modal A)$
+  \item For every $n$-truncated type $A$, a map $\eta_A:A \to
+    \modal A$
+  \end{enumerate}
+  such that
+  \begin{enumerate}[(i)]
+    \setcounter{enumi}{3}
+  \item For every $n$-truncated types $A$ and $B$, if $P(B)$ then
+    \[\left\{
+      \begin{array}{rcl}
+        (\modal A \to B) & \to & (A \to B) \\
+        f & \mapsto & f \circ \eta_A
+      \end{array} \right.\]
+    is an equivalence.
+  \item for any $A:\Type_n$ and $B:A \to \Type_n$ such that $P(A)$
+    and $\prod_{x:A} P(B x)$, then $P\left( \sum_{x:A} B(x)\right)$
+  \item for any $A:\Type_n$ and $x,y:A$, if $\modal A$ is
+    contractible, then $\modal (x=y)$ is contractible.
+  \end{enumerate}
+\end{defi}
+
+Properties of truncated left-exact modalities described
+in~\ref{prop:mod_prop} are still true when restricted to $n$-truncated
+types, except the one that does not make sense: $\Type_n^\modal$
+cannot be modal, as it is not even a $n$-truncated type.
 
 
 \section{Translation}
 \label{sec:translation}
 
+As said in section~\ref{sec:new-type-theories}, left-exact modalities
+allows to perform model transformation. But it can be enhanced a bit
+by exhibiting a {\em translation} of type theories, as it has been done for
+forcing~\cite{jaber2012extending}. Let us explain
+here how this translation works.
+
+Let $\modal$ be a left-exact modality. We describe, for each type
+constructor, how to build its translation. We denote $\pi_\modal(A)$
+the proof that $\modal(A)$ is always modal.
+
+\begin{itemize}
+\item For types
+\[
+\begin{array}{lcl}
+  \left[ \Type\right] &\defeq& (\Type^\modal,\pi_{\Type^\modal})
+\end{array}
+\]
+where $\pi_{\Type^\modal}$ is a proof that $\Type^\modal$ is itself
+modal.
+To ease the reading in what follows, we introduce the notation  \[ 
+  \Lbrack A \Rbrack \defeq \pi_1 \left[ A \right]\]
+
+\item For dependent sums
+\[
+\begin{array}{lcl}
+\left[ \sumD x A B \right] &\defeq&  \left( \sumD x{\Lbrack A \Rbrack}
+                                  {\Lbrack B\Rbrack} , \pi_\Sigma^{[A],[B]}
+                                \right)\\[0.5em]
+  \left[  (x,y)\right] &\defeq& ([x],[y]) \\[0.5em]
+  \left[  \pi_i t\right] &\defeq& \pi_i [t] \\[0.5em]
+\end{array}
+\]
+where $\pi_{\Sigma}^{A,B}$ is a proof that $\sumD x A B$ is modal when
+$A$ and $B$ are.
+\item For dependent products
+\[
+\begin{array}{lcl}
+ \left[ \prod_{x:A} B \right] &\defeq& \left( \prod_{x:\Lbrack A \Rbrack}
+                                   \Lbrack B\Rbrack , \pi_{\Pi}^{[A],[B]}
+                                  \right)\\[0.5em]
+\left[  \lambda\, x:A,~M \right] &\defeq&\lambda\,x:\Lbrack A
+                                     \Rbrack,~[ M ]
+  \\[0.5em]
+  \left[ t \, t' \right] &\defeq& [t] [t'] \\[0.5em]
+\end{array}
+\]
+where $\pi_{\Pi}^{A,B}$ is a proof that $\prodD x A B$ is modal when $B$ is.
+\item For paths
+\[
+\begin{array}{lcl}
+\left[  A=B \right] &\defeq& \left( [A] = [ B] , \pi_=^{[A],[B]}
+                             \right)\\[0.5em]
+\left[ 1 \right] &\defeq& 1\\[0.5em]
+\left[ J \right] &\defeq& J \\[0.5em]
+\end{array}
+\]
+where $\pi_{=}^{A,B}$ is a proof that $A=B$ is modal when
+$A$ and $B$ are, if $A,B:\Type$, or a proof that $A=B$ is modal as
+soon as their type is modal if $A,B:X$.
+\item For positive types (we only treat the case of the sum as an example)
+\[
+\begin{array}{lcl}
+\left[  A+B \right] &\defeq& \left( \modal(\Lbrack A \Rbrack + \Lbrack B
+                        \Rbrack); \pi_\modal(\Lbrack A \Rbrack + \Lbrack B
+                        \Rbrack)\right)\\[0.5em]
+\left[  \mathrm{in}_\ell t \right] &\defeq& \eta (\mathrm{in}_\ell [t]) \\[0.5em]
+\left[  \mathrm{in}_r t \right] &\defeq& \eta (\mathrm{in}_r [t]) \\[0.5em]
+\left[ \langle f ,g\rangle\right] &\defeq& \modal_{\mathrm{rec}}^{\Lbrack A\Rbrack +
+                                      \Lbrack B\Rbrack} \langle
+                                      [f],[g]\rangle\\[0.5em]
+\end{array}
+\]
+\item For truncations ($i\leqslant n$)
+\[
+\begin{array}{lcl}
+  \left[  \|A\|_i \right] &\defeq& (\modal \| \Lbrack A\Rbrack  \|_i;
+                                   \pi_\modal(\| \Lbrack A\Rbrack
+                                   \|_i)) \\[0.5em]
+  \left[ |t|_i \right] &\defeq& \eta |[t]|_i \\[0.5em]
+  \left[ |f|_i \right] &\defeq& \modal_{\mathrm{rec}}^{\| \Lbrack
+                                  A\Rbrack  \|_i} | [f] |_i
+\end{array}
+\]
+
+\end{itemize}
+
+As in the forcing translation~\cite{jaber2012extending}, the main
+issue is that convertibility . For
+example, let $f:A \to X$ and $g:B\to X$. Then $\langle f,g\rangle
+(\mathrm{in}_\ell t)$
 
 
+Two solutions to this problem can come to our mind:
+\begin{itemize}
+\item We can use the eliminator $J$ of equality in the conversion
+  rule, but this would require to use a type theory with explicit
+  conversion in the syntax, like in~\cite{jaber2012extending}.
+\item We can ask the modality $\modal$ to be a strict modality, in the
+  sense that retraction in the equivalence of $(-\circ\eta)$ is conversion
+  instead of equality, like for the closed modality. 
+  That way, we keep the conversion rule, \ie{} if $\Gamma \vdash
+  u \equiv v$, then $\Lbrack \Gamma \Rbrack \vdash [u] \equiv [v]$.
+  That is the solution we chose.
+\end{itemize}
+
+The usual result we want about any translation is its soundness:
+\begin{prop}[Soundness of the translation]
+  Let $\Gamma$ is a valid context, $A$ a type and $t$ a term.
+  If $\Gamma \vdash t : A$, then 
+  \[\Lbrack \Gamma \Rbrack \vdash [t] : \Lbrack A \Rbrack. \]
+\end{prop}
+
+\begin{rmq}
+  We note that if the modality is not left-exact, like truncations
+  modalities, then $\Type^\modal$ is not itself modal. It is although
+  still possible to write a translation, but we can only define it on
+  a type theory with only one universe.
+\end{rmq}
