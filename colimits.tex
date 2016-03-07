@@ -225,7 +225,7 @@ diagram depending on a map $f$, which colimit is $\im(f)$.
 The starting point of the construction is Floris Van Doorn's
 construction of proposition truncation~\cite{floris}. 
 
-\begin{prop}\label{prop:floris}
+\begin{prop}[Van Doorn's construction]\label{prop:floris}
   Let $A:\Type$. We define the higher inductive type $TA$ as the
   coequalizer of
   \[ \xymatrix{ A\times A \ar@<-.5ex>[r]_-{\pi_2}
@@ -281,7 +281,7 @@ f:\KP(f) \to B$, such that the following commutes
 Then we can build $KP(\widehat f)$ and build a map $\widehat{\widehat
   f}:\KP(\widehat f) \to B$, \etc{}
 We have the following result
-\begin{prop}\label{prop:cech'}
+\begin{prop}[Boulier's construction]\label{prop:cech'}
   For any $f:A\to B$, $\im(f)$ is the colimit of the iterated kernel
   pair diagram of $f$
 \[\xymatrix{
@@ -299,15 +299,36 @@ In particular, if $f$ is a surjection, the colimit of this diagram is $B$.
   y B {TT(\fib f y)}} \ar[r]&  \cdots &
 }
 \]
-We prove the lemma
+
+Let's begin by showing the first non-trivial equivalence: 
+\begin{equation}
+  \label{eq:KP}
+  s: \KP(f) \simeq \sumD y B {T(\fib f y)}.  
+\end{equation}
+
+$\KP(f)$ is the colimit of $\xymatrix{ A\times_B A \ar@<-.5ex>[r]_-{\pi_2}
+  \ar@<.5ex>[r]^-{\pi_1} & A }$, and $\sumD y B {T(\fib f y)}$ is
+the colimit of $\xymatrix{ \sumD y B {\fib f y \times \fib f y} \ar@<-.5ex>[r]
+  \ar@<.5ex>[r] & \sumD y B {\fib f y} }$.
+As the two diagrams are equivalent, their colimits are equivalent. We
+will need the following fact, easily checked
+\[ \pi_1 \circ s = \widehat f.\]
+
+Now, let's prove the other equivalences. We need the following lemma
 \begin{lem}
   Let $X,Y:\Type$ and $\varphi:X\to Y$. Then $\fib{\widehat\varphi}y
   \simeq T(\fib\varphi y)$.
 \end{lem}
 \begin{prooflem}
-
-  \todo[inline]{Write the proof}
-
+  We have the following sequence of equivalences:
+  \begin{align*}
+    \fib{\widehat\varphi}y 
+    &\defeq \sumD x {\KP(\varphi)}{\widehat \varphi\, x = y} \\
+    &\simeq \sumD x {\sumD y B {T(\fib \varphi y)}} {\widehat \varphi \circ s^{-1}
+      (x) = y} \quad\text{by \ref{eq:KP}} \\
+    &\simeq\sumD x {\sumD y B {T(\fib \varphi y)}} {\pi_1(x) = y} \\
+    &\simeq T(\fib \varphi y)
+  \end{align*}
 \end{prooflem}
 Then, using the sum-of-fibers property, we can change the iterated
 kernel pair of $f$ into
@@ -331,10 +352,48 @@ But proposition~\ref{prop:floris} asserts that $Q \simeq \|\fib f
 y\|_{-1}$, and the result is proved.
 \end{proof}
 
+The main issue with Van Doorn's construction is
+that is does not preserve truncations levels at all. For example, when
+computing $\|\one\|_{-1}$, the first step is $T\one \simeq \Sone$,
+which is a $1$-type. 
+Asking for preservation of all truncation levels along the diagram
+might be too much, but the least we could ask is that when starting
+with a $P:\HProp$, the diagram should be the constant diagram $P\to
+P \to P\to \cdots$. The Boulier counterpart of this is, when starting
+with an embedding $f$, all $\widehat f$ are embeddings. 
 
-\begin{prop}\label{prop:cech}
-  
+This can be achieve by changing operators $T$ and $\KP$, by asking
+them to preserve identities:
+\[
+  TA~\left|
+    \begin{array}{lll}
+      q&:& A\to TA \\
+      \alpha&:& \displaystyle{\prodD {x,y} A {q\, x = q\, y}} \\
+      \alpha_1&:& \displaystyle{\prodD x A {\alpha(x,x) = 1}}
+    \end{array}
+  \right.
+  \quad ; \quad
+  \KP(f)~\left|
+    \begin{array}{lll}
+      \kp&:&A\to \KP(f) \\
+      \alpha&:& \displaystyle{\prodD {x,y} A {f\, x = f\, y \to q\, x = q\, y}} \\
+      \alpha_1&:& \displaystyle{\prodD x A {\alpha(x,x,1) = 1}}
+    \end{array}    
+  \right.
+\]
+Then, the following is still true
+
+\begin{prop}[Boulier's construction]\label{prop:cech}
+  For any $f:A\to B$, $\im(f)$ is the colimit of the iterated kernel
+  pair diagram of $f$
+\[\xymatrix{
+  A \ar[r] & \KP(f) \ar[r] & \KP\left(\widehat f\right) \ar[r]& \KP\left(\widehat{\widehat f}\right) \ar[r]& \cdots
+}\]
+Moreover, if $f$ is an embedding, $\widehat f$ also is.
 \end{prop}
+The proof is almost the same as for proposition~\ref{prop:cech'},
+except that the new constructors in the higher inductives types
+introduce another level of coherence, which is very technical to handle.
 
 \section{Towards groupoid objects}
 \label{sec:groupoid}
