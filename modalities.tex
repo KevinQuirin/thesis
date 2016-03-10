@@ -170,13 +170,49 @@ modalities, seen in~\ref{ssec:trunc}.
 \subsection{Double negation modality}
 \label{ssec:notnot}
 
-The double negation modality $\modal A \defeq \lnot\lnot A$ is a
-modality. Unfortunately, it appears that every type is collapsed to an
-$\HProp$, thus it cannot be used as-is. The main purpose of this
+\begin{prop}
+  The double negation modality $\modal A \defeq \lnot\lnot A$ is a
+  modality.  
+\end{prop}
+\begin{proof}
+  We define the modality with
+  \begin{enumerate}[(i)]
+  \item We will define the predicate $P$ later.
+  \item $\modal$ is defined by $\modal A = \lnot\lnot A$
+  \item We want a term $\eta_A$ of type $A \to \lnot \lnot A$.
+    Taking 
+    \[ \eta_A\defeq \lambda \, x:A,\,\lambda\, y:\lnot A,\, y\, a\] 
+    do the job.
+    
+    Now, we can define $P$ to be exactly $\prodD A \Type {\IsEquiv
+      \eta_A}$.
+  \item Let $A,B:\Type$, and $\varphi : A \to \lnot\lnot B$. We
+    want to extend it into $\psi : \lnot\lnot A \to \lnot\lnot B$. Let
+    $a:\lnot\lnot A$ and $b:\lnot B$.
+    Then $a(\lambda\, x:A,\, \varphi\, x \, b) : \zero$, as
+    wanted. One can check that it forms an equivalence.
+  \item Let $A:\Type$ and $B:A\to\Type$ such that $P(A)$ and $\prodD a
+    A {P(B\, a)}$. There is a map
+    \[\sumD x A {B\, x} \to A \]
+    thus by the preivous point, we can extend it into 
+    \[\kappa:\lnot\lnot\sumD x A {B\, x} \to A.\]
+    It remains to check that for any $x:\lnot\lnot\sumD x A {B\, x}$,
+    $B(\kappa\, x)$.
+
+    But the previous map can be easily extended to the dependent case,
+    and thus it suffices to show that for all $x:\sumD x A{B\, x}$,
+    $B(\kappa(\eta\, x)$. As $\kappa \circ \eta = \idmap$, the goal is
+    solved by $\pi_2 x$.
+  \end{enumerate}
+\end{proof}
+
+Unfortunately, it appears that the only type which can be modal are
+h-propositions, as they are equivalent to their double negation which
+is always an h-proposition. Thus, the type of modal types is consisted
+only of h-proposition, which is not satisfactory. The main purpose of this
 thesis, in particular chapter~\ref{chap:sheaf} is to extend this
 modality into a better one.
 
-\todo[inline]{Finish modalities}
 \section{New type theories}
 \label{sec:new-type-theories}
 

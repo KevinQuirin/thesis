@@ -114,7 +114,7 @@ We note that axioms for a Lawvere-Tierney topology on the subobject
 classifier $\Omega$ of a topos are very close to
 those of a modality on $\Omega$. We will extensively use this idea,
 applying it to every subobject classifier $\Type_n$ we described
-in~\ref{sec:hott}\todo[fancyline]{Fix the reference}. The subobject
+in~\ref{sec:hott}. The subobject
 classifier $\Omega$ of a topos is seen as the {\em truth values} of the
 topos, which corresponds to the type $\HProp$ in our setting ; the
 topos is considered proof irrelevant, corresponding to our
@@ -844,8 +844,6 @@ As $\modal_{n+1} T$ is contractible, path spaces of $\modal_{n+1} T$ are
 contractible, in particular $(\nu_T a=\nu_T b)$, which proves left
 exactness.
 
-\todo[inline]{Check from here}
-
 \subsection{Summary}
 \label{ssec:summary}
 
@@ -870,15 +868,31 @@ result can be expressed as:
 \begin{prop}
   $(\modal_{\lnot\lnot})_n$, the modality obtained by sheafification
   of the double negation modality,
-  %
-  induces a type theory where the propositional excluded middle law holds.
+  induces a type theory where the propositional excluded middle law
+  holds, \ie{}
+  \[
+    \prodD P \HProp {P + \lnot P}.
+  \]
 \end{prop}
+\begin{proof}
+  For now, the only thing we know is that $\prodD P \HProp {\lnot\lnot
+    P \to P}$. Let $P:\HProp$, and pose $Q \defeq P + \lnot P$. Then, as
+  $P$ and $\lnot P$ are disjoint h-propositions, $P + \lnot P$ is
+  itself a h-proposition~\cite[\texttt{ishprop\_sum}]{hottlib}.
 
-Combined with forcing in type theory~\cite{jaber2012extending}, it
-should be possible to lift the proof of independence of the continuum
-hypothesis to a classical setting, which is where the continuum hypothesis is
-really meaningful.  However, we haven't worked out the details and left
-this for future work.
+  We want to find a proof of $Q:\HProp$, and thus we only need a proof
+  of $\lnot\lnot Q$, which is inhabited by
+  \[
+    \lambda\, (x:\lnot Q),\, x(\inr (\lambda\, y:P,\, x(\inl y))).
+  \]
+\end{proof}
+
+
+% Combined with forcing in type theory~\cite{jaber2012extending}, it
+% should be possible to lift the proof of independence of the continuum
+% hypothesis to a classical setting, which is where the continuum hypothesis is
+% really meaningful.  However, we haven't worked out the details and left
+% this for future work.
 
 
 \subsection{Extension to Type}
@@ -892,7 +906,7 @@ $\Type$ by composing with truncation:
   Let $\modal_i:\Type_i \to \Type_i$ be a modality. Then $\modal
   \defeq \modal_i
   \circ \|\cdot\|_i : \Type \to \Type$ is a modality in the sense
-  of~\cite[Section 7.7]{hottbook}
+  of section~\ref{sec:modalities}
 \end{lem}
 
 If $\modal_{-1}$ is the double negation modality on $\HProp$ and
