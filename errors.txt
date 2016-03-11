@@ -1,31 +1,34 @@
 Package biblatex Warning: No "backend" specified, using Biber backend.
-Package hyperref Warning: Draft mode on.
-Overfull \hbox (4.26147pt too wide) in paragraph at lines 19--31
-Overfull \hbox (3.3622pt too wide) in paragraph at lines 422--425
-Overfull \hbox (5.79254pt too wide) in paragraph at lines 430--432
-Overfull \hbox (11.65521pt too wide) in paragraph at lines 540--542
-Overfull \hbox (1.33157pt too wide) in paragraph at lines 558--566
-Overfull \hbox (6.85052pt too wide) in paragraph at lines 612--615
-Overfull \hbox (33.52715pt too wide) in paragraph at lines 646--649
+LaTeX Warning: Citation 'lurie' on page 1 undefined on input line 15.
+LaTeX Warning: Reference `chap:sheaves' on page 1 undefined on input line 24.
+) (./hott.texpdfTeX warning (ext4): destination with the same identifier (name{
+            {Homotopy type theory} [1]pdfTeX warning (ext4): destination with t
+Underfull \vbox (badness 6348) has occurred while \output is active [7]
+Overfull \hbox (27.18343pt too wide) in paragraph at lines 350--359
+Overfull \hbox (10.49323pt too wide) in paragraph at lines 430--432
+Overfull \hbox (16.94806pt too wide) in paragraph at lines 540--542
+Overfull \hbox (11.81761pt too wide) in paragraph at lines 612--615
+Overfull \hbox (40.89641pt too wide) in paragraph at lines 646--649
 LaTeX Warning: Command \texttwosuperior invalid in math mode on input line 710.
 LaTeX Warning: Command \texttwosuperior invalid in math mode on input line 710.
-Overfull \hbox (7.81154pt too wide) in paragraph at lines 718--722
-Overfull \hbox (42.66936pt too wide) in paragraph at lines 725--745
-LaTeX Warning: `h' float specifier changed to `ht'.
-Overfull \hbox (3.08064pt too wide) in paragraph at lines 122--127
-Overfull \hbox (11.77289pt too wide) in paragraph at lines 122--127
-Overfull \hbox (3.2615pt too wide) in paragraph at lines 56--58
-Overfull \hbox (55.5404pt too wide) in paragraph at lines 185--192
-Overfull \hbox (5.9295pt too wide) in paragraph at lines 253--255
-Overfull \hbox (16.60345pt too wide) in paragraph at lines 89--91
-Overfull \hbox (18.5861pt too wide) in paragraph at lines 101--106
-Overfull \hbox (5.76337pt too wide) in paragraph at lines 349--353
-Underfull \vbox (badness 1845) has occurred while \output is active [43]
-Overfull \hbox (8.84563pt too wide) in paragraph at lines 515--518
-Overfull \hbox (1.73145pt too wide) in paragraph at lines 887--890
-Overfull \hbox (3.33145pt too wide) in paragraph at lines 905--908
-Overfull \hbox (4.46991pt too wide) in paragraph at lines 139--139
-Overfull \hbox (48.36609pt too wide) in paragraph at lines 139--139
-Overfull \hbox (2.46436pt too wide) in paragraph at lines 139--139
+Overfull \hbox (13.52357pt too wide) in paragraph at lines 718--722
+Overfull \hbox (47.54591pt too wide) in paragraph at lines 725--745
+Overfull \hbox (10.28537pt too wide) in paragraph at lines 750--758
+Overfull \hbox (2.31387pt too wide) in paragraph at lines 750--758
+Overfull \hbox (1.66273pt too wide) in paragraph at lines 110--112
+Overfull \hbox (7.26547pt too wide) in paragraph at lines 122--127
+Overfull \hbox (17.157pt too wide) in paragraph at lines 122--127
+Overfull \hbox (7.96631pt too wide) in paragraph at lines 56--58
+Overfull \hbox (64.929pt too wide) in paragraph at lines 185--192
+Underfull \vbox (badness 4120) has occurred while \output is active [36]
+Overfull \hbox (3.09276pt too wide) in paragraph at lines 101--106
+Overfull \hbox (13.99516pt too wide) in paragraph at lines 515--518
+Overfull \hbox (1.25378pt too wide) in paragraph at lines 576--581
+Overfull \hbox (1.83057pt too wide) in paragraph at lines 869--873
+Overfull \hbox (0.15889pt too wide) in paragraph at lines 869--873
+Overfull \hbox (9.2894pt too wide) in paragraph at lines 140--140
+Overfull \hbox (57.35555pt too wide) in paragraph at lines 140--140
+Overfull \hbox (9.09433pt too wide) in paragraph at lines 140--140
 Package biblatex Warning: No driver for entry type 'draft'.
-Overfull \hbox (1.69322pt too wide) in paragraph at lines 139--139
+LaTeX Warning: There were undefined references.
+Package biblatex Warning: Please (re)run Biber on the file:
