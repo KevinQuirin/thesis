@@ -283,6 +283,78 @@ proving left-exactness of $n$-truncation.
 \subsection{Towards highly coherent colimits}
 \label{ssec:high_colimit}
 
+In category theory, a diagram over a graph $G$ in a category $\mathcal
+C$ is a functor $G \to \mathcal C$. Our definition of diagrams doesn't
+reflect this definition, as we don't take care of composition of
+morphisms in the category (actually, we only define a map
+$G\to\mathcal C$). Diagrams over a category are defined
+in~\cite[Exercise 7.16]{hottbook}. We will here define these diagrams,
+and the associated colimits.
+
+\begin{rmq}
+  This new definition of diagrams is not sufficient to reflect what we
+  would want to express. If we view homotopy type theory as
+  $\omega$-topos theory, what we want is rather a $\omega$-functor
+  from a graph into the $\omega$-topos. That is an important open
+  problem in homotopy type theory (even defining simplicial types is
+  an open problem). It requires to handle an infinity of coherence
+  levels, with finite data. 
+
+  However, we could define, for any fixed $n$, diagrams and colimits
+  coherent up to coherence level $n$ (but that would be a real nightmare).
+\end{rmq}
+
+The main goal of this section is to define the colimit of the
+coequalizer with degeneracy $\delta$
+\[
+  \xymatrix{
+    A \ar@<-.5ex>[r]_g \ar@<.5ex>[r]^f & B \ar@/_2pc/[l]_\delta
+  }
+\] 
+and compositions $c_f:f \circ \delta = \idmap$ and $c_g:g \circ \delta =
+\idmap$. We will use this coequalizer to define the Boulier's
+construction in next section~\ref{sec:floris}.
+
+If we only take the previous definition of colimits, what we miss is
+the commutation of the following diagram
+
+\[
+  \xymatrix{
+    q \circ f \circ \delta \ar[r]^-{q \circ c_f} \ar[d]_-{\alpha \circ \delta} & q \\
+    q\circ g \circ \delta \ar[ru]_-{q\circ c_g}
+  }
+\]
+
+Our idea to define the colimit of this diagram with degeneracy is to
+add it directly into the definition of the higher inductive type:
+\[
+  \left|
+    \begin{array}{lll}
+      \colim&:& B \to Q \\
+      \colim_\alpha&:& \prodD x A {f\, x = g\, x}\\
+      \colim_\alpha^\circ &:& \prodD y B {\colim_\alpha(\delta\, y) =
+                              \concat {c_f(y)} {\inv{c_g(y)}}}
+    \end{array}
+  \right.
+\]
+
+\begin{rmq}
+  We indeed see here why this idea cannot be extended to a fully
+  coherent notion of colimits: we cannot define a higher inductive
+  type with an infinity of constructors. Hopefully, adding this first
+  level of coherence will be sufficient for our applications.
+\end{rmq}
+
+The new constructor $\colim_\alpha^\circ$ indeed asserts the
+commutation of the desired diagram. We can view this higer inductive
+type as the same type as the colimit over the coequalizer graph, but
+which does not add already existing paths.
+
+One can easily (but very technically) check that properties in
+section~\ref{ssec:prop_colim} are still satisfied by this new notion
+of colimit.
+
+
 \section{Van Doorn's and Boulier's constructions}
 \label{sec:floris}
 
@@ -471,7 +543,7 @@ them to preserve identities:
 \]
 
 This new $\KP$ can be thought of as the coequalizer preserving the
-``degeneracy'' $\delta$:
+``degeneracy'' $\delta$, as in section~\ref{ssec:high_colimit}:
 \[ 
   \xymatrix{
     A\times_B A \ar@<-.5ex>[r]_-{\pi_2}
@@ -495,6 +567,81 @@ introduce another level of coherence, which is very technical to handle.
 
 \section{Towards groupoid objects}
 \label{sec:groupoid}
+
+Defining groupoid objects in homotopy type theory is an open problem,
+just as defining simplicial or even semisimplicial types. We will just
+give here some of our thoughts about this problem.
+
+The first thing to say is that defining a groupoid object in type
+theory is exactly the same problem as defining a highly coherent
+equivalence relation. At the moment, the only fully coherent
+equivalence relation we know in homotopy type theory is the equality,
+which we can slighlty modify to create another ones. For example, if
+$f:A\to B$, the relation $f\, x = f\, y$ defines an equivalence
+relation on $A$.
+Actually, when seeing homotopy type theory as the language of
+$\omega$-topoi, the Giraud-Rezk-Lurie axioms in~\cite{lurie} asserts
+that these are the only equivalence relation we can define.
+
+We will call a {\em uncoherent equivalence relation}, or UER, on a
+type $A$ any symmetric, reflexive and transitive relation $R$ on $A$,
+\ie{} $R$ is a UER on $A$ if
+\begin{enumerate}
+\item For all $x,y:A$, $R(x,y) : \Type$
+\item For all $x,y:A$, $\Sym_R(x,y) : R(x,y) \to R(y,x)$
+\item For all $x:A$, $\Refl_R(x) : R(x,x)$
+\item For all $x,y,z:A$, $\Trans_R(x,y,z) : R(x,y) \to R(y,z) \to R(x,z)$
+\end{enumerate}
+
+Then, if we want to mimic the behaviour of equalities, we can think of
+an equivalence relation on $A$ as the data of an UER $R_0$ on $A$, and for all
+$x,y:A$, an UER $R_1^{x,y}$ on $R(x,y)$, and for all $u,v:R(x,y)$, an
+UER $R_2^{u,v}$ on $R_1(u,v)$, \etc
+This can be formalized by a coinductive type $R:\mathrm{ER}(A)$ with
+constructors
+\begin{itemize}
+\item $R_0$ is an UER on $A$
+\item $R_1:\prodD {x,y} A {\mathrm{ER}(R_0(x,y))}$
+\end{itemize}
+The issue with such a definition is that all these uncoherent
+equivalence relation have to be coherent with each other, for example
+we want
+\[
+  R_1^{x,x}\left(\Trans_{R_0}(x,x,x)\, \Refl_{R_0}(x)\, \Refl_{R_0}(x),\Refl_{R_0}(x)\right)
+\]
+Adding all these desired coherences by hand is not an option, as there
+are an infinity of them.
+
+The next idea is to use the Boulier's construction. Let $R_0$ be an
+UER on a type $A$. We define then the higher inductive type $\Xi_0$
+generated by
+\[
+  \left|
+    \begin{fracarray}{lll}
+      \xi_0&:&A \to \Xi_0 \\
+      \alpha_0&:& \displaystyle{\prodD {x,y} A {R_0(x,y) \to \xi_0\, x =
+                        \xi_0\, y}} \\
+      \alpha_0^{\Refl}&:& \displaystyle{\prodD x A {\alpha_0(x,x,\Refl_{R_0}(x)) =
+                          1}} \\
+      \alpha_0^{\Sym}&:& \displaystyle{\prodD {x,y} A {\prodD u {R_0(x,y)}
+                         {\alpha_0(y,x,\Sym_{R_0}(u)) =
+                         \inv{(\alpha_0(x,y,u))}}}} \\
+      \alpha_0^{\Trans} &:& \displaystyle{\prodD {x,y,z} A 
+                            {\prodD u {R_0(x,y)}
+                            {\prodD v {R_0(y,z)}
+                            {\alpha_0(x,z,\Trans_{R_0}(u,v)) = \concat {\alpha_0(x,y,u)}{\alpha_0(y,z,v)}}}}}
+    \end{fracarray}
+  \right.
+\]
+$\Xi_0$ can be seen as the quotient type of $A$ by $R_0$. In other
+words, $\Xi_0$ is the same type as $A$, but where $R_0$ has been
+changed by equalities.
+Then, an equivalence relation on $A$ could be defined coinductively as an UER $R_0$ on $A$
+together with an equivalence relation on $\Xi_0$.
+
+Our hope is that the Boulier's construction is still valid in this
+context, \ie{} that 
+
 \todo[inline]{Define groupoid objects in HoTT, then write it here}
 %%% Local Variables:
 %%% mode: latex
