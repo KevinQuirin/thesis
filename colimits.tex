@@ -640,7 +640,17 @@ Then, an equivalence relation on $A$ could be defined coinductively as an UER $R
 together with an equivalence relation on $\Xi_0$.
 
 Our hope is that the Boulier's construction is still valid in this
-context, \ie{} that 
+context, \ie{} that if we consider the colimit $\Xi_\omega$ of the
+diagram
+\[
+  \xymatrix{
+    A \ar[r] \ar[rrd]_{\zeta} & \Xi_0 \ar[r] \ar[rd]^{\zeta_0} & \Xi_1
+    \ar[r] \ar[d]^{\zeta_1} & \cdots \ar@{-->}[ld] \\
+    &&\Xi_\omega&}
+\]
+then the equivalence relation defined by $(R_i)$ is equivalent to the
+equivalence relation on $A$ defined by $x\sim y \defeq \zeta\, x =
+\zeta\, y$.
 
 \todo[inline]{Define groupoid objects in HoTT, then write it here}
 %%% Local Variables:

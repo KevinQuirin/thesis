@@ -39,7 +39,10 @@ We solve the problem by using a cumulative hierarchy of universe
 \[ \Type^0 : \Type^1 : \Type^2 :\cdots \]
 every universe $\Type^i$ is of type $\Type^{i+1}$. Cumulativity means
 that if $A:\Type^k$ and $k<m$, then $A:\Type^m$. The handling of
-universes level can be done automatically by proof assistants such as Coq,
+universes level can be done automatically\footnote{We will see in
+  chapters~\ref{chap:modalities} and~\ref{chap:sheaf} that we
+  sometimes need to ``help'' Coq}
+ by proof assistants such as Coq,
 and we will thus use only a ``type of type'' $\Type$, to be understood
 in a polymorphic way.
 

@@ -1,7 +1,5 @@
 Package biblatex Warning: No "backend" specified, using Biber backend.
-LaTeX Warning: Citation 'lurie' on page 1 undefined on input line 15.
-LaTeX Warning: Reference `chap:sheaves' on page 1 undefined on input line 24.
-) (./hott.texpdfTeX warning (ext4): destination with the same identifier (name{
+(./main.toc) [4] [5] [6] (./introduction.tex) (./hott.texpdfTeX warning (ext4):
             {Homotopy type theory} [1]pdfTeX warning (ext4): destination with t
 Underfull \vbox (badness 6348) has occurred while \output is active [7]
 Overfull \hbox (27.18343pt too wide) in paragraph at lines 350--359
@@ -20,15 +18,12 @@ Overfull \hbox (7.26547pt too wide) in paragraph at lines 122--127
 Overfull \hbox (17.157pt too wide) in paragraph at lines 122--127
 Overfull \hbox (7.96631pt too wide) in paragraph at lines 57--59
 Overfull \hbox (64.929pt too wide) in paragraph at lines 186--193
-Underfull \vbox (badness 4120) has occurred while \output is active [36]
 Overfull \hbox (3.09276pt too wide) in paragraph at lines 101--106
 Overfull \hbox (13.99516pt too wide) in paragraph at lines 515--518
 Overfull \hbox (1.25378pt too wide) in paragraph at lines 576--581
 Overfull \hbox (1.83057pt too wide) in paragraph at lines 869--873
 Overfull \hbox (0.15889pt too wide) in paragraph at lines 869--873
-Overfull \hbox (9.2894pt too wide) in paragraph at lines 140--140
-Overfull \hbox (57.35555pt too wide) in paragraph at lines 140--140
-Overfull \hbox (9.09433pt too wide) in paragraph at lines 140--140
+Overfull \hbox (9.2894pt too wide) in paragraph at lines 142--142
+Overfull \hbox (57.35555pt too wide) in paragraph at lines 142--142
+Overfull \hbox (9.09433pt too wide) in paragraph at lines 142--142
 Package biblatex Warning: No driver for entry type 'draft'.
-LaTeX Warning: There were undefined references.
-Package biblatex Warning: Please (re)run Biber on the file:

@@ -1,30 +1,77 @@
 \chapter{Introduction}
 \label{chap:intro}
 
-\todo[inline]{Write the intro}
+Homotopy type theory is a very new branch of mathematics and computer
+science, exhibiting a strong, but surprising link between the theory
+of $\omega$-categories and type theory. This topic hence live at the
+borderline between pure mathematics and computer science. One of the
+goals of researches on this topic is to use homotopy type theory as a
+new foundation for mathematics, replacing for example Zermelo-Frænkel
+set theory. Its strong links with type theory would allow
+mathematicians to formalize their work with a proof assistant such as
+Coq~\cite{coq:refman:8.4}, Agda\todo[fancyline]{add ref to manual}{} or
+Lean~\cite{lean}. Indeed, errors in mathematical research papers seem
+to be inevitable~\cite{vv-univ-f}, and a computer-checked proof might
+be more trustable than a human-checked proof. One of the main
+difference between ZFC and HoTT foundations is that ZFC is defined in
+two steps (we need to define the logic, then the actual theory) while
+HoTT defines both at the same time.
 
-Things to say:
+The main ingredient in homotopy type theory, linking mathematics and
+computer science, is the Curry-Howard isomorphism: one can speak
+equivalently about proofs or about programs, they describe the same
+objects {\em via} a correspondance. For example, in type theory, the
+sequence of symbols $A\to B$ can be seen as the type of programs
+taking an argument of type $A$ and producing an output of type $B$ as
+well as the types of proofs that $A$ implies $B$. Something implied by
+this correspondance is that there might exist different proofs of
+``$A$ implies $B$'', since there are probably several ways to
+construct an output of type $B$ from an input of type $A$. This
+property is called {\em proof-relevance}, while ZFC is considered as
+{\em proof-irrelevant}: if a lemma has been proved, the way it was
+proved can be forgotten, as it does not matter at all.
 
-One goal of this thesis is to define truncated version of concepts of
-homotopy type theory, such as colimits and modalities. Then, using
-them, we define an extension of the not-not Gödel translation, {\em
-  via} the theory of Lawvere-Tierney sheaves.
+\todo[inline]{Go on!}
 
-To be easily readable, some references are called by their usual
-names: \cite{hottbook} is the Homotopy Type Theory book,
-\cite{hottlib} is the Coq/HoTT library, \cite{lurie} is Lurie's
-monograph Higher topos theory, \etc 
+Let us describe the contents of this thesis. Chapter~\ref{chap:hott}
+recall the basic definitions in homotopy type theory. It is mainly
+based on~\cite{hottbook}\footnote{Note that, to ease the reading, some
+  references are shortcutted by their usual names: \cite{hottbook} is
+  the Homotopy Type Theory book, \cite{hottlib} is the Coq/HoTT
+  library, \cite{lurie} is Lurie's monograph Higher topos theory,
+  \etc}n and serves more as a way for us to introduce notations to be
+consistent in the whole thesis. If the reader is not supposed to know
+anything about homotopy type theory before reading this thesis, this
+short introduction might be not enough to understand this setting, and
+he's strongly encourage to take a look at~\cite{hottbook} before.
 
-In chapter~\ref{chap:hott}, we recall the basic definitions in
-homotopy type theory, introducing notations to be consistent in the
-whole thesis. Chapter~\ref{chap:modalities} introduces theory of
-modalities and truncated modalities, as well as the translation of
-type theories induced by modalities. Chapter~\ref{chap:colim} defines
-a basic theory of colimits in homotopy type
-theory. Chapter~\ref{chap:sheaf} builds the sheafification functor,
-extending Gödel translation to all truncated types. Finally,
-chapter~\ref{chap:conclusion} concludes and presents the future
-works. 
+Chapter~\ref{chap:modalities} introduces in its first part the theory
+of modalities as explained in~\cite{hottbook}. Then, we describe what
+we will call a {\em truncated modality}, which is a restricted version
+of modalities. Finally, we exhibit the translation of type theories
+induced by a left-exact modality.
+
+In chapter~\ref{chap:colim}, we describe a basic theory of colimits
+over graphs, and discuss an extension defining colimits over ``graph
+with compositions''. This chapter, in a large part, has been
+formalized by Simon Boulier in a library available at
+\url{https://github.com/SimonBoulier/hott-colimits}. At the end of
+this chapter, we share our thoughts about groupoid objects, or
+equivalence relations in homotopy type theory. This section can easily
+be skipped by the reader, as it does not contain anything useful for
+the rest of the thesis.
+
+The central (and last) chapter of this thesis is
+chapter~\ref{chap:sheaf}. It describes our construction of the
+Lawvere-Tierney sheafification functor, which is a way to extend the
+not-not Gödel translation, valid only on h-propositions, to all
+truncated types. This result is the main contribution of the thesis.
+This chapter uses almost all the theory defined in
+previous chapters, and thus can hardly be read on its own. This
+section as been (almost) fully formalized, in a library available at
+\url{https://github.com/KevinQuirin/sheafification}.
+
+
 %%% Local Variables:
 %%% mode: latex
 %%% TeX-master: "main"

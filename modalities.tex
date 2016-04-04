@@ -273,6 +273,20 @@ in~\ref{prop:mod_prop} are still true when restricted to $n$-truncated
 types, except the one that does not make sense: $\Type_n^\modal$
 cannot be modal, as it is not even a $n$-truncated type.
 
+\section{Formalization}
+\label{sec:mod-formalization}
+
+Let us discuss here about the formalization of the theory of
+modalities. General modalities are formalized in the Coq/HoTT
+library~\cite{hottlib}, thanks to a huge work of Mike
+Shulman~\cite{modules-modalities}. The formalization might seem to be
+straightforward, but the universe levels (at least, their automatic
+handling by Coq) are here a great issue. Hence, we have to explicitely
+give the universe levels and their constraints in a large part of the
+library. For example, the 
+
+
+
 
 \section{Translation}
 \label{sec:translation}
