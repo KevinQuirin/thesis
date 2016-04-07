@@ -111,6 +111,8 @@ Mines de Nantes \\
 \endgroup}
 \makeatother
 
+%\includeonly{modalities}
+
 \begin{document}
 
 \todo[inline]{Make a ``Formalization'' section/chapter'}
@@ -121,18 +123,19 @@ Mines de Nantes \\
 
 \frontmatter%
 
-\input{abstract}
-\input{acknowlegdments}
+
+\include{abstract}
+\include{acknowlegdments}
 \newpage
 \tableofcontents
 
 \mainmatter%
-\input{introduction}
-\input{hott}
-\input{modalities}
-\input{colimits}
-\input{sheaves}
-\input{conclusion}
+\include{introduction}
+\include{hott}
+\include{modalities}
+\include{colimits}
+\include{sheaves}
+\include{conclusion}
 
 \backmatter%
 \listoftodos[What remains to be done]

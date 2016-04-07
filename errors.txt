@@ -1,18 +1,19 @@
 Package biblatex Warning: No "backend" specified, using Biber backend.
-(./main.toc) [4] [5] [6] (./introduction.tex) (./hott.texpdfTeX warning (ext4):
-            {Homotopy type theory} [1]pdfTeX warning (ext4): destination with t
+(./main.toc [4]) [5] [6] (./introduction.texpdfTeX warning (ext4): destination 
+Overfull \hbox (4.89037pt too wide) in paragraph at lines 54--63
+) (./hott.texpdfTeX warning (ext4): destination with the same identifier (name{
 Underfull \vbox (badness 6348) has occurred while \output is active [7]
-Overfull \hbox (27.18343pt too wide) in paragraph at lines 350--359
-Overfull \hbox (10.49323pt too wide) in paragraph at lines 430--432
-Overfull \hbox (16.94806pt too wide) in paragraph at lines 540--542
-Overfull \hbox (11.81761pt too wide) in paragraph at lines 612--615
-Overfull \hbox (40.89641pt too wide) in paragraph at lines 646--649
-LaTeX Warning: Command \texttwosuperior invalid in math mode on input line 710.
-LaTeX Warning: Command \texttwosuperior invalid in math mode on input line 710.
-Overfull \hbox (13.52357pt too wide) in paragraph at lines 718--722
-Overfull \hbox (47.54591pt too wide) in paragraph at lines 725--745
-Overfull \hbox (10.28537pt too wide) in paragraph at lines 750--758
-Overfull \hbox (2.31387pt too wide) in paragraph at lines 750--758
+Overfull \hbox (27.18343pt too wide) in paragraph at lines 353--362
+Overfull \hbox (10.49323pt too wide) in paragraph at lines 433--435
+Overfull \hbox (16.94806pt too wide) in paragraph at lines 543--545
+Overfull \hbox (11.81761pt too wide) in paragraph at lines 615--618
+Overfull \hbox (40.89641pt too wide) in paragraph at lines 649--652
+LaTeX Warning: Command \texttwosuperior invalid in math mode on input line 713.
+LaTeX Warning: Command \texttwosuperior invalid in math mode on input line 713.
+Overfull \hbox (13.52357pt too wide) in paragraph at lines 721--725
+Overfull \hbox (47.54591pt too wide) in paragraph at lines 728--748
+Overfull \hbox (10.28537pt too wide) in paragraph at lines 753--761
+Overfull \hbox (2.31387pt too wide) in paragraph at lines 753--761
 Overfull \hbox (1.66273pt too wide) in paragraph at lines 110--112
 Overfull \hbox (7.26547pt too wide) in paragraph at lines 122--127
 Overfull \hbox (17.157pt too wide) in paragraph at lines 122--127
@@ -27,3 +28,4 @@ Overfull \hbox (9.2894pt too wide) in paragraph at lines 142--142
 Overfull \hbox (57.35555pt too wide) in paragraph at lines 142--142
 Overfull \hbox (9.09433pt too wide) in paragraph at lines 142--142
 Package biblatex Warning: No driver for entry type 'draft'.
+Overfull \hbox (6.01907pt too wide) in paragraph at lines 142--142
