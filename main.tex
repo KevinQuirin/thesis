@@ -1,9 +1,11 @@
-\documentclass[a4paper, 11pt]{memoir}
+\documentclass[a4paper, 10pt]{memoir}
 \usepackage{entete}
 \usepackage[style=alphabetic]{biblatex}
 \usepackage{csquotes}
 \bibliography{biblio}
-\usepackage{palatino}
+\usepackage{mathpazo}
+\linespread{1.05}
+
 
 \usepackage[refpage, intoc]{nomencl}
 \makenomenclature
@@ -111,11 +113,15 @@ Mines de Nantes \\
 \endgroup}
 \makeatother
 
-%\includeonly{modalities}
+% \includeonly{modalities}   
+
+\def\pullbackcorner{%
+    \ar@{-}[]+R+<6pt,-1pt>;[]+RD+<6pt,-6pt>%
+    \ar@{-}[]+D+<1pt,-6pt>;[]+RD+<6pt,-6pt>%
+  }
 
 \begin{document}
 
-\todo[inline]{Make a ``Formalization'' section/chapter'}
 \begin{titlingpage}
   \titleDS
 \end{titlingpage}

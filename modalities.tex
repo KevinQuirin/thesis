@@ -128,6 +128,53 @@ that
   % \nt{Indeed, I can't follow the proof for the moment}
 \end{proof}
 
+Let us finish these properties by the following proposition, giving
+several equivalent characterizations of left-exactness.
+
+\begin{prop}\label{prop:lex}
+  Let $\modal$ be a modality. Then $\modal$ is left-exact if one of
+  the following equivalent properties is satisfied
+  \begin{itemize}
+  \item $\modal$ preserves contractibility, \ie{}
+    \[ \prodD A \Type {\prodD {x,y} A { \Contr(\modal A) \to \Contr
+          (\modal (x=y))}}.\]
+  \item $\modal$ preserves pullback, in the sense that if
+    \[
+      \xymatrix{
+        A \ar[r] \ar[d] \times_B C \pullbackcorner& C \ar[d]^g\\
+        A \ar[r]_f & B
+      }
+    \]
+    is a pullback diagram, then
+    \[
+      \xymatrix{
+       \modal A \ar[r] \ar[d] \times_{\modal B} \modal C
+       \pullbackcorner& \modal C \ar[d]^{\modal g}\\
+        \modal A \ar[r]_{\modal f} & \modal B
+      }
+    \]
+    is too.
+  \item $\modal$ preserves path spaces, \ie{}
+    \[
+      \prodD A \Type {\prodD {x,y} A {\IsEquiv (\modal (\ap{\eta_A}))}}
+    \]
+    where $\modal (\ap{\eta_A}) : \modal(x = y) \to \eta_A x = \eta_A
+    y$.
+  \item If the modality is accessible\todo[fancyline]{Define accessibility}, the universe of modal types is modal, \ie{}
+    \[
+      \modal \left(\Type^\modal\right) \simeq \Type^\modal.
+    \]
+  \end{itemize}
+\end{prop}
+\begin{proof}
+  \todo[inline]{Lex : Do the proof}
+  \begin{itemize}
+  \item This is the definition of left-exactness.
+  \item 
+  \item Let $A$ be a type, and $x,y:A$.
+  \end{itemize}
+\end{proof}
+
 As this whole thesis deals with truncation levels, it should be
 interesting to see how they are changed under a modality. 
 We already know that if a type $T$ is $(-2)$-truncated, \ie{}

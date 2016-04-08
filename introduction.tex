@@ -9,7 +9,7 @@ goals of researches on this topic is to use homotopy type theory as a
 new foundation for mathematics, replacing for example Zermelo-Frænkel
 set theory. Its strong links with type theory would allow
 mathematicians to formalize their work with a proof assistant such as
-Coq~\cite{coq:refman:8.4}, Agda\todo[fancyline]{add ref to manual}{} or
+Coq~\cite{coq:refman:8.4}, Agda\cite{norell2007towards} or
 Lean~\cite{lean}. Indeed, errors in mathematical research papers seem
 to be inevitable~\cite{vv-univ-f}, and a computer-checked proof might
 be more trustable than a human-checked proof. One of the main
@@ -33,17 +33,39 @@ proved can be forgotten, as it does not matter at all.
 
 \todo[inline]{Go on!}
 
+\paragraph*{Aims of the thesis}
+The main goal of this thesis is to give a definition of a
+Lawvere-Tierney sheafification functor in the setting of homotopy type
+theory. In order to do this, we need in a first time to develop a
+theory of colimits in homotopy type theory, leading to thoughts on the
+definition of equivalence relation in type theory. Then, as our
+definition of sheafification is done inductively on the truncation
+levels, we need to define a truncated version of the just defined
+theory of colimits, as well as a truncated version of left-exact
+modalities. 
+All these developments have been computer-checked by the proof
+assistant Coq, most of these available on my Github account
+\url{https://github.com/KevinQuirin}.
+
+Our deep study of modalities also lead us to 
+define\todo[fancyline]{Check plugin}{} the translation of
+type theories associated to a (left-exact) modality, and write a Coq
+plugin to handle automatically that translation.
+
+
+\paragraph*{Plan of the thesis}
+
 Let us describe the contents of this thesis. Chapter~\ref{chap:hott}
 recall the basic definitions in homotopy type theory. It is mainly
 based on~\cite{hottbook}\footnote{Note that, to ease the reading, some
   references are shortcutted by their usual names: \cite{hottbook} is
   the Homotopy Type Theory book, \cite{hottlib} is the Coq/HoTT
   library, \cite{lurie} is Lurie's monograph Higher topos theory,
-  \etc}n and serves more as a way for us to introduce notations to be
+  \etc}, and serves more as a way for us to introduce notations to be
 consistent in the whole thesis. If the reader is not supposed to know
 anything about homotopy type theory before reading this thesis, this
 short introduction might be not enough to understand this setting, and
-he's strongly encourage to take a look at~\cite{hottbook} before.
+he's strongly encouraged to take a look at~\cite{hottbook} before.
 
 Chapter~\ref{chap:modalities} introduces in its first part the theory
 of modalities as explained in~\cite{hottbook}. Then, we describe what

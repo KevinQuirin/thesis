@@ -1,6 +1,9 @@
 \chapter{Homotopy type theory}
 \label{chap:hott}
 
+\epigraph{Mathematics is the art of giving the same name to different
+  objects.}{Henri Poincaré}
+
 \todo[inline]{Write an intro to chapter HoTT}
 
 \section{Dependent type theory}
@@ -34,10 +37,11 @@ detailed introduction.
 \label{ssec:universes}
 In dependent type theory, types are also terms of a universe
 $\Type$. Of course, we want the universe $\Type$ to be itself a type,
-and the Russel's paradox is close here.
-We solve the problem by using a cumulative hierarchy of universe
+and the Russel's paradox\footnote{In type theory, the argument is
+  harder to prove, and is called Girard's paradox.} is close here.
+We solve the problem by using a cumulative hierarchy of universes
 \[ \Type^0 : \Type^1 : \Type^2 :\cdots \]
-every universe $\Type^i$ is of type $\Type^{i+1}$. Cumulativity means
+where every universe $\Type^i$ is of type $\Type^{i+1}$. Cumulativity means
 that if $A:\Type^k$ and $k<m$, then $A:\Type^m$. The handling of
 universes level can be done automatically\footnote{We will see in
   chapters~\ref{chap:modalities} and~\ref{chap:sheaf} that we
