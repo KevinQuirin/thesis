@@ -6,7 +6,8 @@ if [ `git rev-parse --abbrev-ref HEAD` == "$branch" ]; then
     cp main.pdf ../thesis-gh-pages/thesis/main.pdf
     cp errors.txt ../thesis-gh-pages/thesis/errors.txt
     cd ../thesis-gh-pages/thesis/
-    git commit main.pdf errors.txt -m "Autocommit $(date +"%d.%m.%Y %H:%M:%S")"
+    sed -i.old -e 's#[0-9][0-9]*/[0-9][0-9]*/[0-9][0-9][0-9][0-9]#'$(date +%d/%m/%Y)'#g' index.html
+    git commit main.pdf errors.txt index.html -m "Autocommit $(date +"%d.%m.%Y %H:%M:%S")"
     git push
     cd ../../thesis
 fi
