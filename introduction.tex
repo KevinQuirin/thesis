@@ -12,10 +12,26 @@ mathematicians to formalize their work with a proof assistant such as
 Coq~\cite{coq:refman:8.4}, Agda\cite{norell2007towards} or
 Lean~\cite{lean}. Indeed, errors in mathematical research papers seem
 to be inevitable~\cite{vv-univ-f}, and a computer-checked proof might
-be more trustable than a human-checked proof. One of the main
-difference between ZFC and HoTT foundations is that ZFC is defined in
-two steps (we need to define the logic, then the actual theory) while
-HoTT defines both at the same time.
+be more trustable than a human-checked proof.
+The most famous examples of computer-checked results are the {\em Four
+  Colour Theorem} (to color a map such that any adjacent countries
+does not have the same color, four colors are sufficient) by Gonthier
+and Werner~\cite{gonthier-four-color} in Coq, the {\em Feit-Thomson
+  Theorem} (every finite group of odd order is solvable) by Gonthier
+and al.~\cite{gonthier-feit} in Coq, the original proof of Jordan curve
+theorem (any continuous simple closed curve divides the plane into an
+``interior'' bounded region and an ``exterior'' unbounded region) by
+Hales~\cite{hales-jordan} in Mizar, or the {\em Kepler conjecture}
+(the most compact ways to arrange spheres are the cubic and hexagonal close
+packing) by Hales and al.~\cite{hales-kepler} in Isabelle and HOL Light.
+
+One advantage of type theory over set theory is the computation
+property of type theory: any term is identified with its normal
+form. Thus, a proof assistant allows its user to simplify
+automatically all expressions, while a proof on paper requires all
+computation to be done ``by hand''. Set theory does not share this
+computation property, and is thus not convenient to use as a formal
+basis for a proof assistant.
 
 The main ingredient in homotopy type theory, linking mathematics and
 computer science, is the Curry-Howard isomorphism: one can speak
@@ -44,7 +60,7 @@ levels, we need to define a truncated version of the just defined
 theory of colimits, as well as a truncated version of left-exact
 modalities. 
 All these developments have been computer-checked by the proof
-assistant Coq, most of these available on my Github account
+assistant Coq ; most of them are available on my Github account
 \url{https://github.com/KevinQuirin}.
 
 Our deep study of modalities also lead us to 
