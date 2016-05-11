@@ -20,7 +20,7 @@ of the blog post~\cite{boulier}.
 \label{sec:colim}
 
 As colimits are just dual to limits, it seems that it would be very
-easy to translate the work on limits to colimits. Althought, even if
+easy to translate the work on limits to colimits. Although, even if
 it might be because we are more habituated to manipulate sigma-types
 than higher inductive types, it seems way harder.
 
@@ -346,7 +346,7 @@ add it directly into the definition of the higher inductive type:
 \end{rmq}
 
 The new constructor $\colim_\alpha^\circ$ indeed asserts the
-commutation of the desired diagram. We can view this higer inductive
+commutation of the desired diagram. We can view this higher inductive
 type as the same type as the colimit over the coequalizer graph, but
 which does not add already existing paths.
 
@@ -418,7 +418,7 @@ over $\|A\|_{-1}$ itself: such a higher inductive type is a {\em
   recursive} inductive type. Thus, proposition~\ref{prop:floris}
 allows us to build the truncation in a non-recursive way. The
 counterpart is that we have to iterate the
-construction. In~\cite{boulier}, we found a way to generalise a bit
+construction. In~\cite{boulier}, we found a way to generalize a bit
 this result. The main idea is that iterating the kernel pair
 construction will result in a diagram of colimit $\im(f)$.
 
@@ -568,8 +568,15 @@ handle.
 
 \section{Formalization}
 \label{sec:colim-formalization}
+\begin{sloppypar}
+Except the next section~\ref{sec:groupoid}, all this chapter has been
+formalized in Coq, mostly by Simon Boulier, and the library is
+available at \url{https://github.com/SimonBoulier/hott-colimits}.  
+\end{sloppypar}
 
-\todo[inline]{Formalization of colimits}
+
+
+\todo[inline]{Formalization of colimits: what could we say ?\dots}
 
 \section{Towards groupoid objects}
 \label{sec:groupoid}
@@ -582,7 +589,7 @@ The first thing to say is that defining a groupoid object in type
 theory is exactly the same problem as defining a highly coherent
 equivalence relation. At the moment, the only fully coherent
 equivalence relation we know in homotopy type theory is the equality,
-which we can slighlty modify to create another ones. For example, if
+which we can slightly modify to create another ones. For example, if
 $f:A\to B$, the relation $f\, x = f\, y$ defines an equivalence
 relation on $A$.
 Actually, when seeing homotopy type theory as the language of

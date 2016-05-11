@@ -278,13 +278,11 @@ $(-1)$-subobjects), with the condition that all its path types are
 $n$-sheaves. It is a way to force the compatibility of the modalities we
 are defining.
 
-
 On can check that the property $\issep$ (resp. $\issheaf$) is $\HProp$:
-given a $X:\Type_{n+1}$, there is only one way for it to be separated
+given a $X:\Type_{n+1}$, there is at most one way for it to be separated
 (resp. a sheaf). In particular, when needed to prove equality between
 two sheaves, it suffices to show the equality between the underlying
 types.
-
 
 As said earlier, these definitions allow us to prove the fundalemental
 property that the type of all $n$-sheaves is itself a $(n+1)$-sheaf
@@ -447,8 +445,7 @@ is universal among separated type below $T$.
 In the topos-theoretic sheafification, it comes easily from the fact
 that epimorphims are coequalizers of their kernel pairs. As it is not
 true anymore in our setting, we will use its generalization,
-proposition~\ref{prop:cech}.%
-%
+proposition~\ref{prop:cech}.
 Here is a sketch of the proof:
 as $\mu_T$ is a surjection (it is defined by the surjection-embedding
 factorization), $\separated T$ is the colimit of its iterated kernel
@@ -680,8 +677,8 @@ As this modality is just a step in the construction, we do not need to
 show that it is left exact (actually, it is not), we will only do it for the sheafification
 modality.
 
-\subsection{From Separated Type to Sheaf}
-\label{ssec:separated-to-sheaf}
+\subsubsection{From Separated Type to Sheaf}
+\label{sssec:separated-to-sheaf}
 
 %\nt{put the definition of $\modal_{n+1}$ upfront}
 For any $T$ in $\Type_{n+1}$, 
@@ -974,8 +971,128 @@ which is univalent (as shown in Proposition~\ref{prop:univalence}).
 \section{Formalization}
 \label{sec:sheaf-formalization}
 
-\todo[inline]{Formalization of sheaves}
+A Coq formalization of the sheafification process based on the
+Coq/HoTT library~\cite{hottlib} is available at
+\url{https://github.com/KevinQuirin/sheafification}.
 
+After reviewing the content and some statistics about the
+formalization in Section~\ref{ssec:cont-form}, we present the
+limitations of our formalization in Section~\ref{ssec:limit-form}, in
+particular the issues relative to universe polymorphism. 
+
+\subsection{Content of the formalization}
+\label{ssec:cont-form}
+
+We provide a more detailed insight of the structure of our formalization:
+\begin{itemize} 
+\item Colimits and iterated kernel pairs are formalized in
+\texttt{Limit}, \texttt{T.v}, \texttt{OT.v}v \texttt{OT\_Tf.v}, \texttt{T\_telescope.v},\\ \texttt{Tf\_Omono\_sep.v}.% (552 lines).
+\item
+Reflective subuniverses and modalities are formalized in\\
+\texttt{reflective\_subuniverse.v}, \texttt{modalities.v}. % (1053 lines).
+\item 
+%
+  The definition of the dense topology as a left exact modality on
+  $\HProp$ is given in \texttt{sheaf\_base\_case.v}. % (186 lines).
+\item
+Section~\ref{ssec:sheaves} is formalized in
+\texttt{sheaf\_def\_and\_thm.v}. % (1029 lines).
+\item
+Section~\ref{ssec:sheafification} is formalized in
+\texttt{sheaf\_induction.v}. % (2340 lines).
+\end{itemize}
+
+Overall, % with other files containing technical lemmas,
+the project
+contains 7914 lines, and it could be reduced a bit by improving the
+way Coq tries to rewrite and apply lemmas automatically. 
+The \texttt{coqwc} tool counts 1611 lines of specifications
+(definitions, lemmas, theorems, propositions) and 5403 lines of proof
+script.
+%
+This constitutes a significant amount of work but the part dedicated
+to sheaves and sheafification is only 2200 lines of proof script,
+which seems quite reasonable and encouraging, because it suggests
+that homotopy type theory provides a convenient tool to formalize some
+part of the theory of higher topoï. 
+
+\subsection{Limitations of the formalization}
+\label{ssec:limit-form}
+
+In the formalization, we had to use the \texttt{type-in-type} option, to handle
+the universe issues we faced.
+
+Universes are used in type theory to ensure consistency by checking
+that definitions are well-stratified according to a certain hierarchy.
+%
+Universe polymorphism~\cite{sozeau2014universe} supports generic
+definitions over universes, reusable at different levels.
+%
+Although the presence of universe polymorphism is mandatory for our
+formalization, its implementation is still too rigid to allow a
+complete formalization of our work for the following reasons.
+
+%
+If Coq handles cumulativity on $\Type$ natively, it is not
+the case for the $\Sigma$-type $\Type_n$, which require propositional
+resizing. 
+%
+This issue could be solved by adding an axiom of cumulativity
+for $\Type_n$ with an explicit management of universes. 
+%
+But as it would not have any computational content, such a solution
+would really complicate the proofs as the axiom would appear
+everywhere cumulativity is needed and it would need explicit
+annotations for universe levels everywhere in the formalization.
+%
+% Note that we also could have resolved the issue by giving explicitely
+% the universe levels we wanted, like in the Coq/HoTT library\cite{hottlib}.
+
+One issue with universe polymorphism lies in the management of
+recursive definitions. Indeed, the following recursive definition of
+sheafification
+%
+% \vspace{-0.05em}
+\[ \begin{array}{l}
+   \modal : \forall \ (n : nat), \ \Type_n \to \Type_n 
+   \\
+    \modal_{-1\phantom{n}}(T) \defeq\lnot\lnot T \\
+
+      \displaystyle{\modal_{n+1}(T)} \defeq  
+      \displaystyle{\sum_{u:T \to \Type_n^\modal} \!\!\!\!\modal_{-1} 
+      \left\|
+      \sum_{a:T} u= (\lambda t,~\modal_n (a=t))
+      \right\|}
+    \end{array}
+% \vspace{-0.3em}
+\]
+%
+is not allowed. 
+%
+This is because Coq forces the universe of the first $\Type_n$
+occurring in the definition to be the same for every $n$, whereas the
+universe of the first $\Type_{n+1}$ occurring in $\modal_{n+1}$ should be at
+least one level higher as the one of $\Type_n$ occurring in
+$\modal_{n}$ because of the use of $\Sigma$-type over
+$T \to \Type_n^\modal$ and equality on the return type of $\modal_n$.
+%
+% \nt{explain why it is an issue.}
+%
+Thus, the induction step presented in this paper has been formalized,
+but the complete recursive sheafification can not be defined for the
+moment.
+%
+Note that the same increasing in the universe levels occurs in the
+Rezk completion for categories~\cite{rezk}. In the definition of the
+completion, they use the Yoneda embedding and representable functors,
+which is similar to our use of characteristic functions.
+ 
+%
+This restriction in our formalization may be solved by
+generalizing the management of universe polymorphism for recursive definition
+%
+or by the use of general ``resizing axiom'' which is still under
+discussion in the community.
 
 
 \section{Forcing in type theory}

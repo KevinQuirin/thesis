@@ -46,6 +46,13 @@ type theory.
   (v) a {\em modality}.
 \end{defi}
 
+\begin{nota}
+  The inverse of $- \circ \eta_A$ from point {\itshape (iv)} will be
+  denoted $\modal_{\mathrm{rec}}: (A\to B) \to (\modal A \to B)$, and its
+  computation rule $\modal_{\mathrm{rec}}^\beta : \prodD f {A \to B} {\prodD x A
+  {\modal_{\mathrm{rec}}(f) (\eta_A x) = f x}}$.
+\end{nota}
+
 If $\modal$ is a modality, the type of modal types will be denoted
 $\Type^\modal$. Let us fix a left-exact modality $\modal$ for the rest
 of this section. A modality acts functorialy on $\Type$, in the sense
@@ -83,7 +90,6 @@ that
   \item[\labelitemi(M)] If $A,B:\Type$ are modal, then so are $\IsType
     n A$, $A\simeq B$ and $\IsEquiv f$ for all $f:A\to B$.
   \item[\labelitemi(L)] If $A:\Type_n$, then $\modal A:\Type_n$.
-  \item[\labelitemi(L)] $\Type^\modal$ is itself modal.
   \item[\labelitemi(L)] If $X,Y:\Type$ and $f:X\to Y$, then the map
     \[ \modal \left( \fib f y\right) \to \fib{\modal f}{\eta_B
         y} \]
@@ -93,6 +99,15 @@ that
   \fib{\modal f}{\eta_B y} & }\] 
   \end{itemize}
 \end{prop}
+
+\begin{nota}
+  Again, the inverse of $- \circ \eta_A$ will be denoted
+  $\modal_{\mathrm{ind}} : \prodD a A {B (\eta_A a)} \to \prodD z
+  {\modal A} {B\, x}$, and its computation rule
+  $\modal_{\mathrm{ind}}^\beta : \prodD f {\prodD a
+        A {B(\eta_A\, a)}} {\prodD x A
+        {\modal_{\mathrm{ind}}(f)(\eta_A x) }} = f x$
+\end{nota}
 
 \begin{proof}
   We only prove the last point.
@@ -129,50 +144,83 @@ that
 \end{proof}
 
 Let us finish these properties by the following proposition, giving
-several equivalent characterizations of left-exactness.
+an equivalent characterization of left-exactness.
 
 \begin{prop}\label{prop:lex}
-  Let $\modal$ be a modality. Then $\modal$ is left-exact if one of
-  the following equivalent properties is satisfied
-  \begin{itemize}
-  \item $\modal$ preserves contractibility, \ie{}
-    \[ \prodD A \Type {\prodD {x,y} A { \Contr(\modal A) \to \Contr
-          (\modal (x=y))}}.\]
-  \item $\modal$ preserves pullback, in the sense that if
-    \[
-      \xymatrix{
-        A \ar[r] \ar[d] \times_B C \pullbackcorner& C \ar[d]^g\\
-        A \ar[r]_f & B
-      }
-    \]
-    is a pullback diagram, then
-    \[
-      \xymatrix{
-       \modal A \ar[r] \ar[d] \times_{\modal B} \modal C
-       \pullbackcorner& \modal C \ar[d]^{\modal g}\\
-        \modal A \ar[r]_{\modal f} & \modal B
-      }
-    \]
-    is too.
-  \item $\modal$ preserves path spaces, \ie{}
+  Let $\modal$ be a modality. Then $\modal$ is left-exact if and only
+  if
+ % one of
+ %  the following equivalent properties is satisfied
+ %  \begin{itemize}
+ %  \item $\modal$ preserves contractibility, \ie{}
+ %    \[ \prodD A \Type {\prodD {x,y} A { \Contr(\modal A) \to \Contr
+ %          (\modal (x=y))}}.\]
+ %  \item $\modal$ preserves pullback, in the sense that if
+ %    \[
+ %      \xymatrix{
+ %        A \ar[r] \ar[d] \times_B C \pullbackcorner& C \ar[d]^g\\
+ %        A \ar[r]_f & B
+ %      }
+ %    \]
+ %    is a pullback diagram, then
+ %    \[
+ %      \xymatrix{
+ %       \modal A \ar[r] \ar[d] \times_{\modal B} \modal C
+ %       \pullbackcorner& \modal C \ar[d]^{\modal g}\\
+ %        \modal A \ar[r]_{\modal f} & \modal B
+ %      }
+ %    \]
+ %    is too.
+ %  \item
+  $\modal$ preserves path spaces, \ie{}
     \[
       \prodD A \Type {\prodD {x,y} A {\IsEquiv (\modal (\ap{\eta_A}))}}
     \]
     where $\modal (\ap{\eta_A}) : \modal(x = y) \to \eta_A x = \eta_A
     y$.
-  \item If the modality is accessible\todo[fancyline]{Define accessibility}, the universe of modal types is modal, \ie{}
-    \[
-      \modal \left(\Type^\modal\right) \simeq \Type^\modal.
-    \]
-  \end{itemize}
+  % \end{itemize}
 \end{prop}
 \begin{proof}
-  \todo[inline]{Lex : Do the proof}
-  \begin{itemize}
-  \item This is the definition of left-exactness.
-  \item 
-  \item Let $A$ be a type, and $x,y:A$.
-  \end{itemize}
+  We will rather prove something slighlty more general, using an
+  encode-decode proof~\cite[Section 8.9]{hottbook} ; we will
+  characterize, for a type $A$ and a fixed inhabitant $x:A$ the type 
+  \[ \eta_A x = y \] 
+  for any $y:\modal A$.
+  
+  \newcommand{\Cover}{\mathrm{Cover}}
+  \newcommand{\Encode}{\mathrm{Encode}}
+  \newcommand{\Decode}{\mathrm{Decode}}
+  Let $\Cover:\modal A \to \Type^\modal$ be defined by induction by
+  \[ \Cover(y) \defeq \modal_{\mathrm{rec}} (\lambda y,\,\modal (x =
+    y)). \]
+  Note that for any $y:\modal A$, $\Cover(y)$ is always modal.
+  We will show that $\eta_A x = y \simeq Cover(y)$.
+  Now, let $\Encode : \prodD y {\modal A} {\eta_A x = y \to
+    \Cover(y)}$ be defined by
+  \[ \Encode(y,p) \defeq \transport_{\Cover}^p
+    \left(\transport_{\idmap}^{\modal_{\mathrm{rec}}^\beta ((\lambda
+        z,\,\modal (x = z)), x)} (\eta_{x=x} 1)\right) \]
+  and $\Decode:\prodD y {\modal A} {\Cover(y) \to \eta_A x = y}$ by
+  \[
+    \Decode \defeq \modal_{\mathrm{ind}} \left(\lambda y\,p,\,
+    \modal(\ap{\eta_A})  \left(\transport_{\idmap}^{\modal_{\mathrm{rec}}^\beta ((\lambda
+        z,\,\modal (x = y)),y)} p\right)\right)
+  \]
+  Then one can show, using $\modal$-induction and path-induction, that
+  for any $y:\modal A$, $\Encode(y,-)$ and $\Decode(y,-)$
+  are each other inverses. Then, taking $y' = \eta_A y$, we have just
+  shown that $\eta_A x = \eta_A y \simeq Cover(\eta_A y)$, which is
+  itself equivalent, by $\modal_{\mathrm{rec}}^\beta$, to $\modal
+  (x=y)$.
+  It is straightforward to check that the composition $\modal (x=y)
+  \to \Cover(\eta_A y) \to \eta_A x = \eta_A y$ is exactly $\modal
+  (\ap{\eta_A})$.
+  
+  Now, let us prove the backward implication. Let $A$ be a type such
+  that $\modal A$ is contractible, and $x,y:A$. 
+  As $\eta_A x,\eta_A y: \modal A$, we know that $\eta_A x = \eta_A y$
+  is contractible. But as $\eta_A x = \eta_A y \simeq \modal (x=y)$ by
+  assumption, $\modal (x=y)$ is also contractible.
 \end{proof}
 
 As this whole thesis deals with truncation levels, it should be
@@ -297,7 +345,14 @@ modality into a better one.
 \section{New type theories}
 \label{sec:new-type-theories}
 
-\todo[inline]{Do better here}
+\todo[inline]{New type theory: Enhance me}
+
+We suppose here that $\modal$ is a left-exact modality such that
+$\Type^\modal$ is modal.
+This is for example the case when the modality is {\em accessible}
+(see~\cite{hottlib} for definition and proof).
+
+
 
 \begin{prop}\label{prop:consistent}
   A left exact modality $\modal$ induces a consistent type theory if
@@ -364,7 +419,7 @@ Shulman~\cite{modules-modalities}. The formalization might seem to be
 straightforward, but the universe levels (at least, their automatic
 handling by Coq) are here a great issue. Hence, we have to explicitely
 give the universe levels and their constraints in a large part of the
-library. For example, the reflector $\modal$ of a modality is define,
+library. For example, the reflector $\modal$ of a modality is defined,
 in~\cite{hottlib} as
 \[ \modal : \Type^i \to \Type^i ;\]
 it maps any universe to itself.
@@ -411,7 +466,7 @@ by exhibiting a {\em translation} of type theories, as it has been done for
 forcing~\cite{jaber2012extending}. Let us explain
 here how this translation works.
 
-Let $\modal$ be a left-exact modality. We describe, for each type
+Let $\modal$ be an accessible left-exact modality. We describe, for each type
 constructor, how to build its translation. We denote $\pi_\modal(A)$
 the proof that $\modal(A)$ is always modal.
 
@@ -492,9 +547,13 @@ soon as their type is modal if $A,B:X$.
 \end{itemize}
 
 As in the forcing translation~\cite{jaber2012extending}, the main
-issue is that convertibility . For
+issue is that convertibility might not be preserved. For
 example, let $f:A \to X$ and $g:B\to X$. Then $\langle f,g\rangle
-(\mathrm{in}_\ell t)$
+(\mathrm{in}_\ell t)$ is convertible to $f\,t$, but $[\langle f,g\rangle
+(\mathrm{in}_\ell t)]$ reduces to $\modal_{\mathrm{rec}}^{\Lbrack A\Rbrack +
+                                      \Lbrack
+                                      B\Rbrack}\langle[f],[g]\rangle(\eta(\mathrm{in}_\ell
+                                    t))$, which is only equal to $[f\,t]$.
 
 
 Two solutions to this problem can come to our mind:
@@ -518,7 +577,8 @@ The usual result we want about any translation is its soundness:
 \end{prop}
 
 \begin{rmq}
-  We note that if the modality is not left-exact, like truncations
+  We note that if the modality is not left-exact (or not accessible),
+  like truncations
   modalities, then $\Type^\modal$ is not itself modal. It is although
   still possible to write a translation, but we can only define it on
   a type theory with only one universe. Indeed, the judgement $\Gamma
@@ -526,6 +586,9 @@ The usual result we want about any translation is its soundness:
   translated to $\Lbrack \Gamma \Rbrack \vdash [\Type^i] :
   \Lbrack \Type^j \Rbrack$. 
 \end{rmq}
+
+An implementation of this translation has been made, in the form of a
+Coq plugin, available at \url{https://github.com/KevinQuirin/translation-mod/}.
 
 \todo[inline]{Code the plugin, then plug it here}
 %%% Local Variables:

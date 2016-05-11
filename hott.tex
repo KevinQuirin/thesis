@@ -4,7 +4,32 @@
 \epigraph{Mathematics is the art of giving the same name to different
   objects.}{Henri Poincaré}
 
-\todo[inline]{Write an intro to chapter HoTT}
+This chapter is an overview of the setting we will use in the rest of
+the thesis, homotopy type theory. The first part describes the formal
+system {\em dependent type theory}, which is a formal basis for
+homotopy type theory. This description is not intended to form a
+complete introduction to type theory accessible by anyone, but rather
+to clarify the formal system we use. A neophyte willing to read this
+thesis should read first a complete introduction to type theory,
+\cite{hofmann1997syntax} for an extensive one, but \cite{hottbook}
+might be more accessible, and sufficient for the thesis. As we will
+see, we can view homotopy type theory as in
+\[ 
+  \text{HoTT} = \text{MLTT} + \text{UA} + \text{HIT}.
+\]
+{UA} stands for {\em univalence axiom}, and is introduced in the
+second part of this chapter.
+{HIT} is the usual abbreviation for {\em higher inductive types},
+which is a way, extensively discussed in~\cite{hottbook}, to build new
+type, by giving constructors for the type as well as for its identity
+types. General principles will not be discussed here ; we
+rather present usual examples of {HIT} in section~\ref{sec:hit}.
+
+Finally, the last section of this chapter presents our point of view
+on identity paths, leading to the terminology {\em homotopy} type
+theory. This section also introduces the notion of {\em truncation
+  level}, which plays a central role in the thesis. 
+
 
 \section{Dependent type theory}
 \label{sec:mltt}
@@ -264,6 +289,9 @@ The elimination rule for $\N$ is the famous induction principle
 
 This elimination rule allows us to define basic operators on natural
 numbers: addition, multiplication, order, \etc{}
+
+For a reader interested by the theory of general inductive types, we
+refer him to~\cite{awodey-inductive}.
 
 \subsection{Paths type}
 \label{ssec:path}
