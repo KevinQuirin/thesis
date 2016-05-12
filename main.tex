@@ -1,4 +1,11 @@
 \documentclass[a4paper, 10pt]{memoir}
+
+\let\leftbar\undefined
+\let\endleftbar\undefined
+\usepackage[nothm]{thmbox}
+\let\proof\undefined
+\let\endproof\undefined
+
 \usepackage{entete}
 \PassOptionsToPackage{hyphens}{url}
 \usepackage[style=alphabetic,backref=true]{biblatex}
@@ -7,6 +14,14 @@
 \bibliography{biblio}
 \usepackage{mathpazo}
 \linespread{1.05}
+
+\usepackage{lipsum}
+\setlipsumdefault{1-4}
+
+
+\newenvironment{rmq}
+{\begin{thmbox}[M]{\textsc{Nota}}\noindent}
+{\end{thmbox}\medskip}
 
 
 \usepackage[refpage, intoc]{nomencl}
