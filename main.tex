@@ -6,7 +6,19 @@
 \let\proof\undefined
 \let\endproof\undefined
 
-\usepackage{entete}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{mathbbol} %permet \mathbb{1} \Lbrack \Rbrack ...
+\usepackage{amsmath,amssymb,amsthm,amsfonts} %packages AMS
+\usepackage{wasysym}
+\usepackage{calrsfs} %\mathcal{} plus rondes
+\usepackage{enumerate} %permet de changer le type de numérotation
+                       %dans enumerate
+\usepackage{graphicx} %permet d'afficher des images
+\usepackage{titlesec,titletoc} %modifie les titres et la table des matières
+\usepackage{lettrine} %permet les lettrines
+\usepackage{todonotes}
 \PassOptionsToPackage{hyphens}{url}
 \usepackage[style=alphabetic,backref=true]{biblatex}
 \usepackage[colorlinks=true,linkcolor=black,urlcolor=blue,citecolor=gray]{hyperref}
@@ -14,9 +26,211 @@
 \bibliography{biblio}
 \usepackage{mathpazo}
 \linespread{1.05}
-
 \usepackage{lipsum}
 \setlipsumdefault{1-4}
+
+
+\newtheoremstyle{theoreme}
+ {2em} %espace avant le théorème
+ {2em} %espace après le théorème
+ {\slshape} %fonte du texte
+ {} %indentation
+ {\bfseries} %fonte du titre
+ {} %ponctuation aprÃ¨s le titre
+ {\newline} %espace aprÃ¨s le titre
+ {\thmname{#1}\thmnumber{ #2}\thmnote{~:~#3}} %forme du titre
+
+
+\theoremstyle{theoreme} 
+\newtheorem{thm}{Theorem}
+\newtheorem{cor}[thm]{Corollary}
+\newtheorem{prop}[thm]{Proposition}
+\newtheorem{defi}[thm]{Definition}
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{cond}[thm]{Condition}
+\newtheorem{ax}[thm]{Axiom}
+
+\newenvironment{prooflem}%
+    {\renewcommand{\qedsymbol}{$\Diamond$}%
+     \begin{proof}}%
+    {\end{proof}%
+     \renewcommand{\qedsymbol}{$\square$}}
+
+% \newenvironment{rmq}% 
+% 	{\noindent \textsc{Nota}~\textendash~}%
+% 	{\medskip}
+
+\newenvironment{exm}%
+	{\noindent \textsc{Example}~\textendash~}%
+	{\medskip}
+
+\newenvironment{rmqs}%
+	{\noindent \textsc{Notae}~:~ \medskip%
+	 \begin{list}%
+		{\textendash}%
+		{\setlength{\itemsep}{2ex}}}%
+	{\end{list} \medskip}
+
+\newenvironment{exms}%
+	{\noindent \textsc{Examples}~:~ \medskip%
+	 \begin{list}%
+		{\textendash}%
+		{\setlength{\itemsep}{2ex}}}%
+	{\end{list} \medskip}
+
+\newenvironment{nota}% 
+	{\noindent \textsc{Notation}~\textendash~}%
+	{\medskip}
+
+%% Maths %%
+
+        % HoTT %
+\usepackage[all]{xy}
+\def\dar[#1]#2{\ar@<-#2>[#1]\ar@<#2>[#1]} %double arrows in xy
+\def\tar[#1]#2{\ar@<#2>[#1]\ar@<0pt>[#1]\ar@<-#2>[#1]} %triple arrows in xy
+\DeclareMathOperator{\Type}{Type}
+\DeclareMathOperator{\HProp}{HProp}
+\DeclareMathOperator{\HSet}{HSet}
+\DeclareMathOperator{\IsHProp}{IsHProp}
+\DeclareMathOperator{\IsHSet}{IsHSet}
+\DeclareMathOperator{\nat}{nat}
+\DeclareMathOperator{\Unit}{Unit}
+\DeclareMathOperator{\im}{Im}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\Contr}{Contr}
+\DeclareMathOperator{\IsContr}{IsContr}
+\DeclareMathOperator{\IsEquiv}{IsEquiv}
+\DeclareMathOperator{\precompose}{\mathrm{precompose}}
+\DeclareMathOperator{\postcompose}{\mathrm{postcompose}}
+\DeclareMathOperator{\idmap}{\mathrm{idmap}}
+\DeclareMathOperator{\cocone}{cocone}
+\DeclareMathOperator{\inl}{inl}
+\DeclareMathOperator{\inr}{inr}
+\DeclareMathOperator{\transport}{transport}
+\DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator{\Sym}{Sym}
+\DeclareMathOperator{\Trans}{Trans}
+\DeclareMathOperator{\Refl}{Refl}
+
+
+\newcommand \defeq {\overset{de\hspace{-0.2ex}f}{=}}
+
+\def\mymathhyphen{{\hbox{-}}}
+
+\newcommand{\IsType}[1]
+{\mathop{\mathrm{Is\mymathhyphen}#1\mathrm{\mymathhyphen type}} }
+
+\newcommand{\modal}{\ensuremath{\ocircle}}
+\newcommand \True {\top}
+\newcommand \idpath {\mathrm{idpath}}
+\newcommand \False {\bot}
+\newcommand \closure[1] {\overline{#1}}
+\newcommand \Char[1] {\chi_{#1}}%{\mathrm{char}(#1)}
+\newcommand \E {\mathcal{E}}
+\newcommand \Hom[1] {\mathrm{Hom}_{#1}}
+\newcommand \Obj {\mathrm{Obj}}
+\newcommand \Sh[1] {\mathrm{Sh}_{#1}}
+\newcommand \squash[1] {\| #1 \| }
+\newcommand \separated {\mathop{\square_{n+1}} }
+\newcommand \fib[2] {\mathrm{fib}_{#1}(#2)}
+\newcommand \colim {\mathrm{colim}}
+\newcommand \zero {\mathbf{0}}
+\newcommand \one {\mathbf{1}}
+\newcommand \unittt{\star}
+\newcommand \two {\mathbf{2}}
+\newcommand{\sumD}[3]{\sum_{#1:#2}\, #3}
+\newcommand{\prodD}[3]{\prod_{#1:#2}\, #3}
+\newcommand{\homot}{\sim}
+\newcommand{\retr}{\mathrm{retr}}
+\newcommand{\sect}{\mathrm{sect}}
+\newcommand{\adj}{\mathrm{adj}}
+\newcommand{\ap}[1]{\mathrm{ap}_{#1}}
+\newcommand{\inv}[1]{#1^{-1}}
+\newcommand{\concat}[2]{#1\cdot #2}
+\newcommand{\happly}{\mathrm{happly}}
+\newcommand{\Sone}{\mathbb{S}^1}
+\newcommand{\baseS}{\mathrm{base}}
+\newcommand{\loopS}{\mathrm{loop}}
+\newcommand{\coeq}[2]{\mathrm{Coeq}^{#1,#2}}
+
+\DeclareMathOperator{\issep}{IsSeparated}
+\DeclareMathOperator{\issheaf}{IsSheaf}
+\DeclareMathOperator{\KP}{KP}
+\DeclareMathOperator{\kp}{kp}
+
+	% DiffÃ©rentielles %
+\newcommand{\diff}[1]{\mathrm{d}#1} %Ã©lÃ©ment diffÃ©rentiel
+\newcommand{\dpart}[2]{\frac{\partial #1}{\partial #2}} %dÃ©rivÃ©e partielle d'ordre 1
+
+	% Ensembles %
+\newcommand{\N}{\mathbb{N}} %entiers naturels
+\newcommand{\R}{\mathbb{R}} %rÃ©els
+\newcommand{\Q}{\mathbb{Q}} %rationnels
+\newcommand{\Z}{\mathbb{Z}} %entiers relatifs
+\newcommand{\C}{\mathbb{C}} %complexe
+\newcommand{\K}{\mathbb{K}} %corps
+\newcommand{\perm}{\mathfrak{S}} %permutations
+
+        % Flèches %
+\newcommand{\To}{\Rightarrow}
+\newcommand{\ot}{\leftarrow}
+\newcommand{\oT}{\Leftarrow}
+\newcommand{\tot}{\leftrightarrow}
+\newcommand{\ToT}{\Leftrightarrow}
+\newcommand{\cto}{\hookrightarrow}
+%\newcommand{\cot}{\hookleftarrow}
+
+
+
+	% Fonctions %
+\newcommand{\fonction}[5]{ %{nom de la fonction}{ensemble de dÃ©part}{ensemble d'arrivÃ©e}{nom de la variable}{image de la variable}
+	#1 \, \colon \left.
+	 \begin{array}{ccl}
+		#2 & \longrightarrow & #3 \\
+		#4 & \longmapsto & #5
+	\end{array}
+	\right.
+}
+
+\def\restriction#1#2{\mathchoice %restriction d'une fonction Ã  un ensemble
+              {\setbox1\hbox{${\displaystyle #1}_{\scriptstyle #2}$}
+              \restrictionaux{#1}{#2}}
+              {\setbox1\hbox{${\textstyle #1}_{\scriptstyle #2}$}
+              \restrictionaux{#1}{#2}}
+              {\setbox1\hbox{${\scriptstyle #1}_{\scriptscriptstyle #2}$}
+              \restrictionaux{#1}{#2}}
+              {\setbox1\hbox{${\scriptscriptstyle #1}_{\scriptscriptstyle #2}$}
+              \restrictionaux{#1}{#2}}}
+\def\restrictionaux#1#2{{#1\,\smash{\vrule height .8\ht1 depth .85\dp1}}_{\,#2}} 
+
+	% OpÃ©rateurs %
+\DeclareMathOperator{\rk}{Rk} %rang
+\DeclareMathOperator{\vect}{Vect} %espace vectoriel engendrÃ©
+\DeclareMathOperator{\mat}{mat} %matrice
+\DeclareMathOperator{\Ker}{Ker} %noyau
+\DeclareMathOperator{\diag}{diag} %matrice diagonale
+\DeclareMathOperator{\jac}{Jac} %jacobien
+
+
+\newcommand*{\EnsQ}[2]%
+{\ensuremath{%
+   \raisebox{.32ex}{\ensuremath{#1}}/\!\raisebox{-.60ex}{\ensuremath{#2}}}}
+
+
+ % Lettrines %
+\renewcommand{\LettrineFontHook}{\fontfamily{yfrak} \selectfont \color[gray]{0.7}}
+
+\newenvironment{fracarray}[1]%
+{\renewcommand{\arraystretch}{1.4}%
+ \begin{array}{#1}%
+}%
+{\end{array}%
+ \renewcommand{\arraystretch}{1}%
+}
+
+\newcommand{\ie}{\emph{i.e}}
+\newcommand{\eg}{\emph{e.g}}
+\newcommand{\etc}{\emph{etc.}}
 
 
 \newenvironment{rmq}
@@ -131,7 +345,7 @@ Mines de Nantes \\
 \endgroup}
 \makeatother
 
-% \includeonly{modalities}   
+% \includeonly{conclusion}   
 
 \def\pullbackcorner{%
     \ar@{-}[]+R+<6pt,-1pt>;[]+RD+<6pt,-6pt>%

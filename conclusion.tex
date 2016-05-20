@@ -1,7 +1,46 @@
 \chapter{Conclusion and future works}
 \label{chap:conclusion}
-I clearly need to write a conclusion here
-\todo[inline]{Write a conclusion}
+
+\section{Conclusion}
+\todo[inline]{Write a conclusion.}
+\section{Future works}
+
+\paragraph*{Extension to Type.}
+At the moment, our sheafification functor only handles truncated type,
+and we have to compose it with truncations. It would be way more
+satisfying to be able to define it on whole $\Type$ left-exactly. The
+main issue is that some types, which are not $n$-truncated for any
+$n$, are not even the limit of their
+truncations~\cite{morelvv}. Therefore, there seems to be no way to
+create a link between a non-truncated type and truncated types, to
+extend our inductive definition. 
+
+\paragraph*{Lawvere-Tierney sheaves in higher topos theory.}
+If we rely on the leitmotiv
+\begin{quote}
+  ``Homotopy type theory is the internal language of $(\infty,1)$-topos,''
+\end{quote}
+we could transpose our work to higher topos theory. As there are more
+tools in topos theory (\eg{} we can access the definitional equality),
+it could be a first step in solving the previous future work.
+
+\paragraph*{Lawvere-Tierney subsumes Grothendieck?}
+In topos theory, there are two different notions of sheaves: the
+Grothendieck sheaves and the Lawvere-Tierney sheaves.
+The former is a topological, geometrical concept, while the latter is
+rather a logical concept. 
+We have the following:
+\begin{thm}[{\cite[{Section V.4, theorem 2}]{maclanemoerdijk}}]
+  Let $\mathbf{C}$ is a small category and $j$ a Lawvere-Tierney
+  topology on $\mathbf{Sets}^{\mathbf{C}^{\mathrm{op}}}$, while $J$ is
+  the corresponding Grothendieck topology on $\mathbf{C}$. Then a
+  presheaf $P$ is a sheaf for $j$ iff $P$ is a $J$-sheaf.
+\end{thm}
+
+
+
+
+
 %%% Local Variables:
 %%% mode: latex
 %%% TeX-master: "main"
