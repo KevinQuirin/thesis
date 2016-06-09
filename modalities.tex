@@ -601,12 +601,268 @@ straightforward to see that $\modal^S$ is a strict modality,
 equivalent to $\modal$.
 \end{rmq}
 
+We first want to show that the translation respects substitution:
+
+\begin{prop}
+  If $\Gamma \vdash A:\Type$, $\Gamma,x:A \vdash B:\Type$ and $\Gamma,x:A \vdash b:B$, then 
+  \[ [b[a/x]] \equiv [b][[a]/x]. \]
+\end{prop}
+\begin{proof}
+It can be shown directly by induction on the term $b$.
+%   We prove it by induction on the term $b$.
+%   \begin{itemize}
+%   \item $b$ is a variable. Then if $b$ is $x$, $[b[a/x]] \equiv [a]
+%     \equiv [b][[a]/x]$. If $b$ is not $x$, then $[b[a/x]] \equiv [b]
+%     \equiv b \equiv [b][[a]/x]$.
+%   \item $b$ is $\Type$. Then $x$ does not appear in $b$ or $[b]$.
+%   \item $b$ is $\sumD u X B$. Then two cases arise:
+%     \begin{itemize}
+%     \item $x$ is $u$. Then $b[a/x] \equiv \sumD u {X[a/x]} B$, and
+%       \begin{align*}
+%         [b[a/x]] &\equiv \left[\sumD u {X[a/x]} B\right] \\
+%                  &\equiv \left( \sumD u {[X[a/x]]} [B];
+%                    \pi_\Sigma^{[X[a/x]],[B]}\right) \\
+%                  &\equiv \left( \sumD u {[X][[a]/x]} [B];
+%                    \pi_\Sigma^{[X][[a]/x],[B]}\right) \\
+%                  &\equiv [b][[a]/x]
+%       \end{align*}
+%     \item The case when $x$ is not $u$ is similar.
+%     \end{itemize}
+
+% $b[a/x] \equiv \sumD u {X[a/x]} {B[a/x]}$
+
+
+%   \item $b$ is $\lambda\, u:X,\,t$. If $x$ is not $u$, then $b[a/x]
+%     \equiv \lambda\,u:X[a/x],\,t[a/x]$, so that 
+%     \begin{align*}
+%       [b[a/x]] &\equiv [\lambda\,u:X[a/x],\,t[a/x] \\
+%                &\equiv \lambda\,u:[X[a/x]],\,[t[a/x]]\\
+%                &\equiv \lambda\,u:\Lbrack X \Rbrack [[a]/x],\,[t][[a]/x]\\
+%                &\equiv [b][[a]/x]
+%     \end{align*}
+%     If $x$ is $u$, the proof is similar.
+%   \item $b$ is the application $u(v)$. Then $b[a/x] \equiv
+%     u[a/x]v[a/x]$, so that
+%     \begin{align*}
+%       [b[a/x]] &\equiv [u[a/x]v[a/x]] \\
+%                &\equiv [u[a/x]] [v[a/x]] \\
+%                &\equiv [u][[a]/x] [v][[a]/x] \\
+%                &\equiv [b][[a]/x]
+%     \end{align*}
+%   \end{itemize}
+\end{proof}
+
 The usual result we want about any translation is its soundness:
 \begin{prop}[Soundness of the translation]
   Let $\Gamma$ is a valid context, $A$ a type and $t$ a term.
   If $\Gamma \vdash t : A$, then 
   \[\Lbrack \Gamma \Rbrack \vdash [t] : \Lbrack A \Rbrack. \]
 \end{prop}
+\begin{proof}
+  We prove it by induction on the proof of $\Gamma \vdash t : A$. We
+  use the name of rules as in~\cite[Appendix A]{hottbook}. We note $M$
+  the predicate ``is modal''.
+  \begin{itemize}
+
+  \item $\Pi$-\textsc{form}: 
+
+    \begin{center}
+      \AxiomC{$[\Gamma] \vdash [A]:\Lbrack \Type \Rbrack$}
+      \RightLabel{$\Sigma$-\textsc{elim}}
+      \UnaryInfC{$[\Gamma] \vdash \Lbrack A \Rbrack : \Type$}
+      \AxiomC{$[\Gamma,x:A]\vdash [B]:\Lbrack \Type \Rbrack$}
+      \RightLabel{$\Sigma$-\textsc{elim}}
+      \UnaryInfC{$[\Gamma,x:A] \vdash \Lbrack B \Rbrack : \Type$}
+      \RightLabel{$\Pi$-\textsc{form}}
+      \BinaryInfC{$[\Gamma] \vdash \prodD x {\Lbrack A \Rbrack}
+        {\Lbrack B \Rbrack} : \Type$}
+      \DisplayProof
+    \end{center}
+    together with
+    \begin{center}
+      \AxiomC{$[\Gamma] \vdash [A]:\Lbrack \Type \Rbrack$}
+      \RightLabel{$\Sigma$-\textsc{elim}}
+      \UnaryInfC{$[\Gamma] \vdash [A]_2 : M(A)$}
+      \AxiomC{$[\Gamma,x:A]\vdash [B]:\Lbrack \Type \Rbrack$}
+      \RightLabel{$\Sigma$-\textsc{elim}}
+      \UnaryInfC{$[\Gamma,x:A] \vdash [B]_2 : M(B)$}
+      \BinaryInfC{$[\Gamma] \vdash \pi_{\Pi}^{[A]_2,[B]_2} :
+        M\left(\prodD x {\Lbrack A \Rbrack}{\Lbrack B \Rbrack} \right)$}
+      \DisplayProof
+    \end{center}
+    yields 
+    \[[\Gamma] \vdash \prodD x {\Lbrack A \Rbrack}{\Lbrack B \Rbrack}
+      : [\Type] \]
+    
+  \item $\Pi$-\textsc{intro}:
+    
+    \begin{center}
+      \AxiomC{$[\Gamma,x:A] \vdash [b]:\Lbrack B \Rbrack$}
+      \RightLabel{$\Pi$-\textsc{intro}}
+      \UnaryInfC{$[\Gamma] \vdash \lambda\, x:\Lbrack A\Rbrack,\, [b]
+        : \prodD x {\Lbrack A\Rbrack}{\Lbrack B\Rbrack}$}
+      \DisplayProof
+    \end{center}
+    
+  \item $\Pi$-\textsc{elim}:
+
+    \begin{center}
+      \AxiomC{$[\Gamma] \vdash [f] : \prodD x {\Lbrack
+          A\Rbrack}{\Lbrack B\Rbrack}$}
+      \AxiomC{$[\Gamma] \vdash [a]:\Lbrack A \Rbrack $}
+      \RightLabel{$\Pi$-\textsc{elim}}
+      \BinaryInfC{$[\Gamma] \vdash [f][a] : \Lbrack B \Rbrack [[a]/x]$}
+      \DisplayProof
+    \end{center}
+  \item As the translation go through dependent sums as well, the
+    proof trees for $\Sigma$-\textsc{form}, $\Sigma$-\textsc{intro},
+    $\Sigma$-\textsc{elim} and $\Sigma$-\textsc{comp} are similar.
+
+
+  \item $\Pi$-\textsc{comp}:
+    
+    \begin{center}
+      \AxiomC{$[\Gamma,x:A] \vdash [b]:\Lbrack B\Rbrack$}
+      \AxiomC{$[\Gamma] \vdash [a]:\Lbrack A\Rbrack$}
+      \RightLabel{$\Pi$-\textsc{comp}}
+      \BinaryInfC{$[\Gamma] \vdash (\lambda\,x:\Lbrack
+        A\Rbrack,\,[b])([a]) \equiv [b][[a]/x] : \Lbrack B\Rbrack [[a]/x]$}
+      \DisplayProof
+    \end{center}
+
+
+  \item $+$-\textsc{form}:
+    \begin{center}
+      \AxiomC{$[\Gamma] \vdash [A]:\Lbrack \Type \Rbrack$}
+      \RightLabel{$\Sigma$-\textsc{elim}}
+      \UnaryInfC{$[\Gamma] \vdash \Lbrack A \Rbrack : \Type$}
+      \AxiomC{$[\Gamma]\vdash [B]:\Lbrack \Type \Rbrack$}
+      \RightLabel{$\Sigma$-\textsc{elim}}
+      \UnaryInfC{$[\Gamma] \vdash \Lbrack B \Rbrack : \Type$}
+      \RightLabel{$+$-\textsc{form}}
+      \BinaryInfC{$[\Gamma] \vdash {\Lbrack A \Rbrack} +
+        {\Lbrack B \Rbrack} : \Type$}
+      \RightLabel{$\pi_\modal^{{\Lbrack A \Rbrack} + {\Lbrack B \Rbrack}}$}
+      \UnaryInfC{$[\Gamma] \vdash \modal\left({\Lbrack A \Rbrack} +
+        {\Lbrack B \Rbrack}\right) : \Lbrack \Type \Rbrack$}
+      \DisplayProof
+    \end{center}
+
+  \item $+$-\textsc{intro${}_{1,2}$}:
+
+    \begin{center}
+      \AxiomC{$[\Gamma] \vdash [A]:\Lbrack \Type \Rbrack$}
+      \RightLabel{$\Sigma$-\textsc{elim}}
+      \UnaryInfC{$[\Gamma] \vdash \Lbrack A \Rbrack : \Type$}
+      \AxiomC{$[\Gamma] \vdash [B]:\Lbrack \Type \Rbrack$}
+      \RightLabel{$\Sigma$-\textsc{elim}}
+      \UnaryInfC{$[\Gamma] \vdash \Lbrack B \Rbrack : \Type$}
+      \AxiomC{$[\Gamma] \vdash [a]:\Lbrack A \Rbrack$}
+      \RightLabel{$+$-\textsc{intro${}_1$}}
+      \TrinaryInfC{$[\Gamma] \vdash \inl([a]) : \Lbrack A \Rbrack +
+        \Lbrack B \Rbrack$}
+      \UnaryInfC{$[\Gamma] \vdash \eta (\inl([a])) : \Lbrack A + B\Rbrack$}
+      \DisplayProof
+    \end{center}
+
+    and 
+    
+    \begin{center}
+      \AxiomC{$[\Gamma] \vdash [A]:\Lbrack \Type \Rbrack$}
+      \RightLabel{$\Sigma$-\textsc{elim}}
+      \UnaryInfC{$[\Gamma] \vdash \Lbrack A \Rbrack : \Type$}
+      \AxiomC{$[\Gamma] \vdash [B]:\Lbrack \Type \Rbrack$}
+      \RightLabel{$\Sigma$-\textsc{elim}}
+      \UnaryInfC{$[\Gamma] \vdash \Lbrack B \Rbrack : \Type$}
+      \AxiomC{$[\Gamma] \vdash [b]:\Lbrack B \Rbrack$}
+      \RightLabel{$+$-\textsc{intro${}_2$}}
+      \TrinaryInfC{$[\Gamma] \vdash \inl([b]) : \Lbrack A \Rbrack +
+        \Lbrack B \Rbrack$}
+      \UnaryInfC{$[\Gamma] \vdash \eta (\inl([b])) : \Lbrack A + B\Rbrack$}
+      \DisplayProof
+    \end{center}
+
+ \item $+$-\textsc{elim}:
+   We treat the non-dependent case.
+
+   \begin{center}
+     \AxiomC{$[\Gamma]\vdash [C]:\Lbrack \Type \Rbrack$}
+     \AxiomC{$[\Gamma] \vdash [f]:\Lbrack A \to C\Rbrack $}
+     \AxiomC{$[\Gamma] \vdash [d]:\Lbrack B \to C\Rbrack $}
+     \RightLabel{$+$-\textsc{elim}}
+     \TrinaryInfC{$[\Gamma] \vdash \langle [f],[g]\rangle : \Lbrack A
+       \Rbrack + \Lbrack B \Rbrack \to \Lbrack C\Rbrack$}
+     \UnaryInfC{$[\Gamma] \vdash \modal_{\mathrm{rec}}^{\Lbrack A
+       \Rbrack + \Lbrack B}  \langle [f],[g]\rangle :
+     \modal \left( \Lbrack A
+       \Rbrack + \Lbrack B \Rbrack \right) \to \Lbrack C \Rbrack$}
+     % \AxiomC{$[\Gamma]\vdash [e]:\Lbrack A + B \Rbrack $}
+     % \BinaryInfC{Foo}
+     \DisplayProof
+   \end{center}
+
+ \item $+$-\textsc{comp}${}_{1,2}$:
+   Again, we only treat the non-dependent case.
+   \begin{center}
+     \AxiomC{$[\Gamma]\vdash [C]:\Lbrack \Type \Rbrack$}
+     \AxiomC{$[\Gamma] \vdash [f]:\Lbrack A \to C\Rbrack $}
+     \AxiomC{$[\Gamma] \vdash [d]:\Lbrack B \to C\Rbrack $}
+     \AxiomC{$[\Gamma] \vdash [a] : \Lbrack A \Rbrack$}
+     \RightLabel{$+$-\textsc{comp}${}_1$}
+     \QuaternaryInfC{$[\Gamma] \vdash \langle [f],[g]\rangle (\inl [a])
+       \equiv [f][a] : \Lbrack C \Rbrack$}
+     \RightLabel{$\modal_{\mathrm{strict}}$}
+     \UnaryInfC{$[\Gamma] \vdash \modal_{\mathrm{rec}}^{\Lbrack A
+       \Rbrack + \Lbrack B \Rbrack}  \langle [f],[g]\rangle (\eta(\inl
+     [a])) \equiv [f][a] : \Lbrack C \Rbrack$}
+     \DisplayProof
+   \end{center}
+   $+$-\textsc{comp}${}_{2}$ is done in the same way.
+
+ \item $=$-\textsc{form}:
+   \begin{center}
+     \AxiomC{$[\Gamma] \vdash [A]:\Lbrack \Type \Rbrack$}
+     \RightLabel{$\Sigma$-\textsc{elim}}
+     \UnaryInfC{$[\Gamma] \vdash \Lbrack A \Rbrack : \Type$}
+     \AxiomC{$[\Gamma] \vdash [a],[b]:\Lbrack A \Rbrack$}
+     \RightLabel{$=$-\textsc{form}}
+     \BinaryInfC{$[\Gamma] \vdash [a] = [b] : \Type$}
+     \AxiomC{$[\Gamma] \vdash [A]:\Lbrack \Type \Rbrack$}
+     \RightLabel{$\Sigma$-\textsc{elim}}
+     \UnaryInfC{$[\Gamma] \vdash [A]_2 : M(A)$}
+     \UnaryInfC{$[\Gamma] \vdash \pi_=^{[a],[b]} : M([a] = [b])$}
+     \RightLabel{$\Sigma$-\textsc{intro}}
+     \BinaryInfC{$[\Gamma] \vdash [a]=[b] : \Lbrack \Type \Rbrack$}
+     \DisplayProof
+   \end{center}
+    
+ \item $=$-\textsc{intro}:
+   \begin{center}
+     \AxiomC{$[\Gamma] \vdash [A]:\Lbrack \Type \Rbrack$}
+     \AxiomC{$[\Gamma] \vdash [a]:\Lbrack A \Rbrack$}
+     \RightLabel{$=$-\textsc{intro}}
+     \BinaryInfC{$[\Gamma] \vdash 1_{[a]} : [a] = [a]$}
+     \DisplayProof
+   \end{center}
+
+ \item $=$-\textsc{elim}: 
+   We only treat $\transport$.
+   \begin{center}
+     \AxiomC{$[\Gamma,x:A] \vdash [P]:\Lbrack \Type \Rbrack $}
+     \RightLabel{$\Sigma$-\textsc{elim}}
+     \UnaryInfC{$[\Gamma,x:A] \vdash \Lbrack P \Rbrack : \Type$}
+     \AxiomC{$[\Gamma] \vdash [a],[b]:\Lbrack A \Rbrack$}
+     \AxiomC{$[\Gamma] \vdash [p] : [a] = [b] $}
+     \AxiomC{$[\Gamma] \vdash [u] : \Lbrack P\, a\Rbrack$}
+     \RightLabel{$=$-\textsc{elim}}
+     \QuaternaryInfC{$[\Gamma] \vdash \transport_{\Lbrack P \Rbrack}^{[p]} [u] :
+       [P][b]$}
+     \DisplayProof
+   \end{center}
+   
+
+  \end{itemize}
+\end{proof}
 
 \begin{rmq}
   We note that if the modality is not left-exact (or not accessible),
@@ -620,9 +876,41 @@ The usual result we want about any translation is its soundness:
 \end{rmq}
 
 An implementation of this translation has been made, in the form of a
-Coq plugin, available at \url{https://github.com/KevinQuirin/translation-mod/}.
+Coq plugin, available at
+\url{https://github.com/KevinQuirin/translation-mod/}. We give here a
+brief description.
+For each module, there is a table $T$ containing a list of pairs
+consisting of constants $c$ (resp. inductive type $i$) together with
+its translation $[c]$ (resp. another inductive type $[i]$). 
+Each time we need the translation of a constant, the plugin read this
+table to find it.
+Then, we add two new commands in Coq: \texttt{Modal Definition} and
+\texttt{Modal Translate}.
 
-\todo[inline]{Code the plugin, then plug it here}
+\texttt{Modal Definition} allows to give a definition in the reflective
+subuniverse; 
+\[\texttt{Modal Definition foo : bar using $\modal$}\]
+open a new goal of type $[\texttt{bar}]$, waits for the user to give a
+proof, and define a new term $\texttt{foo}^m:[\texttt{bar}]$ and a new
+constant $\texttt{foo}:\texttt{bar}$ at the
+\texttt{Defined} command. Then, it adds in $T$ a new pair
+$(\texttt{foo},\texttt{foo}^m)$.
+
+\texttt{Modal Translate} allows to translate automatically a
+previously existing constant or inductive type.
+If $\texttt{foo} \defeq \texttt{qux} : \texttt{bar}$ is a constant,
+\[\texttt{Modal Translate foo using $\modal$}\]
+computes the value of $[\texttt{foo}]$, and add in $T$ the pair
+$(\texttt{foo},[\texttt{foo}])$.
+If $I (x_1 : A_1) \cdots (x_n:A_n) : \Type$ is an inductive type with
+$p$ constructors $C_i : T_i$, then the plugin builds a new inductive
+type $I^m (x_1 : [A_1]) \cdots (x_n:[A_n]) : \Type$ with constructors 
+$C_i^m : [T_i]$, and add $(I,I^m)$ in the table $T$. Then, the
+translation of $I(t_1, \cdots, t_n)$ will be $\modal (I^m ([t_1], \cdots, [t_n]))$.
+
+
+
+% \todo[inline]{Code the plugin, then plug it here}
 %%% Local Variables:
 %%% mode: latex
 %%% TeX-master: "main"

@@ -3,7 +3,7 @@
 
 \section{Conclusion}
 \todo[inline]{Write a conclusion.}
-\section{Future works}
+\section{Future work}
 
 \paragraph*{Extension to Type.}
 At the moment, our sheafification functor only handles truncated type,
@@ -13,29 +13,50 @@ main issue is that some types, which are not $n$-truncated for any
 $n$, are not even the limit of their
 truncations~\cite{morelvv}. Therefore, there seems to be no way to
 create a link between a non-truncated type and truncated types, to
-extend our inductive definition. 
+extend our inductive definition.
+It might be possible to have such a link using axioms such as
+Whitehead's principle~\cite[Section 8.8]{hottbook} or Postnikov
+principle~\cite[Section 5.5.6]{lurie}, and use it to build a real
+modality on $\Type$.
 
 \paragraph*{Lawvere-Tierney sheaves in higher topos theory.}
 If we rely on the leitmotiv
 \begin{quote}
-  ``Homotopy type theory is the internal language of $(\infty,1)$-topos,''
+  Homotopy type theory is the internal language of $(\infty,1)$-topos,
 \end{quote}
 we could transpose our work to higher topos theory. As there are more
 tools in topos theory (\eg{} we can access the definitional equality),
 it could be a first step in solving the previous future work.
+This kind of ``reverse engineered'' proof has already been done for a
+proof of the Blakers-Massey theorem by Charles Rezk~\cite{rezk-BM},
+inspired by the homotopy-type-theoretic proof by Peter LeFanu
+Lumsdaine, Eric Finster and Dan Licata.
 
 \paragraph*{Lawvere-Tierney subsumes Grothendieck?}
 In topos theory, there are two different notions of sheaves: the
 Grothendieck sheaves and the Lawvere-Tierney sheaves.
 The former is a topological, geometrical concept, while the latter is
-rather a logical concept. 
-We have the following:
+rather a logical concept.
+Grothendieck sheaves are based on {\em Grothendieck
+  topologies}~\cite[Chapter III]{maclanemoerdijk}, and one can show
+that Lawvere-Tierney topologies on a presheaf topos
+$\mathbf{Sets}^{\mathbf{C}^{\mathrm{op}}}$ correspond exactly to
+Grothendieck topologies on $\mathbf{C}$. Then, we have the following:
 \begin{thm}[{\cite[{Section V.4, theorem 2}]{maclanemoerdijk}}]
+  \label{thm:subsume}
   Let $\mathbf{C}$ is a small category and $j$ a Lawvere-Tierney
   topology on $\mathbf{Sets}^{\mathbf{C}^{\mathrm{op}}}$, while $J$ is
   the corresponding Grothendieck topology on $\mathbf{C}$. Then a
   presheaf $P$ is a sheaf for $j$ iff $P$ is a $J$-sheaf.
 \end{thm}
+The concept of Grothendieck sheaf and Grothendieck sheafification
+already exists in $(\infty,1)$-topos~\cite[Section 6.2.2]{lurie}. 
+It would be nice to check if theorem~\ref{thm:subsume} still holds,
+either in the setting of homotopy type theory or in
+the setting of higher topos. The former requires to formalize
+Grothendieck topologies, sheaves and sheafification from higher topos
+theory to homotopy type theory, while the latter requires to work on
+the previous point.
 
 
 
