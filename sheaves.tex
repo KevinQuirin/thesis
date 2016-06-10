@@ -5,12 +5,98 @@
   chess gambit: a chess player may offer the sacrifice of a pawn or
   even a piece, but a mathematician offers the game}{Godfrey Harold Hardy}
 
-Section~\ref{sec:sheaf_topos} briefly recalls the topos-theoretic
-version of Lawvere-Tierney sheaves theory, and
-section~\ref{sec:sheaf_hott} presents the main result of this thesis:
-the construction of the sheafification modality in homotopy type
-theory. Section~\ref{sec:forcing} tries to link our construction
-with forcing in type theory.
+
+In topos theory, sheafification can be seen as a way to transform a
+topos into another one. It is used, for example, to build, from any
+topos $\mathcal T$, a boolean topos (\ie{} satisfying the excluded
+middle property) satisfying the axiom of choice and negating the
+continuum hypothesis~\cite[Theorem VI.2.1]{maclanemoerdijk}.
+This is actually an adaptation of a slightly older method, in set
+theory, to change a model $\mathfrak M$ of ZFC into a model $\mathfrak
+M[G]$ of ZFC, satisfying other principles, called {\em forcing}. It's
+most famous application is the proof of consistency of ZFC with the
+negation of the continuum hypothesis, by Paul Cohen~\cite{cohen1966},
+answering (neither negatively not positively) the first Hilbert's
+problem. Indeed, Gödel proved in 1938 the consistency of ZFC with
+continuum hypothesis~\cite{godel1938}.
+The global idea of this technique is to add to the theory
+ZFC partial information about the witness of $\lnot$CH. 
+Then, supposing that ZFC is coherent, it is provable that ZFC together
+with a finite number of approximation of the desired object is still
+consistent. Then, the compactness theorem allows to prove the
+consistency of ZFC with {\em all} approximations, \ie{} with a witness
+of $\lnot$HC.
+
+Then, forcing has been adapted to the setting of topos theory by Myles
+Tierney~\cite{tierney1972}, through the notion of sheaves.  Note that,
+in topos theory, there are two different kind of sheaves: Grothendieck
+sheaves, which only exists on a presheaf topos, and Lawvere-Tierney
+sheaves. One can show that Lawvere-Tierney sheaves, when considered on
+a presheaf topos, are exactly the Grothendieck sheaves; thus,
+Lawvere-Tierney sheaves can be seen as a generalization of
+Grothendieck sheaves.  Given a topos $\mathcal T$, one can build
+another topos -- the topos of sheaves $\Sh{}(\mathcal T)$ -- together
+with geometric embedding from $\Sh{}(\mathcal T)$ to $\mathcal T$
+called sheafification.  Depending on the sheaves we chose to treat,
+the topos $\Sh{}(\mathcal T)$ satisfies new principles. The
+construction of the geometric embedding is done in \cite[Section
+V.3]{maclanemoerdijk}, and briefly recalled in
+section~\ref{sec:sheaf_topos}.
+
+The development of higher topos theory (and more generally, higher
+category theory) leads to wonder if a notion of sheafification still
+exists in this setting. This question is answered positively
+in~\cite{lurie}, where the author build a sheafification functor, but
+only for Grothendieck sheaves. Surprisingly, sheafification in a higher
+topos is just an iteration of the process of sheafification in topos
+theory. It seems that Lawvere-Tierney sheaves were not considered in
+this new setting.
+
+Similar questions have been considered around the Curry-Howard
+isomorphism, to extend a programming language close to type theory
+with new logical or computational principle while keeping consistency
+automatically.
+%
+For instance, much efforts have been done to provide a computational
+content to the law of excluded middle in order to define a
+constructive version of classical logic. This has lead to various
+calculi, with most notably the $\lambda \mu$-calculus of
+Parigot~\cite{parigot1993classical}, but this line of work has not
+appeared to be fruitful to define a new version of type theory with
+classical principles.
+%
+Other works have tried to extend continuation-passing-style (CPS)
+transformation to type theory, but they have been faced with the
+difficulty that the CPS transformation is incompatible with (full) dependent
+sums~\cite{barthe2002cps}, which puts emphasis on the tedious link
+between the axiom of choice and the law of excluded middle in type theory.
+%
+Nevertheless the axiom of choice has shown to be realizable by
+computational meaning in a classical setting by techniques turning
+around the notion of (modified) bar induction
+\cite{berardi1998computational}, Krivine's
+realizability~\cite{krivine2003dependent} and even more recently with
+restriction on elimination of dependent sums and lazy
+evaluation~\cite{herbelin2012constructive}.
+The work on forcing in type theory~\cite{jaber2012extending,forcing2016} also
+gives a computational meaning to a type theory enriched with new
+logical or computational principle.
+
+Section~\ref{sec:sheaf_hott} presents a definition of the
+sheafification functor in the setting of homotopy type
+theory. Actually, this construction is entirely complementary to
+forcing in type theory, as forcing corresponds to the presheaf
+construction while Lawvere-Tierney sheafification corresponds to the
+topological transformation that allows to go from the presheaf
+construction to the sheaf construction.
+
+
+% Section~\ref{sec:sheaf_topos} briefly recalls the topos-theoretic
+% version of Lawvere-Tierney sheaves theory, and
+% section~\ref{sec:sheaf_hott} presents the main result of this thesis:
+% the construction of the sheafification modality in homotopy type
+% theory. Section~\ref{sec:forcing} tries to link our construction
+% with forcing in type theory.
 
 \section{Sheaves in topoi}
 \label{sec:sheaf_topos}
