@@ -462,11 +462,12 @@ modalities.
 
 As said in section~\ref{sec:new-type-theories}, left-exact modalities
 allows to perform model transformation. But it can be enhanced a bit
-by exhibiting a {\em translation} of type theories, as it has been done for
-forcing~\cite{jaber2012extending}. Let us explain
-here how this translation works.
+by exhibiting a {\em translation} of type theories, from CIC into
+itself, as it has been done for
+forcing~\cite{jaber2012extending,forcing2016}. Let us explain here how
+this translation works.
 
-Let $\modal$ be an accessible left-exact modality. We describe, for each type
+Let $\modal$ be an accessible left-exact modality. We describe, for each term
 constructor, how to build its translation. We denote $\pi_\modal(A)$
 the proof that $\modal(A)$ is always modal.
 
@@ -546,6 +547,12 @@ soon as their type is modal if $A,B:X$.
 
 \end{itemize}
 
+Then, we translate contexts pointwise:
+\begin{align*}
+  [\emptyset] &\defeq \emptyset \\
+  [\Gamma,x:A] &\defeq [\Gamma],x:\Lbrack A\Rbrack
+\end{align*}
+
 As in the forcing translation~\cite{jaber2012extending}, the main
 issue is that convertibility might not be preserved. For
 example, let $f:A \to X$ and $g:B\to X$. Then $\langle f,g\rangle
@@ -558,9 +565,12 @@ example, let $f:A \to X$ and $g:B\to X$. Then $\langle f,g\rangle
 
 Two solutions to this problem can come to our mind:
 \begin{itemize}
-\item We can use the eliminator $J$ of equality in the conversion
+\item We could use the eliminator $J$ of equality in the conversion
   rule, but this would require to use a type theory with explicit
-  conversion in the syntax, like in~\cite{jaber2012extending}.
+  conversion in the syntax, like in~\cite{jaber2012extending}. Such
+  type theories has been studied
+  in~\cite{geuvers2004,van2013explicit}. We do not chose this
+  solution, and thus do not give more details.
 \item We can ask the modality $\modal$ to be a strict modality, in the
   sense that retraction in the equivalence of $(-\circ\eta)$ is conversion
   instead of equality, like for the closed modality. 

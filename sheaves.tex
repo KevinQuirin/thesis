@@ -3,7 +3,7 @@
 \epigraph{Reductio ad absurdum, which Euclid loved so much, is one of
   a mathematician's finest weapons. It is a far finer gambit than any
   chess gambit: a chess player may offer the sacrifice of a pawn or
-  even a piece, but a mathematician offers the game}{Godfrey Harold Hardy}
+  even a piece, but a mathematician offers the game.}{Godfrey Harold Hardy}
 
 
 In topos theory, sheafification can be seen as a way to transform a
@@ -16,9 +16,10 @@ theory, to change a model $\mathfrak M$ of ZFC into a model $\mathfrak
 M[G]$ of ZFC, satisfying other principles, called {\em forcing}. It's
 most famous application is the proof of consistency of ZFC with the
 negation of the continuum hypothesis, by Paul Cohen~\cite{cohen1966},
-answering (neither negatively not positively) the first Hilbert's
+answering (neither negatively nor positively) the first Hilbert's
 problem. Indeed, Gödel proved in 1938 the consistency of ZFC with
-continuum hypothesis~\cite{godel1938}.
+continuum hypothesis~\cite{godel1938} using the constructible model
+$\mathbb L$.
 The global idea of this technique is to add to the theory
 ZFC partial information about the witness of $\lnot$CH. 
 Then, supposing that ZFC is coherent, it is provable that ZFC together
@@ -118,7 +119,7 @@ speak about {\em locally true} things instead of {\em true} things.
 A classical example of Lawvere-Tierney topology is given by double
 negation. Other examples are given by Grothedieck topologies, in the
 sense
-\begin{thm}[{\cite[V.1.2]{maclanemoerdijk}}]
+\begin{thm}[{\cite[Theorem V.1.2]{maclanemoerdijk}}]
   Every Grothendieck topology $J$ on a small category $\mathbf C$ determines a
   Lawvere-Tierney topology $j$ on the presheaf topos
   $\mathbf{Sets}^{\mathbf C^{\mathbf{op}}}$.
@@ -141,7 +142,7 @@ impossible to make a distinction between objects and their dense
 subobjects, \ie{} for which ``true'' and ``locally true''
 coincide. Such objects are called {\em sheaves}, and are defined as
 
-\begin{defi}[Sheaves{\cite[V.2]{maclanemoerdijk}}]
+\begin{defi}[Sheaves{\cite[Section V.2]{maclanemoerdijk}}]
   On object $F$ of $\mathcal E$ is a sheaf (or $j$-sheaf) if for every
   dense monomorphism $m: A \hookrightarrow E$ in $\mathcal E$, the
   canonical map $\Hom{\mathcal E}(E,F) \rightarrow \Hom{\mathcal E}(A,F)$ is an
@@ -179,7 +180,7 @@ One classical example of use of sheafification is the construction,
 from any topos, of a boolean topos negating the continuum
 hypothesis. More precisely:
 
-\begin{thm}[Negation of CH~{\cite[VI.2.1]{maclanemoerdijk}}]
+\begin{thm}[Negation of CH~{\cite[Theorem VI.2.1]{maclanemoerdijk}}]
   There exists a Boolean topos satisfying the axiom of choice, in
   which the continuum hypothesis fails.
 \end{thm}
@@ -224,17 +225,17 @@ a topos-theoretic setting, everything is proof-irrelevant, it won't be
 the case for higher settings, forcing us to prove results that were
 previously true on the nose. This will oblige us to write long and
 technical proofs of coherence, and more deeply, to modify completely
-some lemmas, such as Proposition~\cite[IV.7.8]{maclanemoerdijk},
+some lemmas, such as Proposition~\cite[Theorem IV.7.8]{maclanemoerdijk},
 stating that epimorphisms are coequalizers of their kernel pair.
 
 The main idea is thus to follow as closely as possible the
-topos-theoretic construction, and change as few times as possible to
+topos-theoretic construction, and change it as few times as possible to
 make it work in our higher setting.
 
 Note that the principles we want to add are added directly from the
 $\HProp$ level, the extension to all truncated types is automatic. The
 choice of the left-exact modality on $\HProp$ is thus crucial. For the
-rest of the section, we fix one, note $\modal_{-1}$. The reader can
+rest of the section, we fix one, noted $\modal_{-1}$. The reader can
 think of the double negation $\modal_{\lnot\lnot}$ defined
 in~\ref{ssec:notnot}. We will define, by induction on the truncation
 level, left-exact modalities on all $\Type_n$, as in the following
@@ -280,7 +281,7 @@ all $n$-sheaves has to be a $(n+1)$-sheaf.
 
 From the modality $\modal_n$, one can build a {\em closure operator}.
 
-\begin{defi}
+\begin{defi}[(\code{cloture},\code{closed},\code{EnJ})]
   Let $E$ be a type. 
   \begin{itemize}
 
@@ -306,9 +307,9 @@ Topos-theoretic sheaves are characterized by a property of existence
 and uniqueness, which will be translated, as usual, into a proof that
 a certain function is an equivalence.
 
-\begin{defi}[Restriction]
+\begin{defi}[Restriction (\code{E\_to\_$\chi$mono\_map}, \code{E\_to\_$\chi$\_map})]
   Let $E,F:\Type$ and $\chi:E\to\Type$. We define the {\em
-    restriction map} $\Phi_E^\chi$ as follows
+    restriction map} $\Phi_E^\chi$ as
   \[
     \fonction{\Phi_E^\chi}{E\to F}{\sumD e E {\chi e} \to F}{f}{f\circ \pi_1}.
   \]
@@ -319,7 +320,7 @@ dense $(-1)$-subobjects, that will be used in the definition of
 sheaves, and dense $n$-subobjects, that will be used in the definition
 of separated types. 
 
-\begin{defi}[Separated Type]
+\begin{defi}[Separated Type (\code{separated})]
   A type $F$ in $\Type_{n+1}$ is {\em separated} if for any type $E$, and
   all dense $n$-subobject of $E$ classified by $\chi$,
   $\Phi_E^\chi$ is an embedding.
@@ -332,7 +333,7 @@ if there is an extension $\tilde f:E\to F$, then it is unique, as in
     \sumD e E {\chi e} \ar[r]^-f \ar[d]_{\pi_1} & F \\
     E \ar@{-->}[ru]_{!}&
   }\]
-\begin{defi}[Sheaf]
+\begin{defi}[Sheaf (\code{Snsheaf\_struct})]
   A type $F$ of $\Type_{n+1}$ is a {\em $(n+1)$-sheaf} if it is
   separated, and for any type $E$ and all dense $(-1)$-subobject of
   $E$ classified by $\chi$, $\Phi_E^\chi$ is an
@@ -352,7 +353,7 @@ in~\cite{maclanemoerdijk}. The main difference is that {separated}
 is defined for $n$-subobjects, while {sheaf} only for
 $(-1)$-subobjects. It might seem bizarre to make such a distinction,
 but the following proposition gives a better understanding of the situation.
-\begin{prop}
+\begin{prop}[(\code{nj\_paths\_separated})]
   A type $F$ is $\Type_{n+1}$ is separated if, and only if all its
   path types are $n$-modal, ie
   \[ \prodD {x,y} F {\left( \modal_n(x=y) \right) = (x=y)}.\]
@@ -364,7 +365,7 @@ $(-1)$-subobjects), with the condition that all its path types are
 $n$-sheaves. It is a way to force the compatibility of the modalities we
 are defining.
 
-On can check that the property $\issep$ (resp. $\issheaf$) is $\HProp$:
+One can check that the property $\issep$ (resp. $\issheaf$) is $\HProp$:
 given a $X:\Type_{n+1}$, there is at most one way for it to be separated
 (resp. a sheaf). In particular, when needed to prove equality between
 two sheaves, it suffices to show the equality between the underlying
@@ -374,7 +375,8 @@ As said earlier, these definitions allow us to prove the fundalemental
 property that the type of all $n$-sheaves is itself a $(n+1)$-sheaf
 (this can be viewed as an equivalent definition of left-exactness).
 
-\begin{prop}\label{prop:sheaf-is-sheaf}
+\begin{prop}[(\code{nType\_j\_Type\_is\_SnType\_j\_Type})]
+\label{prop:sheaf-is-sheaf}
   $\Type_n^\modal$ is a $(n+1)$-sheaf.
 \end{prop}
 
@@ -406,14 +408,14 @@ property that the type of all $n$-sheaves is itself a $(n+1)$-sheaf
   defined by $\phi(x) = (x_1)_1$.
   Using the following lemma, one can prove that the map $f\mapsto g$
   defines an inverse of $\Phi_E^\chi$.
-  \begin{lem}
+  \begin{lem}[(\code{nj\_fibers\_compose})]
     Let $A,B,C:\Type_n$, $f:A\to B$ and $g:B\to C$.
     Then
     if all fibers of $f$ and $g$ are $n$-truncated, then
-      \[\left( \prodD c C {\modal_n(\fib {g \circ f} c)}\right) \simeq
+      \[\prodD c C {\left( \modal_n(\fib {g \circ f} c) \right) \simeq
       \modal_n \left(  
         \sumD w {\fib g c} {\modal_n (\fib f {w_1})}
-      \right).\]
+      \right)}.\]
   \end{lem}
   \begin{prooflem}
     This is just a modal counterpart of the property characterizing
@@ -425,7 +427,8 @@ property that the type of all $n$-sheaves is itself a $(n+1)$-sheaf
 Another fundamental property on sheaves we will need is that the type of (dependent)
 functions is a sheaf as soon as its codomain is a sheaf.
 
-\begin{prop}\label{prop:sheaf-forall}
+\begin{prop}[(\code{dep\_prod\_SnType\_j\_Type})]
+\label{prop:sheaf-forall}
   If $A:\Type_{n+1}$ and $B:A \to \Type_{n+1}$ such that for any
   $a:A$, $(B~a)$ is a sheaf, then $\prodD a A {B\, a}$ is a sheaf.
 \end{prop}
@@ -496,13 +499,14 @@ $\separated T$ can be given explicitly by
 This corresponds to the free separated object used in the topos-theoretic construction, but using $\Type_n^\modal$ instead of the
 $j$-subobject classifier $\Omega_j$.
 %
-\begin{prop}
+\begin{prop}[(\code{separated\_Type\_is\_separated})]
   For any $T:\Type_{n+1}$, $\separated T$ is separated.  
 \end{prop}
 
 \begin{proof}
 We use the following lemma:
-\begin{lem}\label{lem:embed-sep}
+\begin{lem}[(\code{separated\_mono\_is\_separated})]
+\label{lem:embed-sep}
   A $(n+1)$-truncated type $T$ with an embedding $f : T \to U$
   into a separated $(n+1)$-truncated type $U$ is itself separated.
 \end{lem}
@@ -548,7 +552,7 @@ This comes from the
 following construction which connects $\separated T$ to the colimit of
 the iterated kernel pair of $\mu_T$.
 
-\begin{defi}
+\begin{defi}[(\code{OTid})]
   Let $X:\Type$. Let $\mathring T_X$ be the higher inductive type
   generated by
   \begin{itemize}
@@ -573,7 +577,8 @@ the iterated kernel pair of $\mu_T$.
 
 
 The main result we want about $\mathring T$ is the following:
-\begin{lem}\label{lem:sepiscolim}
+\begin{lem}[(\code{separation\_colimit\_OTtelescope})]
+\label{lem:sepiscolim}
   Let $T:\Type_{n+1}$. Then $\separated T$ is the $(n+1)$-colimit of the
   diagram $\mathring T$.
 \end{lem}
@@ -582,7 +587,8 @@ The key point of the proof is that diagrams $\mathring T$ and $\|\KP(\mu_T)\|_{n
 are equivalent.
 We will need the following lemma:
 
-\begin{lem}\label{lem:Omono}
+\begin{lem}[(\code{OT\_Omono\_sep})]
+\label{lem:Omono}
   Let $A,S:\Type_{n+1}$, $S$ separated, and $f:A \to S$. Then if 
   \begin{equation}
     \label{eq:Omono}
@@ -699,7 +705,7 @@ It is clear that if $A$ and $B$ are equivalent types, and $\forall a,b:A,~f (a) 
   
   One would need to show that, modulo these equivalences, the arrows
   of the two diagrams are equal. We leave that to the reader, who can
-  refers to the formalization if needed.
+  refer to the formalization if needed.
 \end{proof}
 
 Now, let $Q$ be any separated $\Type_{n+1}$, and $f:X \to Q$. Then the
@@ -716,7 +722,8 @@ $(n+1)$-colimit of the diagram $\mathring T$, thus there is an universal
 arrow $\separated T \to Q$.
 %
 This is enough to state the following proposition.
-\begin{prop}\label{prop:sep-subu}
+\begin{prop}[(\code{separation\_reflective\_subuniverse})]
+\label{prop:sep-subu}
   $(\separated,\mu)$ defines a reflective subuniverse on $\Type_{n+1}$.
 \end{prop}
 
@@ -755,7 +762,8 @@ Using the separation property of $B\,x$, one can show that second
 components, transported correctly along the first components equality,
 are equal. The complete proof can be found in the formalization.
 This proves the following proposition
-\begin{prop}\label{prop:sep-mod}
+\begin{prop}[(\code{separated\_modality})]
+\label{prop:sep-mod}
   $(\separated,\mu)$ defines a modality on $\Type_{n+1}$.
 \end{prop}
 
@@ -779,7 +787,7 @@ $\modal_{n+1}T$ can be given explicitly by
 
 To prove that $\modal_{n+1} T$ is a sheaf for any $T:\Type_{n+1}$, we
 use the following lemma.
-\begin{lem}
+\begin{lem}[(\code{closed\_to\_sheaf})]
   Any closed $(-1)$-subobject of a sheaf is a sheaf.
   % Let $X:\Type_{n+1}$ and $U$ be a sheaf. If $X$ embeds
   % in $U$, and is closed in $U$, then $X$ is a sheaf.
@@ -813,7 +821,7 @@ As $T\to \Type_n^\modal$ is a sheaf, and $\modal_{n+1}T$ is closed in
 $T\to \Type_n^\modal$, $\modal_{n+1}T$ is a sheaf. We now prove that
 it forms a reflective subuniverse.
 
-\begin{prop}
+\begin{prop}[(\code{sheafification\_subu})]
   $(\modal_{n+1},\nu)$ defines a reflective subuniverse.
 \end{prop}
 \begin{proof}
@@ -832,11 +840,11 @@ it forms a reflective subuniverse.
 % Using the same technique as in proposition~\ref{prop:sep-mod}, we
 % have
 The next step is the closure under dependent sums, to state:
-\begin{prop}
+\begin{prop}[(\code{sheafification\_modality})]
   $(\modal_{n+1},\nu)$ defines a modality.
 \end{prop}
 \begin{proof}
-  The proof use the same ideas as in
+  The proof uses the same ideas as in
   subsection~\ref{sssec:type_to_sep}. Let $A:\Type_{n+1}$ a sheaf and
   $B:A\to\Type_{n+1}$ a sheaf family. By
   proposition~\ref{prop:sep-mod}, we already know that $\sumD a A {B\,
@@ -919,7 +927,7 @@ $\modal_n(x=y)$ is contractible.
 
 Using a proof by univalence as we have done for proving $\modal_n (a=b) \simeq (\mu_T(a) =
 \mu_T (b))$ in Proposition~\ref{lem:sepiscolim}, we can show that:
-\begin{prop}
+\begin{prop}[(\code{good\_sheafification\_unit\_paths\_are\_nj\_paths})]
   For all $a,b:T$, $\modal_n(a=b) \simeq (\nu_T a = \nu_T b)$.
 \end{prop}
 
@@ -1181,10 +1189,10 @@ or by the use of general ``resizing axiom'' which is still under
 discussion in the community.
 
 
-\section{Forcing in type theory}
-\label{sec:forcing}
-\todo[inline]{Try to write something smart about connections with
-  forcing}
+% \section{Forcing in type theory}
+% \label{sec:forcing}
+% \todo[inline]{Try to write something smart about connections with
+%   forcing}
 %%% Local Variables:
 %%% mode: latex
 %%% TeX-master: "main"
