@@ -19,7 +19,7 @@ negation of the continuum hypothesis, by Paul Cohen~\cite{cohen1966},
 answering (neither negatively nor positively) the first Hilbert's
 problem. Indeed, Gödel proved in 1938 the consistency of ZFC with
 continuum hypothesis~\cite{godel1938} using the constructible model
-$\mathbb L$.
+$\mathfrak L$.
 The global idea of this technique is to add to the theory
 ZFC partial information about the witness of $\lnot$CH. 
 Then, supposing that ZFC is coherent, it is provable that ZFC together
@@ -768,7 +768,7 @@ This proves the following proposition
 \end{prop}
 
 As this modality is just a step in the construction, we do not need to
-show that it is left exact (actually, it is not), we will only do it for the sheafification
+show that it is left exact, we will only do it for the sheafification
 modality.
 
 \subsubsection{From Separated Type to Sheaf}
@@ -946,12 +946,13 @@ restricted to $\HProp$.
 
 When $\modal_{-1}$ is consistent (in the sense of
 proposition~\ref{prop:consistent}), 
-$\modal_{n}\zero=\modal_{-1}\zero$ is also not inhabited, hence the homotopy type theory induced by
+$\modal_{n}\zero=\modal_{-1}\zero$ is also not inhabited, hence
 $\modal_n$ is consistent. 
 %
 In particular, the modality induced by the double negation modality on
 $\HProp$ is consistent.
 
+\todo[inline]{Fix me}
 In topos theory, the topos of Lawvere-Tierney sheaves for the double
 negation topology is a boolean topos. In homotopy type theory, this
 result can be expressed as:
@@ -1098,10 +1099,10 @@ Section~\ref{ssec:sheafification} is formalized in
 
 Overall, % with other files containing technical lemmas,
 the project
-contains 7914 lines, and it could be reduced a bit by improving the
+contains 8000 lines, and it could be reduced a bit by improving the
 way Coq tries to rewrite and apply lemmas automatically. 
-The \texttt{coqwc} tool counts 1611 lines of specifications
-(definitions, lemmas, theorems, propositions) and 5403 lines of proof
+The \texttt{coqwc} tool counts 1600 lines of specifications
+(definitions, lemmas, theorems, propositions) and 5500 lines of proof
 script.
 %
 This constitutes a significant amount of work but the part dedicated
@@ -1114,7 +1115,8 @@ part of the theory of higher topoï.
 \label{ssec:limit-form}
 
 In the formalization, we had to use the \texttt{type-in-type} option, to handle
-the universe issues we faced.
+the universe issues we faced. However, a lot of the code compiles
+without this flag, but need universe polymorphism. 
 
 Universes are used in type theory to ensure consistency by checking
 that definitions are well-stratified according to a certain hierarchy.
