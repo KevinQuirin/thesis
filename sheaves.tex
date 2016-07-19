@@ -91,14 +91,6 @@ construction while Lawvere-Tierney sheafification corresponds to the
 topological transformation that allows to go from the presheaf
 construction to the sheaf construction.
 
-
-% Section~\ref{sec:sheaf_topos} briefly recalls the topos-theoretic
-% version of Lawvere-Tierney sheaves theory, and
-% section~\ref{sec:sheaf_hott} presents the main result of this thesis:
-% the construction of the sheafification modality in homotopy type
-% theory. Section~\ref{sec:forcing} tries to link our construction
-% with forcing in type theory.
-
 \section{Sheaves in topoi}
 \label{sec:sheaf_topos}
 
@@ -958,22 +950,19 @@ negation topology is a boolean topos. In homotopy type theory, this
 result can be expressed as:
 
 \begin{prop}
-  $(\modal_{\lnot\lnot})_n$, the modality obtained by sheafification
-  of the double negation modality,
-  induces a type theory where the propositional excluded middle law
-  holds, \ie{}
+  Taking $(\modal_{\lnot\lnot})_n$, the modality obtained by
+  sheafification of the double negation modality,
+  the following holds
   \[
-    \prodD P \HProp {P + \lnot P}.
+    \prodD P {\HProp} {\modal_{\lnot\lnot} (P + \lnot P)}.
   \]
 \end{prop}
 \begin{proof}
-  For now, the only thing we know is that $\prodD P \HProp {\lnot\lnot
-    P \to P}$. Let $P:\HProp$, and pose $Q \defeq P + \lnot P$. Then, as
+ Let $P:\HProp$, and pose $Q \defeq P + \lnot P$. Then, as
   $P$ and $\lnot P$ are disjoint h-propositions, $P + \lnot P$ is
   itself a h-proposition~\cite[\texttt{ishprop\_sum}]{hottlib}.
-
-  We want to find a proof of $Q:\HProp$, and thus we only need a proof
-  of $\lnot\lnot Q$, which is inhabited by
+  Thus, $\modal_{\lnot\lnot} Q \simeq \lnot\lnot Q$, and the latter is
+  inhabited by the usual
   \[
     \lambda\, (x:\lnot Q),\, x(\inr (\lambda\, y:P,\, x(\inl y))).
   \]
@@ -1028,8 +1017,9 @@ true for any explicit truncated type. Indeed, $i$ can be chosen
 dynamically along a proof, and thus be increased as much as needed,
 without changing results for lower truncated types.
 
-By proposition~\ref{prop:consistent}, these left-exact modalities
-induces a consistent type theory. Furthermore, the univalence remains
+% By proposition~\ref{prop:consistent}, these left-exact modalities
+% induces a consistent type theory. 
+Furthermore, the univalence remains
 true in this new type theory in the following sense:
 \begin{prop}\label{prop:univalence}
   Let $n$ be a given truncation index, and $\modal$ the modality
