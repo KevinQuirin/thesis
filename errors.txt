@@ -1,4 +1,5 @@
 Package biblatex Warning: No "backend" specified, using Biber backend.
+LaTeX Warning: Label `prop:consistent' multiply defined.
 (./main.toc [4]) [5] [6] (./introduction.texpdfTeX warning (ext4): destination 
 X warning (ext4): destination with the same identifier (name{page.2}) has been 
 Overfull \hbox (0.49593pt too wide) in paragraph at lines 164--173
@@ -14,29 +15,28 @@ LaTeX Warning: Command \texttwosuperior invalid in math mode on input line 746.
 Overfull \hbox (7.81154pt too wide) in paragraph at lines 754--758
 Overfull \hbox (42.66936pt too wide) in paragraph at lines 761--781
 LaTeX Warning: `h' float specifier changed to `ht'.
-Overfull \hbox (0.85735pt too wide) in paragraph at lines 125--127
-Overfull \hbox (1.56152pt too wide) in paragraph at lines 146--148
-Overfull \hbox (2.98613pt too wide) in paragraph at lines 454--464
-Overfull \hbox (32.59589pt too wide) in paragraph at lines 567--575
-Underfull \vbox (badness 10000) detected at line 623
-Overfull \hbox (42.1887pt too wide) in paragraph at lines 786--787
-Overfull \hbox (41.63869pt too wide) in paragraph at lines 803--804
-Overfull \hbox (80.2043pt too wide) in paragraph at lines 839--840
-Overfull \hbox (94.90465pt too wide) in paragraph at lines 857--858
-Overfull \hbox (126.40085pt too wide) in paragraph at lines 881--882
+Overfull \hbox (0.85735pt too wide) in paragraph at lines 128--130
+Overfull \hbox (1.56152pt too wide) in paragraph at lines 149--151
+Overfull \hbox (2.98613pt too wide) in paragraph at lines 457--467
+Overfull \hbox (32.59589pt too wide) in paragraph at lines 570--578
+Overfull \hbox (42.1887pt too wide) in paragraph at lines 758--759
+Overfull \hbox (41.63869pt too wide) in paragraph at lines 775--776
+Overfull \hbox (80.2043pt too wide) in paragraph at lines 811--812
+Overfull \hbox (94.90465pt too wide) in paragraph at lines 829--830
+Overfull \hbox (126.40085pt too wide) in paragraph at lines 853--854
 Overfull \hbox (3.2615pt too wide) in paragraph at lines 57--59
 Overfull \hbox (55.5404pt too wide) in paragraph at lines 186--193
 Overfull \hbox (5.9295pt too wide) in paragraph at lines 254--256
 Underfull \vbox (badness 10000) detected at line 281
 Overfull \hbox (1.65485pt too wide) detected at line 543
 Overfull \hbox (14.49226pt too wide) detected at line 648
-Overfull \hbox (16.60345pt too wide) in paragraph at lines 176--178
-Overfull \hbox (21.8861pt too wide) in paragraph at lines 188--193
-Overfull \hbox (5.76337pt too wide) in paragraph at lines 436--440
-Overfull \hbox (14.14384pt too wide) in paragraph at lines 604--607
-Overfull \hbox (1.73145pt too wide) in paragraph at lines 993--996
-Overfull \hbox (3.33145pt too wide) in paragraph at lines 1011--1014
-Overfull \hbox (43.85924pt too wide) in paragraph at lines 1069--1072
+Overfull \hbox (16.60345pt too wide) in paragraph at lines 168--170
+Overfull \hbox (21.8861pt too wide) in paragraph at lines 180--185
+Overfull \hbox (5.76337pt too wide) in paragraph at lines 428--432
+Overfull \hbox (14.14384pt too wide) in paragraph at lines 596--599
+Overfull \hbox (1.73145pt too wide) in paragraph at lines 982--985
+Overfull \hbox (3.33145pt too wide) in paragraph at lines 1000--1003
+Overfull \hbox (43.85924pt too wide) in paragraph at lines 1059--1062
 Overfull \hbox (6.83435pt too wide) in paragraph at lines 36--45
 Overfull \hbox (2.77357pt too wide) in paragraph at lines 36--45
 Overfull \hbox (4.46991pt too wide) in paragraph at lines 384--384
@@ -58,3 +58,4 @@ Overfull \hbox (8.90314pt too wide) in paragraph at lines 384--384
 Overfull \hbox (11.66689pt too wide) in paragraph at lines 384--384
 Overfull \hbox (7.85982pt too wide) in paragraph at lines 384--384
 LaTeX Font Warning: Size substitutions with differences
+LaTeX Warning: There were multiply-defined labels.
