@@ -120,6 +120,58 @@ The main goal of this thesis is to add this principle to homotopy type
 theory, without losing all desired properties (decidability,
 canonicity, constructivity).
 
+Note that we already know how to change an intuitionistic logic a
+classical one, through the Gödel-Gentzen translation defined in
+figure~\ref{fig:GG-trans}.
+\begin{figure}[ht]
+  \centering
+
+  \[x^N \defeq \lnot\lnot x\text{ when $x$ is atomic}\]
+  \[(\phi \land \psi)^N \defeq \phi^N \land \psi^N \qquad
+  (\phi\lor \psi)^N \defeq \lnot (\lnot\phi^N \land \lnot \psi^N)\]
+  \[(\phi \to \psi)^N \defeq \phi^N \to \psi^N \qquad
+    (\lnot \psi)^N \defeq \lnot \phi^N\]
+  \[(\forall\ x,\ \phi)^N \defeq \forall\ x,\ \psi^N \qquad
+  (\exists\ x,\ \phi)^N \defeq \lnot\forall\ x\,\ \lnot\phi^N\]
+  \caption{Gödel-Gentzen translation}
+  \label{fig:GG-trans}
+\end{figure}
+A soundness theorem states that a formula $\phi$ is classically
+provable if and only if $\phi^N$ is intuitionistically
+provable. Although this translation only works with the logic, the
+same idea can be applied to the whole type theory, as it is done
+in~\cite{jaber2012extending,forcing2016}. The idea behind a
+translation is, from a source (complex) theory $\mathcal S$, to translate every
+term $t$ of $\mathcal S$ into a term $[t]$ of a target theory
+$\mathcal T$, known to be consistent. Then, if we can prove a
+soundness theorem asserting that if a term $x$ is of type $X$ in
+$\mathcal S$, then the translation $[x]$ of $x$ is of type $\Lbrack
+X\Rbrack$, where $\Lbrack\cdot\Rbrack$ stands for the translation of
+types. Such a statement, together with a proof that $\Lbrack \zero
+\Rbrack$ is not inhabited in $\mathcal T$, assures that the theory
+$\mathcal S$ is consistent. 
+One could say that a sound translation is a way to give a name in the
+target theory $\mathcal T$ to objects of $\mathcal S$ unknown to
+$\mathcal T$.
+
+Set theorists will notice that this is very close to the method of
+forcing, invented in 1932 by Paul Cohen~\cite{cohen1966}.
+
+
+
+This will be done by adapting the method of {\em classical forcing} to
+our setting. Forcing is originally a method in set theory used to
+prove consistency of ZFC with several concepts, such as the negation
+of continuum 
+hypothesis and of the axiom of choice.
+It was then adapted to topos theory, using sheaf theory. There are two
+kind of sheaves in topos theory, the Grothendieck sheaves and the
+Lawvere-Tierney sheaves. The former corresponds to objects into whom
+we can glue function, and the latter corresponds to objects into whom
+we can define functions only on dense subobjects to characterize them
+uniquely on the whole object, 
+
+
 
 \todo[inline]{Finish him!}
 
