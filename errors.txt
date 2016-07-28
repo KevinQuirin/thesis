@@ -2,60 +2,29 @@ Package biblatex Warning: No "backend" specified, using Biber backend.
 LaTeX Warning: Label `prop:consistent' multiply defined.
 (./main.toc [4]) [5] [6] (./introduction.texpdfTeX warning (ext4): destination 
 X warning (ext4): destination with the same identifier (name{page.2}) has been 
-Overfull \hbox (0.49593pt too wide) in paragraph at lines 164--173
-Overfull \hbox (5.72218pt too wide) in paragraph at lines 458--461
-Overfull \hbox (9.65244pt too wide) in paragraph at lines 466--468
-Overfull \hbox (15.56491pt too wide) in paragraph at lines 576--578
-Overfull \hbox (1.33157pt too wide) in paragraph at lines 594--602
-Overfull \hbox (6.96452pt too wide) in paragraph at lines 648--651
-Overfull \hbox (41.3126pt too wide) in paragraph at lines 682--685
 LaTeX Warning: `h' float specifier changed to `ht'.
 LaTeX Warning: Command \texttwosuperior invalid in math mode on input line 746.
 LaTeX Warning: Command \texttwosuperior invalid in math mode on input line 746.
-Overfull \hbox (7.81154pt too wide) in paragraph at lines 754--758
+Underfull \hbox (badness 1735) in paragraph at lines 754--758
 Overfull \hbox (42.66936pt too wide) in paragraph at lines 761--781
 LaTeX Warning: `h' float specifier changed to `ht'.
-Overfull \hbox (0.85735pt too wide) in paragraph at lines 128--130
-Overfull \hbox (1.56152pt too wide) in paragraph at lines 149--151
-Overfull \hbox (2.98613pt too wide) in paragraph at lines 457--467
-Overfull \hbox (32.59589pt too wide) in paragraph at lines 570--578
 Overfull \hbox (42.1887pt too wide) in paragraph at lines 758--759
 Overfull \hbox (41.63869pt too wide) in paragraph at lines 775--776
 Overfull \hbox (80.2043pt too wide) in paragraph at lines 811--812
 Overfull \hbox (94.90465pt too wide) in paragraph at lines 829--830
 Overfull \hbox (126.40085pt too wide) in paragraph at lines 853--854
-Overfull \hbox (3.2615pt too wide) in paragraph at lines 57--59
-Overfull \hbox (55.5404pt too wide) in paragraph at lines 186--193
-Overfull \hbox (5.9295pt too wide) in paragraph at lines 254--256
-Underfull \vbox (badness 10000) detected at line 281
+Underfull \hbox (badness 5847) in paragraph at lines 57--59
+Underfull \hbox (badness 4621) in paragraph at lines 186--193
+Underfull \hbox (badness 3219) in paragraph at lines 186--193
 Overfull \hbox (1.65485pt too wide) detected at line 543
-Overfull \hbox (14.49226pt too wide) detected at line 648
-Overfull \hbox (16.60345pt too wide) in paragraph at lines 168--170
-Overfull \hbox (21.8861pt too wide) in paragraph at lines 180--185
-Overfull \hbox (5.76337pt too wide) in paragraph at lines 428--432
-Overfull \hbox (14.14384pt too wide) in paragraph at lines 596--599
-Overfull \hbox (1.73145pt too wide) in paragraph at lines 982--985
-Overfull \hbox (3.33145pt too wide) in paragraph at lines 1000--1003
-Overfull \hbox (43.85924pt too wide) in paragraph at lines 1059--1062
-Overfull \hbox (6.83435pt too wide) in paragraph at lines 36--45
-Overfull \hbox (2.77357pt too wide) in paragraph at lines 36--45
-Overfull \hbox (4.46991pt too wide) in paragraph at lines 384--384
-Overfull \hbox (0.95262pt too wide) in paragraph at lines 384--384
-Overfull \hbox (59.28583pt too wide) in paragraph at lines 384--384
-Overfull \hbox (1.76318pt too wide) in paragraph at lines 384--384
-Overfull \hbox (5.47496pt too wide) in paragraph at lines 384--384
-Overfull \hbox (4.04309pt too wide) in paragraph at lines 384--384
-Overfull \hbox (48.36609pt too wide) in paragraph at lines 384--384
-Overfull \hbox (2.46436pt too wide) in paragraph at lines 384--384
+LaTeX Warning: Reference `sec:groupoid' on page 51 undefined on input line 572.
+Underfull \hbox (badness 2970) in paragraph at lines 1059--1062
+Underfull \hbox (badness 1515) in paragraph at lines 391--391
 Package biblatex Warning: No driver for entry type 'draft'.
-Overfull \hbox (1.69322pt too wide) in paragraph at lines 384--384
-Overfull \hbox (0.37042pt too wide) in paragraph at lines 384--384
-Overfull \hbox (7.53928pt too wide) in paragraph at lines 384--384
-Overfull \hbox (1.48323pt too wide) in paragraph at lines 384--384
-Overfull \hbox (1.34688pt too wide) in paragraph at lines 384--384
-Overfull \hbox (7.41718pt too wide) in paragraph at lines 384--384
-Overfull \hbox (8.90314pt too wide) in paragraph at lines 384--384
-Overfull \hbox (11.66689pt too wide) in paragraph at lines 384--384
-Overfull \hbox (7.85982pt too wide) in paragraph at lines 384--384
+Underfull \hbox (badness 5403) in paragraph at lines 391--391
+Underfull \hbox (badness 6094) in paragraph at lines 391--391
+Underfull \hbox (badness 2772) in paragraph at lines 391--391
+Underfull \hbox (badness 1558) in paragraph at lines 391--391
 LaTeX Font Warning: Size substitutions with differences
+LaTeX Warning: There were undefined references.
 LaTeX Warning: There were multiply-defined labels.
