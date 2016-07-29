@@ -3,9 +3,9 @@
 overlords computers, we redo math as computers understand it.}{Andrej
 Bauer}
 
-Homotopy type theory is a very new branch of mathematics and computer
+Homotopy type theory is a brand new branch of mathematics and computer
 science, exhibiting a strong, but surprising link between the theory
-of $\omega$-categories and type theory. This topic hence live at the
+of $\omega$-categories and type theory. This topic hence lives at the
 borderline between pure mathematics and computer science. One of the
 goals of researches on this topic is to use homotopy type theory as a
 new foundation for mathematics, replacing for example Zermelo-Frænkel
@@ -25,14 +25,14 @@ theorem (any continuous simple closed curve divides the plane into an
 ``interior'' bounded region and an ``exterior'' unbounded region) by
 Hales~\cite{hales-jordan} in Mizar, or the {\em Kepler conjecture}
 (the most compact ways to arrange spheres are the cubic and hexagonal
-close packing) by Hales and al.~\cite{hales-kepler} in Isabelle and
+close packings) by Hales and al.~\cite{hales-kepler} in Isabelle and
 HOL Light.
 
 One advantage of type theory over set theory is the computation
 property of type theory: any term is identified with its normal
 form. Thus, a proof assistant allows its user to simplify
 automatically all expressions, while a proof on paper requires all
-computation to be done ``by hand''. Set theory does not share this
+computations to be done ``by hand''. Set theory does not share this
 computation property, and is thus not convenient to use as a formal
 basis for a proof assistant. However, this computation property
 prevents us to use classical facts, such as excluded middle ; in the
@@ -42,11 +42,11 @@ false.
 The main ingredient in homotopy type theory, linking mathematics and
 computer science, is the Curry-Howard isomorphism: one can speak
 equivalently about proofs or about programs, they describe the same
-objects {\em via} a correspondance. For example, in type theory, the
+objects {\em via} a correspondence. For example, in type theory, the
 sequence of symbols $A\to B$ can be seen as the type of programs
 taking an argument of type $A$ and producing an output of type $B$ as
 well as the types of proofs that $A$ implies $B$. Something implied by
-this correspondance is that there might exist different proofs of
+this correspondence is that there might exist different proofs of
 ``$A$ implies $B$'', since there are probably several ways to
 construct an output of type $B$ from an input of type $A$. This
 property is called {\em proof-relevance}, while ZFC is considered as
@@ -120,7 +120,7 @@ The main goal of this thesis is to add this principle to homotopy type
 theory, without losing all desired properties (decidability,
 canonicity, constructivity).
 
-Note that we already know how to change an intuitionistic logic a
+Note that we already know how to change an intuitionistic logic into a
 classical one, through the Gödel-Gentzen translation defined in
 figure~\ref{fig:GG-trans}.
 \begin{figure}[ht]
@@ -143,12 +143,13 @@ same idea can be applied to the whole type theory, as it is done
 in~\cite{jaber2012extending,forcing2016}. The idea behind a
 translation is, from a source (complex) theory $\mathcal S$, to translate every
 term $t$ of $\mathcal S$ into a term $[t]$ of a target theory
-$\mathcal T$, known to be consistent. Then, if we can prove a
+$\mathcal T$, known to be consistent. The desired property of a
+translation is its soundness, \ie{} if we can prove a
 soundness theorem asserting that if a term $x$ is of type $X$ in
 $\mathcal S$, then the translation $[x]$ of $x$ is of type $\Lbrack
 X\Rbrack$, where $\Lbrack\cdot\Rbrack$ stands for the translation of
 types. Such a statement, together with a proof that $\Lbrack \zero
-\Rbrack$ is not inhabited in $\mathcal T$, assures that the theory
+\Rbrack$ is not inhabited in $\mathcal T$, ensures that the theory
 $\mathcal S$ is consistent. 
 One could say that a sound translation is a way to give a name in the
 target theory $\mathcal T$ to objects of $\mathcal S$ unknown to
@@ -157,39 +158,60 @@ $\mathcal T$.
 Set theorists will notice that this is very close to the method of
 forcing, invented in 1962 by Paul Cohen~\cite{cohen1966}. Its
 historical and most famous application is the proof of the
-independance of the negation of the continuum hypothesis with ZFC.
+Independence of the negation of the continuum hypothesis with ZFC.
+In the same way, forcing can only prove relative consistency, \eg{}
+ZFC+$\lnot$CH is consistent if ZFC is consistent. This method is now
+one of the most used ingredient of set theorists.
 
+But we know that adapting things of set theory to type theory is not
+easy, as those are very different theories. Type theory is known to be
+closer to topos theory, and even to higher topos theory for homotopy
+type theory. 
+Fortunately, Myles Tierney gave a topos-theoretic counterpart of
+forcing in 1972~\cite{tierney1972}, through the notion of
+sheaves. Originally, sheaves only existed on presheaf topos (the
+topos of functor from a category $\mathbf C$ to the category
+$\mathbf{Sets}$. These sheaves are called Grothendieck sheaves, and
+corresponds to objects $F$ such that any function $X\to F$ can be
+defined equivalently on whole $X$ or on each subsets of an open cover
+of $X$.
+This concept had been extended by William Lawvere and Myles Tierney,
+allowing objects of any topos to be sheaves. They correspond to object
+$F$ such any function $X \to F$ can be defined equivalently on whole
+$X$ or on any dense subobject of $X$.
+The existence of a {\em sheafification functor} from any topos
+$\mathcal T$ to the topos of sheaves $\Sh{}(\mathcal T)$, left adjoint
+to the inclusion functor, allows to build a topos satisfying more
+properties than the base topos. 
+Sheaves come from a fixed topology, which is an operator on the
+``logic'' of the topos (the subobject classifier), idempotent,
+preserving $\True$ and commuting with products. Double negation is
+actually a topology on any topos $\mathcal T$, and the topos of
+sheaves $\Sh{\lnot\lnot}(\mathcal T)$ satisfies good properties: it is
+boolean, \ie{} its internal logic satisfies the law of excluded
+middle, and the negation of the continuum hypothesis holds in this
+topos~\cite{maclanemoerdijk}.
 
-
-% This will be done by adapting the method of {\em classical forcing} to
-% our setting. Forcing is originally a method in set theory used to
-% prove consistency of ZFC with several concepts, such as the negation
-% of continuum 
-% hypothesis and of the axiom of choice.
-% It was then adapted to topos theory, using sheaf theory. There are two
-% kind of sheaves in topos theory, the Grothendieck sheaves and the
-% Lawvere-Tierney sheaves. The former corresponds to objects into whom
-% we can glue function, and the latter corresponds to objects into whom
-% we can define functions only on dense subobjects to characterize them
-% uniquely on the whole object, 
-
-
-
-\todo[inline]{Finish him!}
+In higher topos theory, this sheafification $(\infty,1)$-functor has
+only been defined in~\cite{lurie} for Grothendieck sheaves, leaving
+the theory of Lawvere-Tierney sheaves unexplored. There is thus a
+double challenge in our quest for excluded middle in homotopy type
+theory: the first is to formalize the topos theoretic result, and see
+how to extend it to the setting of homotopy type theory, using if
+needed $(\infty,1)$-topos' concepts.
 
 \paragraph*{Aims of the thesis} The main goal of this thesis is to
 give a definition of a Lawvere-Tierney sheafification functor in the
-setting of homotopy type theory. In order to do this, we need in a
-first time to develop a theory of colimits in homotopy type theory,
+setting of homotopy type theory. In order to do this, we need first to develop a theory of colimits in homotopy type theory,
 leading to thoughts on the definition of equivalence relation in type
 theory. Then, as our definition of sheafification is done inductively
 on the truncation levels, we need to define a truncated version of the
 just defined theory of colimits, as well as a truncated version of
 left-exact modalities.  All these developments have been
-computer-checked by the proof assistant Coq ; most of them are
+computer-checked by the proof assistant Coq; most of them are
 available on my Github account \url{https://github.com/KevinQuirin}.
 
-Our deep study of modalities also lead us to
+Our deep study of modalities also leads us to
 define\todo[fancyline]{Check plugin}{} the translation of type
 theories associated to a (left-exact) modality, and write a Coq plugin
 to handle automatically that translation.
@@ -198,7 +220,7 @@ to handle automatically that translation.
 \paragraph*{Plan of the thesis}
 
 Let us describe the contents of this thesis. Chapter~\ref{chap:hott}
-recall the basic definitions in homotopy type theory. It is mainly
+recalls the basic definitions in homotopy type theory. It is mainly
 based on~\cite{hottbook}\footnote{Note that, to ease the reading, some
 references are shortcutted by their usual names: \cite{hottbook} is
 the Homotopy Type Theory book, \cite{hottlib} is the Coq/HoTT library,
@@ -206,7 +228,7 @@ the Homotopy Type Theory book, \cite{hottlib} is the Coq/HoTT library,
 serves more as a way for us to introduce notations to be consistent in
 the whole thesis. If the reader is not supposed to know anything about
 homotopy type theory before reading this thesis, this short
-introduction might be not enough to understand this setting, and he's
+introduction might be not enough to understand this setting, and they are
 strongly encouraged to take a look at~\cite{hottbook} before.
 
 Chapter~\ref{chap:modalities} introduces in its first part the theory
@@ -215,18 +237,14 @@ we will call a {\em truncated modality}, which is a restricted version
 of modalities. Finally, we exhibit the translation of type theories
 induced by a left-exact modality.
 
-In chapter~\ref{chap:colim}, we describe a basic theory of colimits
-over graphs, and discuss an extension defining colimits over ``graph
+In Chapter~\ref{chap:colim}, we describe a basic theory of colimits
+over graphs, and discuss an extension defining colimits over ``graphs
 with compositions''. This chapter, in a large part, has been
 formalized by Simon Boulier in a library available at
-\url{https://github.com/SimonBoulier/hott-colimits}. At the end of
-this chapter, we share our thoughts about groupoid objects, or
-equivalence relations in homotopy type theory. This section can easily
-be skipped by the reader, as it does not contain anything useful for
-the rest of the thesis.
+\url{https://github.com/SimonBoulier/hott-colimits}.
 
 The central (and last) chapter of this thesis is
-chapter~\ref{chap:sheaf}. It describes our construction of the
+Chapter~\ref{chap:sheaf}. It describes our construction of the
 Lawvere-Tierney sheafification functor, which is a way to extend the
 not-not Gödel translation, valid only on h-propositions, to all
 truncated types. This result is the main contribution of the thesis.

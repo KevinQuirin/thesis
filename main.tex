@@ -67,9 +67,9 @@
 % 	{\noindent \textsc{Nota}~\textendash~}%
 % 	{\medskip}
 
-\newenvironment{exm}%
-	{\noindent \textsc{Example}~\textendash~}%
-	{\medskip}
+% \newenvironment{exm}%
+% 	{\noindent \textsc{Example}~\textendash~}%
+% 	{\medskip}
 
 \newenvironment{rmqs}%
 	{\noindent \textsc{Notae}~:~ \medskip%
@@ -244,6 +244,10 @@
 {\begin{thmbox}[M]{\textsc{Nota}}\noindent}
 {\end{thmbox}\medskip}
 
+\newenvironment{exm}
+{\begin{thmbox}[M]{\textsc{Example}}\noindent}
+{\end{thmbox}\medskip}
+
 
 \usepackage[refpage, intoc]{nomencl}
 \makenomenclature
@@ -352,7 +356,7 @@ Mines de Nantes \\
 \endgroup}
 \makeatother
 
-% \includeonly{conclusion}   
+\includeonly{modalities}   
 
 \def\pullbackcorner{%
     \ar@{-}[]+R+<6pt,-1pt>;[]+RD+<6pt,-6pt>%

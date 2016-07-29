@@ -561,6 +561,64 @@ soon as their type is modal if $A,B:X$.
 
 \end{itemize}
 
+Let us make it more explicit on inductive types. In Coq, inductive
+types are all of the following form (we leave the mutual inductive
+types, behaving in the same way):
+\newcommand{\I}{\mathbb{I}}
+\begin{align*}
+  \I &~(a_1:A_1)\cdots (a_n:A_n)
+  : \Type \defeq \\
+     &| c_1 : \prodD{x_1}{X_1^1}{\cdots
+       \prodD{x_{n_1}}{X_1^{n_1}}{\I(a_1^1,\ldots,a_1^n)}} \\
+     & \qquad \qquad \vdots \\
+     &| c_p : \prodD{x_1}{X_p^1}{\cdots
+       \prodD{x_{n_1}}{X_p^{n_1}}{\I(a_p^1,\ldots,a_p^n)}} \\
+\end{align*}
+with technical conditions on the $X_i^j$ to avoid ill-defined types.
+For every such inductive type, we build a new one 
+\newcommand{\II}{\widehat \I}
+$\II$ defined by
+\begin{align*}
+%  \todo[fancyline]{Insert a new delimiter here}
+  \II &~(a_1:\Lbrack A_1\Rbrack)\cdots (a_n:\Lbrack A_n \Rbrack)
+        : \Type \defeq \\
+      &| \widehat{c_1} : \prodD{x_1}{\lceil X_1^1\rceil}{\cdots
+        \prodD{x_{n_1}}{\lceil X_1^{n_1}\rceil}{\II([a_1^1],\ldots,[a_1^n])}} \\
+      & \qquad \qquad \vdots \\
+      &| \widehat{c_p} : \prodD{x_1}{\lceil X_p^1\rceil}{\cdots
+        \prodD{x_{n_1}}{\lceil X_p^{n_1}\rceil}{\II([a_p^1],\ldots,[a_p^n])}} \\
+\end{align*}
+where $\lceil\bullet\rceil$ is
+defined by
+\[
+  X = \left\{
+  \begin{array}{lcl}
+    \II([b_1],\ldots,[b_n]) & \text{ if }& X \text{ is } \I(b_1,\ldots,b_n)\\
+    \Lbrack X \Rbrack & \text{ else}& 
+  \end{array} \right.
+\]
+Then, the translation of $\I(a_1,\ldots,a_n)$ is defined as $\modal (\II([a_1],\ldots,[a_n]))$.
+
+\begin{exm}
+Consider the following inductive
+\begin{align*}
+  \mathrm{q} &~(A:\Type)
+  : \Type \defeq \\
+     &| \alpha : \mathrm q \two \\
+     &| \beta : A \to \mathrm q\one \to \mathrm q A
+\end{align*}
+Then the inductive $\widehat{\mathrm{q}}$ is 
+\begin{align*}
+  \widehat{\mathrm{q}} &~(A:\Type^\modal)
+  : \Type \defeq \\
+     &| \widehat\alpha : \mathrm{q} (\modal\widehat\two) \\
+     &| \widehat\beta : \pi_1A \to \widehat{\mathrm{q}}(\modal\widehat\one) \to
+       \widehat{\mathrm q} A
+\end{align*}  
+and the translation of $\mathrm q A$ is thus $\modal(\widehat{\mathrm q}[A])$.
+\end{exm}
+
+
 Then, we translate contexts pointwise:
 \begin{align*}
   [\emptyset] &\defeq \emptyset \\
