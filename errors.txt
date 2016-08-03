@@ -1,56 +1,24 @@
 Package biblatex Warning: No "backend" specified, using Biber backend.
-LaTeX Warning: Label `prop:consistent' multiply defined.
+(./main.toc [4]) [5] [6] (./introduction.texpdfTeX warning (ext4): destination 
+X warning (ext4): destination with the same identifier (name{page.2}) has been 
+LaTeX Warning: `h' float specifier changed to `ht'.
+LaTeX Warning: Command \texttwosuperior invalid in math mode on input line 748.
+LaTeX Warning: Command \texttwosuperior invalid in math mode on input line 748.
+Underfull \hbox (badness 1735) in paragraph at lines 756--760
+Overfull \hbox (42.66936pt too wide) in paragraph at lines 763--783
+LaTeX Warning: `h' float specifier changed to `ht'.
 Overfull \hbox (42.1887pt too wide) in paragraph at lines 816--817
 Overfull \hbox (41.63869pt too wide) in paragraph at lines 833--834
 Overfull \hbox (80.2043pt too wide) in paragraph at lines 869--870
 Overfull \hbox (94.90465pt too wide) in paragraph at lines 887--888
 Overfull \hbox (126.40085pt too wide) in paragraph at lines 911--912
+Underfull \hbox (badness 5847) in paragraph at lines 57--59
+Underfull \hbox (badness 4621) in paragraph at lines 186--193
+Underfull \hbox (badness 3219) in paragraph at lines 186--193
+Overfull \hbox (1.65485pt too wide) detected at line 543
+Underfull \hbox (badness 2970) in paragraph at lines 1057--1060
+Underfull \hbox (badness 1515) in paragraph at lines 400--400
+Package biblatex Warning: No driver for entry type 'draft'.
+Underfull \hbox (badness 2772) in paragraph at lines 400--400
+Underfull \hbox (badness 1558) in paragraph at lines 400--400
 LaTeX Font Warning: Size substitutions with differences
-LaTeX Warning: There were multiply-defined labels.
-(see the transcript file for additional information)pdfTeX warning (dest): name
-pdfTeX warning (dest): name{section*.15} has been referenced but does not exist
-pdfTeX warning (dest): name{section*.13} has been referenced but does not exist
-pdfTeX warning (dest): name{section*.11} has been referenced but does not exist
-pdfTeX warning (dest): name{section*.8} has been referenced but does not exist,
-pdfTeX warning (dest): name{section*.7} has been referenced but does not exist,
-pdfTeX warning (dest): name{section*.5} has been referenced but does not exist,
-pdfTeX warning (dest): name{section.6.2} has been referenced but does not exist
-pdfTeX warning (dest): name{section.6.1} has been referenced but does not exist
-pdfTeX warning (dest): name{chapter.6} has been referenced but does not exist, 
-pdfTeX warning (dest): name{subsection.5.3.2} has been referenced but does not 
-pdfTeX warning (dest): name{subsection.5.3.1} has been referenced but does not 
-pdfTeX warning (dest): name{section.5.3} has been referenced but does not exist
-pdfTeX warning (dest): name{subsection.5.2.4} has been referenced but does not 
-pdfTeX warning (dest): name{subsection.5.2.3} has been referenced but does not 
-pdfTeX warning (dest): name{subsection.5.2.2} has been referenced but does not 
-pdfTeX warning (dest): name{subsection.5.2.1} has been referenced but does not 
-pdfTeX warning (dest): name{section.5.2} has been referenced but does not exist
-pdfTeX warning (dest): name{section.5.1} has been referenced but does not exist
-pdfTeX warning (dest): name{chapter.5} has been referenced but does not exist, 
-pdfTeX warning (dest): name{section.4.3} has been referenced but does not exist
-pdfTeX warning (dest): name{section.4.2} has been referenced but does not exist
-pdfTeX warning (dest): name{subsection.4.1.4} has been referenced but does not 
-pdfTeX warning (dest): name{subsection.4.1.3} has been referenced but does not 
-pdfTeX warning (dest): name{subsection.4.1.2} has been referenced but does not 
-pdfTeX warning (dest): name{subsection.4.1.1} has been referenced but does not 
-pdfTeX warning (dest): name{section.4.1} has been referenced but does not exist
-pdfTeX warning (dest): name{chapter.4} has been referenced but does not exist, 
-pdfTeX warning (dest): name{subsection.2.4.1} has been referenced but does not 
-pdfTeX warning (dest): name{section.2.4} has been referenced but does not exist
-pdfTeX warning (dest): name{subsection.2.3.3} has been referenced but does not 
-pdfTeX warning (dest): name{subsection.2.3.2} has been referenced but does not 
-pdfTeX warning (dest): name{subsection.2.3.1} has been referenced but does not 
-pdfTeX warning (dest): name{section.2.3} has been referenced but does not exist
-pdfTeX warning (dest): name{section.2.2} has been referenced but does not exist
-pdfTeX warning (dest): name{subsection.2.1.8} has been referenced but does not 
-pdfTeX warning (dest): name{subsection.2.1.7} has been referenced but does not 
-pdfTeX warning (dest): name{subsection.2.1.6} has been referenced but does not 
-pdfTeX warning (dest): name{subsection.2.1.5} has been referenced but does not 
-pdfTeX warning (dest): name{subsection.2.1.4} has been referenced but does not 
-pdfTeX warning (dest): name{subsection.2.1.3} has been referenced but does not 
-pdfTeX warning (dest): name{subsection.2.1.2} has been referenced but does not 
-pdfTeX warning (dest): name{subsection.2.1.1} has been referenced but does not 
-pdfTeX warning (dest): name{section.2.1} has been referenced but does not exist
-pdfTeX warning (dest): name{chapter.2} has been referenced but does not exist, 
-pdfTeX warning (dest): name{chapter.1} has been referenced but does not exist, 
-pdfTeX warning (dest): name{chapter*.2} has been referenced but does not exist,
