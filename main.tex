@@ -7,8 +7,9 @@
 \let\endproof\undefined
 
 \usepackage[T1]{fontenc}
+\usepackage[french,english]{babel}
+\selectlanguage{english}
 \usepackage[utf8]{inputenc}
-\usepackage[english]{babel}
 \usepackage{mathbbol} %permet \mathbb{1} \Lbrack \Rbrack ...
 \usepackage{amsmath,amssymb,amsthm,amsfonts} %packages AMS
 \usepackage{wasysym}
@@ -351,12 +352,12 @@ Euclid, Athens \\[1\baselineskip]
 \vspace{1\baselineskip}
 Mines de Nantes \\
 [\baselineskip]
-2016\par
+2016\par 
 \vfill
 \endgroup}
 \makeatother
 
-\includeonly{modalities}   
+%\includeonly{modalities}   
 
 \def\pullbackcorner{%
     \ar@{-}[]+R+<6pt,-1pt>;[]+RD+<6pt,-6pt>%
@@ -364,6 +365,10 @@ Mines de Nantes \\
   }
 
 \newcommand{\code}[1]{\texttt{#1}}
+
+% \let\ORIGxymatrix\xymatrix
+% \def\xymatrix#1#{\begingroup\shorthandoff{?!;:}\INNERxymatrix{#1}}
+% \def\INNERxymatrix#1#2{\ORIGxymatrix#1{#2}\endgroup}
 
 \begin{document}
 

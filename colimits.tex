@@ -138,7 +138,7 @@ Diagrams can be thought as functors from type of graphs to $\Type$,
 and hence one can define morphisms between diagrams as natural
 transformation.
 
-\begin{defi}[Morphism if diagram]
+\begin{defi}[Morphism of diagram]
   Let $D$ and $D'$ be two diagrams over the same graph $G$. A morphism
   of diagram $m$ between $D$ and $D'$ is the data of
   \begin{itemize}
@@ -215,7 +215,7 @@ diagrams $D_x$ with the colimit of $\sumD x X {D_x}$.
 Note that a family $C_x$ of cocones over $D_x$ can be extended to a
 cocone $\sumD x X {C_x}$ on $\sumD x X {D_x}$. Then, the expected
 result is true
-\begin{prop}
+\begin{prop}\label{prop:colimit-sigma}
   If, for all $x:X$, $Q_x$ is the colimit of $D_x$, then $\sumD x X
   {Q_x}$ is the colimit of $\sumD x X {D_x}$.
 \end{prop}
@@ -254,7 +254,7 @@ of the $n$-truncated diagram $\|D\|_n$. Let's make it more precise.
 We can now give the fundamental proposition linking colimit and
 $n$-colimit.
 
-\begin{prop}
+\begin{prop}\label{prop:colimit-trunc}
   Let $D$ be a diagram, and $P:\Type$.
   Then, if $P$ is a colimit of $D$, $\|P\|_n$ is a $n$-colimit of $\|D\|_n$.
 \end{prop}
@@ -568,15 +568,32 @@ handle.
 
 \section{Formalization}
 \label{sec:colim-formalization}
-\begin{sloppypar}
-Except the next section~\ref{sec:groupoid}, all this chapter has been
-formalized in Coq, mostly by Simon Boulier, and the library is
-available at \url{https://github.com/SimonBoulier/hott-colimits}.  
-\end{sloppypar}
+
+All this chapter has been formalized with Coq, defining a library for
+colimits on top of the Coq/HoTT library~\cite{hottlib}, based on the
+formalization of limits in~\cite{lumsdaine} for the basic definitions
+of graph, diagram, \etc{}
+
+The root folder of the library formalizes results about general
+colimits over graphs, with the following key results:
+\begin{itemize}
+\item \code{Colimit\_prod.is\_colimit\_prod} shows that if $D$ is a
+  diagram, and $A\times D$ the diagram where each node $X$ of $D$ is
+  changed into $X\times D$, then $A\times\colim D$ is a colimit of
+  $A\times D$.
+\item \code{Colimit\_Sigma.is\_colimit\_sigma} shows the commutation
+  of colimits with dependent sums, as in
+  proposition~\ref{prop:colimit-sigma}.
+\item \code{Colimit\_trunc.tr\_colimit} shows the
+  proposition~\ref{prop:colimit-trunc} about truncated colimits.
+\end{itemize}
+
+The second part of the library, in folder \code{IteratedKernelPair},
+formalizes the section~\ref{sec:floris}. We note that the
+formalization for the kernel pair preserving degeneracy involves a lot
+of manipulation of paths between paths.
 
 
-
-\todo[inline]{Formalization of colimits: what could we say ?\dots}
 
 % \section{Towards groupoid objects}
 % \label{sec:groupoid}

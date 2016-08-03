@@ -412,6 +412,7 @@ satisfies:
 \item Maclane pentagon: for all $v,w,x,y,z:A$, $p:v=w$, $q:w=x$, $r:x=y$ and
   $s:y=z$, the following diagram involving associativities commutes
 \[
+  \shorthandoff{!}
   \xymatrix @!0 @R=4pc @C=3pc {
     && \concat p {(\concat q {(\concat r s)})} \ar[dll] \ar[drr]&& \\
     \concat {(\concat p q)} {(\concat r s)}\ar[dr] &&&& \concat p {(\concat
@@ -419,6 +420,7 @@ satisfies:
     & \concat {(\concat {(\concat p q)} r)} \ar[rr] s && \concat {(\concat p
       {(\concat q r)})} s &
   }
+  \shorthandon{!}
 \]
 \item The coherences goes on and on.
 \end{itemize}
@@ -785,8 +787,7 @@ we will use any of the following name (\eg{} we will talk about
 
 What homotopy theorists love to do is to compute fundamental groups
 (\ie{} the group of paths between two points) of
-different spaces~(\cite{wangxu}\todo[fancyline]{These references
-  were added without even opening them. Maybe a check would be good}
+different spaces~(\cite{wangxu}
 \cite{hutchings2011introduction}). We
 can then categorized spaces with the level at which their homotopy
 groups become trivial. Voevodsky has realized that this notion admits
@@ -933,7 +934,6 @@ define a $n$-truncated type. It can be expressed as the following
 universal property:
 \begin{lem}[Universal property of truncations]
   Let $A:\Type$ and $P:\Type_n$. Then the map
-\todo[fancyline]{Check post or pre}
 \[
   \fonction{\precompose_{\tr_n}}{A\to P}{\|A\|_n \to P}{f}{f \circ \tr_n}
 \]

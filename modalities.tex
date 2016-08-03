@@ -15,7 +15,7 @@ properties, the universe of all types satisfying the chosen property
 forms a new model of homotopy type theory.
 
 Modalities are actually a generalization of {\em modal logics} and
-{\modal type theories}~\cite{moggi-monad}
+{\modal type theories}~\cite{moggi-monad}.
 
 \section{Modalities}
 \label{sec:modalities}
@@ -345,43 +345,43 @@ only of h-proposition, which is not satisfactory. The main purpose of this
 thesis, in particular chapter~\ref{chap:sheaf} is to extend this
 modality into a better one.
 
-\section{New type theories}
-\label{sec:new-type-theories}
+% \section{New type theories}
+% \label{sec:new-type-theories}
 
-\todo[inline]{New type theory: Enhance me.
-Actually, this might be better in the section ``Translation''.
-}
+% \todo[inline]{New type theory: Enhance me.
+% Actually, this might be better in the section ``Translation''.
+% }
 
 
-We suppose here that $\modal$ is a left-exact modality such that
-$\Type^\modal$ is modal.
-This is for example the case when the modality is {\em accessible}
-(see~\cite{hottlib} for definition and proof).
+% We suppose here that $\modal$ is a left-exact modality such that
+% $\Type^\modal$ is modal.
+% This is for example the case when the modality is {\em accessible}
+% (see~\cite{hottlib} for definition and proof).
 
-\begin{prop}
-  The modal universe $\Type^\modal$ is non-trivial if the type $\modal
-  \zero$ is empty.
-\end{prop}
-\begin{proof}
+% \begin{prop}
+%   The modal universe $\Type^\modal$ is non-trivial if the type $\modal
+%   \zero$ is empty.
+% \end{prop}
+% \begin{proof}
   
-\end{proof}
+% \end{proof}
 
 
-\todo[inline]{The translation might be clearer than this result\dots}
-\begin{prop}\label{prop:consistent}
-  A left exact modality $\modal$ induces a consistent type theory if
-  and only if $\modal \zero$ can not be inhabited in the initial type
-  theory. In that case, the modality is said to be consistent.
-\end{prop}
-\begin{proof}
-  By condition (iv) of Definition~\ref{def:modality},
-  $\modal \zero$ is an initial object of $\Type^\modal$, and thus
-  corresponds to false for modal mere proposition.
-  % 
-  As $\modal \one = \one$, $\Type^\modal$ is consistent when
-  $\modal \zero \neq \one$, that is when there is no proof of
-  $\modal \zero$.
-\end{proof}
+% \todo[inline]{The translation might be clearer than this result\dots}
+% \begin{prop}\label{prop:consistent}
+%   A left exact modality $\modal$ induces a consistent type theory if
+%   and only if $\modal \zero$ can not be inhabited in the initial type
+%   theory. In that case, the modality is said to be consistent.
+% \end{prop}
+% \begin{proof}
+%   By condition (iv) of Definition~\ref{def:modality},
+%   $\modal \zero$ is an initial object of $\Type^\modal$, and thus
+%   corresponds to false for modal mere proposition.
+%   % 
+%   As $\modal \one = \one$, $\Type^\modal$ is consistent when
+%   $\modal \zero \neq \one$, that is when there is no proof of
+%   $\modal \zero$.
+% \end{proof}
 
 \section{Truncated modalities}
 \label{sec:trunc_modalities}
@@ -474,10 +474,10 @@ modalities.
 \section{Translation}
 \label{sec:translation}
 
-As said in section~\ref{sec:new-type-theories}, left-exact modalities
-allows to perform model transformation. But it can be enhanced a bit
-by exhibiting a {\em translation} of type theories, from CIC into
-itself, as it has been done for
+In this section, we will explain how left-exact modalities allows to
+perform model transformation, just as forcing does.  Actually, we can
+to even better by exhibiting a {\em translation} of type theories,
+from CIC into itself, as it has been done for
 forcing~\cite{jaber2012extending,forcing2016}. Let us explain here how
 this translation works.
 
