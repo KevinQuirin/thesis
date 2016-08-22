@@ -11,7 +11,7 @@ goals of researches on this topic is to use homotopy type theory as a
 new foundation for mathematics, replacing for example Zermelo-Frænkel
 set theory. Its strong links with type theory would allow
 mathematicians to formalize their work with a proof assistant such as
-Coq~\cite{coq:refman:8.4}, Agda\cite{norell2007towards} or
+Coq~\cite{coq:refman:8.4}, Agda~\cite{norell2007towards} or
 Lean~\cite{lean}. Indeed, errors in mathematical research papers seem
 to be inevitable~\cite{vv-univ-f}, and a computer-checked proof might
 be more trustable than a human-checked proof.  The most famous
@@ -20,8 +20,8 @@ examples of computer-checked results are the {\em Four Colour Theorem}
 same color, four colors are sufficient) by Gonthier and
 Werner~\cite{gonthier-four-color} in Coq, the {\em Feit-Thomson
 Theorem} (every finite group of odd order is solvable) by Gonthier and
-al.~\cite{gonthier-feit} in Coq, the original proof of Jordan curve
-theorem (any continuous simple closed curve divides the plane into an
+al.~\cite{gonthier-feit} in Coq, the original proof of {\em Jordan curve
+theorem} (any continuous simple closed curve divides the plane into an
 ``interior'' bounded region and an ``exterior'' unbounded region) by
 Hales~\cite{hales-jordan} in Mizar, or the {\em Kepler conjecture}
 (the most compact ways to arrange spheres are the cubic and hexagonal
@@ -96,8 +96,8 @@ Nevertheless, we should not throw away identity types. Around 2006,
 Vladimir Voevodsky, and Steve Awodey and Michael
 Warren~\cite{awodey-warren} gave independently a new interpretation of
 identity types: types are now seen as topological spaces, inhabitants
-of types as points, and $\mathrm{Id}(A,a,b)$ can be read as
-\begin{quotation} In the space $A$, there is an homotopy (or a
+of types as points, and an element $p:\mathrm{Id}(A,a,b)$ can be read as
+\begin{quotation} In the space $A$, $p$ is an homotopy (or a
 continuous path) between points $a$ and $b$.
 \end{quotation} Under this interpretation, it seems normal not to
 satisfy UIP: there can be several (\ie{} non-homotopic) paths between
@@ -171,7 +171,7 @@ Fortunately, Myles Tierney gave a topos-theoretic counterpart of
 forcing in 1972~\cite{tierney1972}, through the notion of
 sheaves. Originally, sheaves only existed on presheaf topos (the
 topos of functor from a category $\mathbf C$ to the category
-$\mathbf{Sets}$. These sheaves are called Grothendieck sheaves, and
+$\mathbf{Sets}$). These sheaves are called Grothendieck sheaves, and
 corresponds to objects $F$ such that any function $X\to F$ can be
 defined equivalently on whole $X$ or on each subsets of an open cover
 of $X$.
@@ -202,9 +202,7 @@ needed $(\infty,1)$-topos' concepts.
 
 \paragraph*{Aims of the thesis} The main goal of this thesis is to
 give a definition of a Lawvere-Tierney sheafification functor in the
-setting of homotopy type theory. In order to do this, we need first to develop a theory of colimits in homotopy type theory,
-leading to thoughts on the definition of equivalence relation in type
-theory. Then, as our definition of sheafification is done inductively
+setting of homotopy type theory. In order to do this, we need first to develop a theory of colimits in homotopy type theory. Then, as our definition of sheafification is done inductively
 on the truncation levels, we need to define a truncated version of the
 just defined theory of colimits, as well as a truncated version of
 left-exact modalities.  All these developments have been
@@ -212,7 +210,7 @@ computer-checked by the proof assistant Coq; most of them are
 available on my Github account \url{https://github.com/KevinQuirin}.
 
 Our deep study of modalities also leads us to
-define\todo[fancyline]{Check plugin}{} the translation of type
+define the translation of type
 theories associated to a (left-exact) modality, and write a Coq plugin
 to handle automatically that translation.
 

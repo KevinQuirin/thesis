@@ -1,10 +1,65 @@
 \chapter{Conclusion and future works}
 \label{chap:conclusion}
 
-\section{Conclusion}
-\todo[inline]{Write a conclusion.}
-\section{Future work}
+Let us begin this conclusion by a summary of this thesis. Homotopy
+type theory is a new research domain, and consists of Martin-Löf type
+theory where we give a homotopical interpretation of identity types,
+together with the univalence axiom, linking equivalence of types with
+their equality, and higher inductive types, giving us a way to build
+non-trivial equalities. 
+It seems that there exists a very strong link between higher topos
+theory~\cite{lurie} and this theory. More precisely, homotopy type
+theory is expected to be the internal language of
+$(\infty,1)$-toposes.
 
+In homotopy type theory, types are classified
+by their {\em truncation level}, representing the complexity of its
+iterated loop spaces. In particular, if $X$ is $(n+1)$-truncated, then
+each $x = y$ with $x,y:X$ is $n$-truncated. We will use this property
+to build an operator on all truncated types by induction on the
+truncation level.
+
+The operator we want to build is a {\em modality}. Modalities are
+generalized version of localizations, which themselves are a way to
+characterize equivalently the notion of subtopos; this equivalence
+still holds in higher topos theory~\cite[Section 6.2.2]{lurie}. In
+homotopy type theory, a modality is an operator $\modal$ on $\Type$,
+together with unit maps $\eta : \prodD X \Type {X \to \modal X}$
+satisfying properties. They can be seen just as idempotent monads.
+Relying on the equivalence between type theory and
+$(\infty,1)$-toposes, one can conjecture that modalities -- actually,
+accessible left-exact modalities -- induces reflective sub-type
+theories. In this thesis, we want to describe a classical type theory
+(\ie{} with the law of excluded middle) a sub-type theory of homotopy
+type theory, using a modality.
+We already know that it is possible in topos theory: take any topos
+$\mathcal T$, and the double-negation Lawvere-Tierney topology, and
+build the topos of sheaves $\Sh{\lnot\lnot}(\mathcal T)$. Then the
+latter is a boolean topos (\ie{} satisfying the LEM).
+
+The main idea of our work is to notice that Lawvere-Tierney topologies
+on a topos, which are operator on the subobject classifier, can be
+seen, in the setting of homotopy type theory, as modalities restricted
+to $\HProp$, the second layer of the stratification of
+types. Moreover, the sheafification functor corresponds to extend this
+truncated modality to $\HSet$, the next layer. Thus, we believed that
+it was possible to extend it again to the next level, \etc{} to
+finally give a modality on all truncated types. Actually, {\em modulo}
+some changes in several proofs -- in particular the proof involving
+kernel pairs of arrows -- and some sophistications in proofs, the
+method described in the topos theoretic setting can be repeated
+infinitely to build a truncated modality on all level of our
+stratification.
+
+Unfortunately, the actual management of universes by Coq does not
+allow us to formalize this result completely, but most of the proof is
+computer-checked.
+Some parts can only be checked using the (inconsistent)
+\code{type-in-type} option, allowing $\Type^i : \Type^i$, but the
+whole inductive definition cannot be checked at all. However, the key
+points of the definition of the functor are formalized.
+
+Nevertheless, our work still need enhancements:
 \paragraph*{Extension to Type.}
 At the moment, our sheafification functor only handles truncated type,
 and we have to compose it with truncations. It would be way more
