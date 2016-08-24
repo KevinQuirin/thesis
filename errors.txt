@@ -1,10 +1,11 @@
 Package biblatex Warning: No "backend" specified, using Biber backend.
-(./main.toc [4]) [5] [6] (./resume.texpdfTeX warning (ext4): destination with t
+Package frenchb.ldf Warning: The definition of \@makecaption has been changed,
+[4]) [5] [6] (./resume.texpdfTeX warning (ext4): destination with the same iden
 Class memoir Warning: The material used in the headers is too large
 pdfTeX warning (ext4): destination with the same identifier (name{page.2}) has 
 Overfull \hbox (26.77943pt too wide) in paragraph at lines 280--305
 Underfull \hbox (badness 10000) in paragraph at lines 280--305
-Overfull \hbox (1.65485pt too wide) detected at line 543
+Overfull \hbox (1.39085pt too wide) detected at line 543
 LaTeX Warning: `h' float specifier changed to `ht'.
 LaTeX Warning: Command \texttwosuperior invalid in math mode on input line 748.
 LaTeX Warning: Command \texttwosuperior invalid in math mode on input line 748.
@@ -15,16 +16,16 @@ Overfull \vbox (12.7221pt too high) detected at line 634
 Overfull \hbox (42.1887pt too wide) in paragraph at lines 831--832
 Overfull \hbox (41.63869pt too wide) in paragraph at lines 848--849
 Overfull \hbox (80.2043pt too wide) in paragraph at lines 884--885
-Overfull \hbox (94.90465pt too wide) in paragraph at lines 902--903
-Overfull \hbox (126.40085pt too wide) in paragraph at lines 926--927
+Overfull \hbox (94.64066pt too wide) in paragraph at lines 902--903
+Overfull \hbox (126.10086pt too wide) in paragraph at lines 926--927
 Underfull \hbox (badness 5847) in paragraph at lines 57--59
 Underfull \hbox (badness 4621) in paragraph at lines 186--193
 Underfull \hbox (badness 3219) in paragraph at lines 186--193
-Overfull \hbox (1.65485pt too wide) detected at line 543
-Underfull \hbox (badness 2970) in paragraph at lines 1057--1060
-Underfull \hbox (badness 1515) in paragraph at lines 410--410
+Overfull \hbox (1.39085pt too wide) detected at line 543
+Underfull \hbox (badness 2970) in paragraph at lines 1056--1059
+Underfull \hbox (badness 1515) in paragraph at lines 409--409
 Package biblatex Warning: No driver for entry type 'draft'.
-Underfull \hbox (badness 2772) in paragraph at lines 410--410
-Underfull \hbox (badness 1558) in paragraph at lines 410--410
+Underfull \hbox (badness 2772) in paragraph at lines 409--409
+Underfull \hbox (badness 1558) in paragraph at lines 409--409
 Class memoir Warning: The material used in the headers is too large
 LaTeX Font Warning: Size substitutions with differences
