@@ -58,6 +58,12 @@
 \newtheorem{cond}[thm]{Condition}
 \newtheorem{ax}[thm]{Axiom}
 
+\newtheorem{thmfr}{Théoreme}[chapter]
+\newtheorem{corfr}[thm]{Corollaire}
+\newtheorem{defifr}[thm]{Définition}
+\newtheorem{lemfr}[thm]{Lemme}
+\newtheorem{axfr}[thm]{Axiome}
+
 \newenvironment{prooflem}%
     {\renewcommand{\qedsymbol}{$\Diamond$}%
      \begin{proof}}%
@@ -247,6 +253,10 @@
 
 \newenvironment{exm}
 {\begin{thmbox}[M]{\textsc{Example}}\noindent}
+{\end{thmbox}\medskip}
+
+\newenvironment{exmfr}
+{\begin{thmbox}[M]{\textsc{Exemple}}\noindent}
 {\end{thmbox}\medskip}
 
 

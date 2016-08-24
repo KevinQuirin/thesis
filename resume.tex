@@ -1,0 +1,643 @@
+\begin{otherlanguage}{french}
+  
+\chapter{Résumé en français}
+
+\section{Introduction}
+
+La théorie des types homotopique est une branche nouvelle des
+mathématiques et de l'informatique, exhibant un lien fort, mais
+surprenant entre la théorie des $\omega$-catégories et la théorie de
+types. Ce domaine se situe donc à la frontière entre les mathématiques
+pures et l'informatique. Un des but de la recherche sur ce sujet est
+d'utiliser la théorie des types homotopique comme une nouvelle
+fondation des mathématiques, remplaçant par exemple la théorie des
+ensembles de Zermelo-Fr\ae nkel. Ses liens forts avec la théorie des
+types donneraient aux mathématiciens la possibilité de formaliser
+leurs travaux avec un assistant de preuve comme
+Coq~\cite{coq:refman:8.4}, Agda~\cite{norell2007towards} ou
+Lean~\cite{lean}. En effet, les erreurs dans les articles de recherche
+en mathématiques semblent inévitables~\cite{vv-univ-f}, et une preuve
+vérifiée par ordinateur peut inspirer plus confiance qu'une preuve
+vérifiée par un humain. Les exemples les plus célèbres de preuves
+vérifiées par ordinateur sont le {\em théorème des quatre couleurs}
+(pour colorier une carte telle qu'aucuns pays voisins aient la même
+couleur, il suffit de quatre couleurs) par Gonthier et
+Werner~\cite{gonthier-four-color} avec Coq, le {\em théorème de
+Feit-Thomson} (tout groupe fini d'ordre impair est résoluble) par
+Gonthier et al.~\cite{gonthier-feit} avec Coq, la preuve originelle du
+{\em théorème de Jordan} (toute courbe simple continue fermée divise le plan
+en une partie bornée ``intérieure'' et une partie non bornée
+``extérieure'') par Hales~\cite{hales-jordan} avec Mizar, ou la {\em
+  conjecture de Kepler} (les façons les plus compactes d'empiler des
+sphères sont les empilements clos cubiques et hexagonaux) par Hales et
+al.~\cite{hales-kepler} avec Isabelle et HOL Light.
+
+Un des avantages de la théorie des types par rapport à la théorie des
+ensembles est la propriété de calculabilité de la théorie des types :
+tout terme est identifié avec sa forme normale. Ainsi, un assistant de
+preuve permet à l'utilisateur de simplifier automatiquement toutes les
+expressions, alors qu'une preuve sur papier requiert de faire toutes
+ces calculs à la main. La théorie des ensembles ne partage pas cette
+propriété de calculabilité, et n'est donc pas aussi pratique à
+utiliser comme base théorique pour un assistant de preuve. Cependant,
+cette propriété de calculabilité nous empêche d'utiliser des
+propriétés classiques, telles que le tiers exclu ; en général, il est
+impossible de prouver qu'une proposition est soit vraie, soit fausse.
+
+L'ingrédient principal de la théorie des types homotopique, faisant le
+lien entre les mathématiques et l'informatique, est l'isomorphisme de
+Curry-Howard: on peut indifféremment parler de preuve ou de programme,
+les deux décrivent les mêmes objets {\em via} une correspondance. Par
+exemple, en théorie de types, la séquence de symboles $A\to B$ peut
+être vue comme le type des programmes prenant un argument de type $A$
+et produisant une sortie de type $B$ ou comme le type des preuves que
+$A$ implique $B$. Une chose qu'implique cette correspondance est qu'il
+peut exister plusieurs preuves de ``$A$ implique $B$'', puisqu'il peut
+y avoir plusieurs manières de produire une sortie de type $B$ à partir
+d'une entrée de type $A$. Cette propriété est appelée {\em
+  proof-relevance}, alors que ZFC est considérée comme {\em
+  proof-irrelevant}: si un lemme a été prouvé, la façon de le prouver
+peut être oublié, elle n'a aucune importance.
+
+À part le manque de propriétés classique, un problème de la théorie
+des types est la notion d'égalité. On a deux possibilités:
+\begin{itemize}
+\item une égalité intentionnelle, ou définitionnelle ; deux objets
+  sont égaux s'ils sont définis de la même manière, \ie{} si l'un peut
+  être échangé avec l'autre sans changer le sens. Par exemple, le
+  nombre naturel $1$ et le successeur du nombre naturel 0 sont
+  intentionnellement égaux. En théorie des types, on ajoute des règles
+  à cette égalité comme la règle $\beta$ ($(\lambda\ x,\ f\ x)y = f\
+  y$) and $\eta$.
+\item une égalité extensionnelle, ou propositionelle ; deux objets
+  sont considérés égaux s'ils se comportent de la même façon. Par
+  exemple, étant donnés deux nombres naturels $a$ and $b$, $a+b$ et
+  $b+a$ sont extensionnellement mais pas intentionnellement égaux ; on
+  a besoin de le prouver.
+\end{itemize}
+En théorie des ensembles, on utilise traditionnellement une égalité
+extensionnelle, en affirmant que deux ensembles sont égaux si et
+seulement s'ils ont les mêmes éléments. En théorie des types,
+l'égalité intentionnelle est une notion meta-théorique ; seul le
+type-checker (comme Coq) peut y accéder. On ne peut pas l'exprimer
+dans la théorie elle-même car on sait que la théorie des types
+extensionnelle est indécidable~\cite{hofmann1995extensional} (étant
+donnés un terme $p$ et un type $P$, il peut être indécidable de
+vérifier que $p$ est bien une preuve de $P$). L'égalité
+propositionnelle est un concept interne à la théorie, définie comme un
+type inductif
+inductive type
+\[ \mathrm{Id} (A:\Type) (a:A) : A \to \Type
+\] généré par un seul constructeur
+\[ \idpath : \mathrm{Id}_A(a,a),
+\] 
+et le type $\mathrm{Id}(A,a,b)$ sera noté $a=_A b$ ou $a=b$. Ce type
+identité n'est en fait pas satisfaisant. L'idée de Martin-Löf était de
+copier l'égalité mathématique, mais le type identité n'y arrive
+pas. En effet, un problème avec cette égalité est que les types $a=b$
+peuvent être habités de différents manières -- au moins, il n'est pas
+prouvable que pour tous $p,q:a=b$, $p=q$ ; cette propriété, appelée
+UIP (unicité des preuves d'égalité) a été prouvée
+dans~\cite{Hofmann96thegroupoid} être indépendante de la théorie des
+types intentionnelle. Un autre problème est que cette égalité est
+définie pour tous les types, et ne se comporte pas bien vis-à-vis de
+certains constructeurs de types ; par exemple, l'extensionalité
+fonctionnelle, affirmant que deux fonctions sont égales dès qu'elles
+sont égales point-à-point, ne peut pas être montrée.
+
+Cependant, il ne faut pas jeter les types identité. Vers 2006,
+Vladimir Voevodsky, et Steve Awodey et Michal
+Warren~\cite{awodey-warren} ont donné indépendamment une nouvelle
+interprétation des types identité : les types sont maintenant vus
+comme des espaces topologiques, les habitants des types comme des
+points, et un élément $p:\mathrm{Id}(A,a,b)$ peut être lu comme
+\begin{quotation}
+  Dans l'espace $A$, $p$ est une homotopie (ou un chemin continu)
+  entre les points $a$ et $b$.
+\end{quotation}
+Avec cette interprétation, il paraît normal de ne pas satisfaire UIP :
+il peut y avoir plusieurs (\ie{} non homotopiques) chemins entre deux
+points (on peut penser à un beignet). Le second problème a été résolu
+vers 2009, quand Vladimir Voevodsky a énoncé l'axiome d'univalence:
+deux types sont égaux exactement quand ils sont isomorphes. De façon
+surprenante, cette axiome implique la compatibilité des types identité
+avec certains constructeurs de types: il implique l'extensionalité
+fonctionnelle, et il semble qu'il implique aussi que le type identité
+sur les {\em streams} coïncide avec la
+bisimulation~\cite{licata14uafs}.
+
+Le projet originel de Voevodsky~\cite{vv-nsf} était de donner un outil
+aux mathématiciens pour qu'il puissent vérifier leurs preuves sur
+ordinateur. La théorie des types homotopique semble être une bonne
+base pour ça, mais il manque le {\em tiers-exclu}, un des principes
+préférés des mathématiciens :
+\begin{quotation}
+  Toute proposition est soit vraie, soit fausse.
+\end{quotation}
+Le but principal de cette thèse est d'ajouter ce principe à la théorie
+des types homotopique, sans perdre certaines propriétés (décidabilité,
+canonicité, constructivisme).
+
+Commençons par remarquer qu'on sait déjà transformer une logique
+intuitionniste en une logique classique, avec la traduction de
+Gödel-Gentzen définie dans la figure~\ref{fig:GG-trans-fr}
+\begin{figure}[ht]
+  \centering
+
+  \[x^N \defeq \lnot\lnot x\text{ quand $x$ est atomique}\]
+  \[(\phi \land \psi)^N \defeq \phi^N \land \psi^N \qquad
+  (\phi\lor \psi)^N \defeq \lnot (\lnot\phi^N \land \lnot \psi^N)\]
+  \[(\phi \to \psi)^N \defeq \phi^N \to \psi^N \qquad
+    (\lnot \psi)^N \defeq \lnot \phi^N\]
+  \[(\forall\ x,\ \phi)^N \defeq \forall\ x,\ \psi^N \qquad
+  (\exists\ x,\ \phi)^N \defeq \lnot\forall\ x\,\ \lnot\phi^N\]
+  \caption{Traduction de Gödel-Gentzen}
+  \label{fig:GG-trans-fr}
+\end{figure}
+
+Un théorème de correction affirme qu'une formule $\phi$ est
+classiquement prouvable si et seulement si $\phi^N$ est
+intuiitionnistiquement prouvable. Bien que cette traduction ne
+fonctionne qu'avec la logique, la même idée peut être utilisée pour
+toute la théorie des types, comme dans
+\cite{jaber2012extending,forcing2016}.
+L'idée derrière une traduction est, en partant d'une théorie source
+(compliquée) $\mathcal S$, de traduire tous les termes $t$ de
+$\mathcal S$ en des termes $[t]$ d'une théorie source $\mathcal T$,
+supposée sue consistante. La propriété fondamentale d'une traduction
+est sa correction, ie{} si on peut prouver un théorème de correction
+affirmant que si un terme $x$ est de type $X$ dans $\mathcal S$, alors
+la traduction $[x]$ de $x$ est de type $\Lbrack X \Rbrack$, où
+$\Lbrack\cdot\Rbrack$ est la traduction des types. Cette propriété,
+avec une preuve que $\Lbrack\zero\Rbrack$ n'est pas habité dans
+$\mathcal T$, assure que la théorie $\mathcal S$ est consistante. On
+peut dire qu'une traduction correcte est un moyen de donner un nom
+dans la théorie cible $\mathcal T$ aux objets de $\mathcal S$ inconnus
+de $\mathcal T$.
+
+Les théoriciens de ensembles peuvent remarquer que c'est très proche
+de la méthode de {\em forcing}, inventée en 1962 par Paul
+Cohen~\cite{cohen1966}. Son application historique, et la plus connue,
+la preuve d'indépendance de la négation de l'hypothèse du continu avec
+ZFC. De la même façon que les traductions, le forcing ne peut montrer
+que des résultats de consistance relative, \eg{} ZFC+$\lnot$HC est
+consistant si ZFC est consistent. Cette méthode est aujourd'hui un
+ingrédient clef des théoriciens de ensembles.
+
+Nous savons déjà qu'adapter des résultats de théorie des ensembles à
+la théorie des types n'est pas facile, ces deux théories étant très
+différents. La théorie des types est plus proche de la théorie des
+topoi, et la théorie des types homotopique encore plus proche de la
+théorie des topoi supérieurs. Heureusement, Myles Tierney a donné en
+1972 un équivalent du forcing en théorie des topoi~\cite{tierney1972},
+en utilisant la notion de faisceaux. À l'origine, les faisceaux
+n'existaient que sur des topoi de préfaisceaux (les topoi de foncteurs
+d'une catégorie $\mathbf C$ vers la catégorie $\mathbf{Sets}$). Ces
+faisceaux sont appelés faisceaux de Grothendieck, et correspondent aux
+objets $F$ tels que toute fonction $X \to F$ peut être définie de
+façon équivalence soit sur $X$ tout entier, soit sur tous les objets
+d'un recouvrement ouvert de $X$. Ce concept a été étendu par William
+Lawvere et Myles Tierney, autorisant les objets de n'importe quel
+topos à être des faisceaux. Ils correspondent alors aux objets $F$
+tels que toute fonction $X\to F$ peut être définie de façon
+équivalente soit sur $X$ tout entier, soit sur un sous-objet dense de
+$X$. L'existence d'un {\em foncteur de faisceautisation} de n'importe
+quel topos $\mathcal T$ vers son topos de faisceau $\Sh{}(\mathcal
+T)$, adjoint à gauche de l'inclusion, permet de construire une topos
+satisfaisant plus de propriétés que le topos de départ. Les faisceaux
+proviennent d'une topologie fixée au départ, qui peut être vue comme
+un opérateur sur la ``logique'' du topos (le classifiant des
+sous-objets), idempotent, préservant $\top$ et commutant avec les
+produits. La double négation est en fait une topologie sur n'importe
+quel topos $\mathcal T$, et alors le topos $\Sh{\lnot\lnot}(\mathcal
+T)$ satisfait de bonnes propriétés il est booléen (\ie{} satisfait le
+tiers exclu), et la négation de l'hypothèse du continu est vraie dans
+ce topos~\cite{maclanemoerdijk}.
+
+En théorie des topoi supérieurs, ce $(\infty,1)$-foncteur de
+faisceautisation n'a été défini dans~\cite{lurie} que dans le cas des
+faisceaux de Grothendieck, laissant la théorie de Lawvere-Tierney
+inexplorée. Il y a donc un défi double dans notre quête de tiers-exclu
+en théorie des types homotopique : le premier est de formaliser le
+résultat de la théorie des topoi, et le second est de l'étendre au cas
+de la théorie des types homotopique, en utilisant des résultats de la
+théorie des $(\infty,1)$-topoi.
+
+\paragraph*{But de la thèse}
+Le but principal de cette thèse est de donner une définition du
+foncteur de faisceautisation de Lawvere-Tierney dans le contexte de la
+théorie des types homotopique. Pour cela, on aura d'abord besoin d'une
+théorie des colimites en théorie des types homotopique. Puis, comme
+notre définition de la faisceautisation sera faite inductivement sur
+le niveau de troncation, on définira une version tronquée ce ces
+colimites, et une version tronquée des modalités exactes à gauche. 
+Presque tous ces résultats sont vérifiés par ordinateur par l'assistant de
+preuve Coq ; la plupart d'entre eux sont disponibles sur mon compte
+Github \url{https://github.com/KevinQuirin}.
+
+Notre étude approfondie des modalités nous a aussi amené à définir une
+traduction de théorie des types associée à une modalité exacte à
+gauche, et à écrire une extension pour Coq pour manipuler
+automatiquement cette traduction.
+
+\section{Théorie des types homotopique}
+Dans cette section, nous allons décrire brièvement le cadre dans
+lequel on se place, la théorie des types homotopique. La définition
+compacte de cette théorie pourrait être
+\[
+  \mathrm{HoTT} = \mathrm{MLTT}+\mathrm{UA}+\mathrm{HIT}
+\]
+où MLTT est la théorie des types de Martin-Löf (ou théorie des types
+dépendants), UA est l'axiome
+d'univalence et HIT est l'abréviation des types inductifs supérieurs.
+Pour une description plus complète de MLTT, le lecteur pourra se référer
+à~\cite{hofmann1997syntax} ou \cite{hottbook}.
+
+Dans la théorie des ensembles de Zermelo-Frank\ae l, la formule
+logique la plus basique est
+\[ x\in E\]
+où $x$ et $E$ sont des ensembles. En théorie des types dépendants, un
+jugement similaire serait 
+\[ a : A\]
+qui doit être lu comme ``$a$ est de type $A$''. La différence
+principale avec la relation d'appartenance est qu'un élément $a$
+n'appartient qu'à un et un seul type, alors qu'il est possible
+d'écrire $x\in E$ et $x\in F$ en théorie des ensembles (c'est la
+définition de $x\in E\cap F$).
+
+La théorie des types dépendants est basée sur la correspondance de
+Curry-Howard, ou principe de ``proposition comme des types''. En
+effet, on ne fait pas de différence entre les proposition et les
+types ; $a:A$ sera lu indifféremment ``$a$ est de type $A$'' si $A$
+est vu comme un type ou ``$a$ est une preuve de $A$'' quand $A$ est vu
+comme une proposition. 
+
+On ne rappelle pas dans ce résumé les règles d'introduction et
+d'élimination des types, mais on donne le tableau suivant rappelant
+les différents types existants:
+
+\renewcommand{\arraystretch}{2}
+\begin{tabular}{|l|l|l|}
+  \hline
+  Nom & Notation & Propositions comme des types \\
+  \hline\hline
+  Zéro & $\displaystyle{\zero}$ & $\displaystyle{\bot}$ \\
+  \hline
+  Un & $\displaystyle{\one}$ & $\displaystyle{\top}$ \\
+  \hline
+  Coproduit, sum & $\displaystyle{A+B}$ & $\displaystyle{A\lor B}$ \\
+  \hline
+  Fonction & $\displaystyle{A\to B}$ & $\displaystyle{A\To B}$ \\
+  \hline
+  Fonction dépendante, type Pi & $\displaystyle{\prodD x A {B\, x}}$ & $\displaystyle{\forall x,\,
+                                                       B\, x}$ \\
+  \hline
+  Produit & $\displaystyle{A\times B}$ & $\displaystyle{A\land B}$ \\
+  \hline
+  Somme dépendante, type Sigma & $\displaystyle{\sumD x A {B\, x}}$ & $\displaystyle{\exists x,\, B\,
+                                                    x}$ \\
+  \hline
+  Égalité, identité, chemin & $\displaystyle{a =_A b}$ & $\displaystyle{a = b}$
+  \\
+  \hline
+\end{tabular}
+\renewcommand{\arraystretch}{1}
+
+Revenons simplement sur les types identité. Ils sont très utiles pour
+affirmer l'égalité propositionnelle entre des objets. On note qu'ils
+ne caractérisent pas l'égalité jugementale, qu'on considère comme
+appartenant à la méta-théorie. Les types identités donnent à tout type
+une structure d'$\omega$-groupoïde, \ie{} la structure d'une
+$\omega$-catégorie où toutes les flèches sont inversibles. En
+particulier, ils vérifient la réflexion, la transitivité, la symétrie,
+l'associativité, le pentagone de Maclane, \etc{}
+
+Les types identités se comportent bien vis-à-vis des fonctions. Si
+$f:A\to B$ est une fonction, alors pour tous $x,y:A$, il existe une
+fonction 
+\[\ap f: x=y \to f(x) = f(y)\]
+compatible avec la structure d'$\omega$-groupoïde. 
+
+Avant de lier les
+type identités avec les types d'équivalence, définissons d'abord les
+équivalences.
+\begin{defifr}
+  Soient $A,B:\Type$ et $f:A\to B$. On dit que $f$ est une
+  équivalence, noté $\IsEquiv(f)$ s'il existe
+  \begin{itemize}
+  \item une fonction $g:B\to A$, appelée inverse de $f$
+  \item un terme $\displaystyle{\retr_f: \prodD x A {g(f(x)) = x}}$,
+    appelé la rétraction de l'équivalence
+  \item un terme $\displaystyle{\sect_f: \prodD x A {f(g(x)) = x}}$,
+    appelé la section de l'équivalence
+  \item un terme $\displaystyle{\adj_f: \prodD x A {\ap f {\retr_f x} =
+        \sect_f(f\, x)}}$, appelé l'adjonction de l'équivalence.
+  \end{itemize}
+  On dit que $A$ et $B$ sont équivalents, noté $A\simeq B$ s'il existe
+  $f:A\to B$ qui soit une équivalence. 
+\end{defifr} 
+
+On note que si $A=B$, alors il existe une équivalence canonique entre
+$A$ et $B$, et on note $\mathrm{idtoequiv}:A = B \to A \simeq B$.
+On peut alors énoncer l'axiome d'univalence:
+\begin{axfr}
+  Pour tous types $A$ et $B$, la fonction
+  \[ \mathrm{idtoequiv} : A = B \to A\simeq B \]
+  est une équivalence.
+\end{axfr}
+ 
+Avec cet axiome, il semble que les types identité sont compatibles
+avec tous les constructeurs de types: 
+\begin{itemize}
+\item l'égalité dans les produits correspond à l'égalité des
+  composantes
+\item l'égalité dans les sommes dépendantes correspond à l'égalité
+  des composantes, la deuxième transportée par la première
+\item l'égalité dans les fonctions (dépendantes ou non) correspond à
+  l'égalité point à point
+\end{itemize}
+
+Pour obtenir la théorie des types homotopiques, il reste à rajouter un
+moyen de construire des types dont on contrôle -- en partie -- les
+espaces de chemins itérés~: les types inductifs supérieurs (HIT). Les
+HIT fonctionnent de la même manière que les types inductifs de Coq,
+mais on peut aussi rajouter des constructeurs pour les espaces de
+chemins.
+
+\begin{exmfr}
+  Le premier exemple est le cercle $\Sone$. Il est généré par les
+  constructeurs
+  \[ \left| 
+      \begin{array}{lll}
+        \baseS & : & \Sone \\
+        \loopS & : & \baseS = \baseS
+      \end{array}
+    \right.
+  \]
+  On peut le représenter par
+  \[
+    \xymatrix@R=0.1em{ \bullet \ar@(ur,ul)[]_\loopS \\ \baseS}
+  \]
+\end{exmfr}
+
+Comme pour les types inductifs, on donne aussi des éliminateurs pour
+les HIT.
+
+\begin{exmfr}
+  Donnons l'éliminateur non-dépendant de $\Sone$. Si $P$ est un type,
+  $b:P$ et $p:b=b$, alors il existe une fonction 
+  \[\Sone_{\mathrm{rec}} : \Sone \to P\]
+  tel que $\Sone_{\mathrm{rec}}(\baseS) \equiv b$ et
+  $\ap{\Sone_{\mathrm{rec}}}(\loopS) = p$.
+
+  L'éliminateur dépendant est un peu plus compliqué. Si
+  $P:\Sone\to\Type$ est une famille de type sur $\Sone$, $b:(P\baseS)$
+  et $p:\transport_P^\loopS(b) = b$, alors il existe un terme
+  \[ \Sone_{\mathrm{ind}} : \prodD x \Sone {P\, x}\]
+  tel que $\Sone_{\mathrm{ind}}(base) \equiv b$ et
+  $\ap{\Sone_{\mathrm{ind}}}(\loopS) = p$.
+\end{exmfr}
+
+\section{Colimites}
+
+On voit dans~\cite{lumsdaine} que la présence des sommes dépendantes
+en théorie des types permet de construire des limites sur des
+graphes. Cependant, alors que ce n'est qu'une notion duale, on ne sait
+pas traiter le cas des colimites dans MLTT.  On va voir dans cette
+partie que les types inductifs supérieurs permettent de gérer les
+colimites au-dessus de graphes, et même au-dessus de catégories dans
+certains cas.
+
+Commençons par rappeler les définitions de graphes et diagrammes.
+
+
+\begin{defifr}[Graphe]
+  Un {\em graphe} $G$ est la donnée de
+  \begin{itemize}
+  \item un type $G_0$ de sommets ;
+  \item pour tous $i,j:G_0$, un type $G_1(i,j)$ d'arêtes.
+  \end{itemize}
+\end{defifr}
+
+\begin{defifr}[Diagramme]
+  Un {\em diagramme} $D$ sur un graphe $G$ est la donnée de
+  \begin{itemize}
+  \item pour tous $i:G_0$, un type $D_0(i)$ ;
+  \item pour tous $i,j:G_0$ et tous $\phi : G_1(i,j)$, une flèche $D_1(\phi)
+    : D_0(i) \to D_0(j)$
+  \end{itemize}
+\end{defifr}
+
+Comme dans le contexte catégorique, on va essayer de définir une
+colimite comme un type qui forme un cocone sur le graphe désiré, de
+façon universelle. Dans la suite, on se fixe un graphe $G$ et un
+diagramme $D$ au-dessus de $G$.
+
+\begin{defifr}
+  Soit $Q$ un type. Un cocone sur $D$ dans $Q$ est la donnée de
+  flèches $q_i : D_i \to Q$, et pour tous $i,j:G$ et $g:G(i,j)$, une
+  homotopie $q_j \circ D(g) \homot q_i$.
+\end{defifr}
+
+On peut postcomposer les cocones par des flèches. Plus précisément, si
+$Q$ et $Q'$ sont des types, $f:Q \to Q'$ et $C$ un cocone sur $D$ dans
+$Q$, alors il existe un cocone sur $D$ dans $Q'$ qui consiste à
+postcomposer toutes les flèches de $C$ par $f$. Cela donne une flèche
+\newcommand{\postcomposecocone}{\mathrm{postcompose}_{\mathrm{cocone}}}
+\[\postcomposecocone : \cocone_D(Q) \to (Q':\Type) \to (Q \to Q') \to
+  \cocone_D(Q') \]
+L'autre sens correspond à notre définition de colimite:
+
+\begin{defifr}[Colimite]
+  Un type $Q$ est une colimite de $D$ s'il existe un cocone $C$ sur
+  $C$ dans $Q$, qui est universel, \ie{} tel que
+  $\postcomposecocone(C,Q')$ soit une équivalence.
+\end{defifr}
+
+Les colimites sont compatibles avec différentes opérations sur les
+diagrammes, que nous n'expliciterons pas ici. On notera simplement que
+deux diagrammes équivalents ont des colimites équivalentes, donnant
+par suite l'unicité à équivalence près des colimites.
+
+Regardons un cas particulier de colimites qui nous intéressera plus
+tard~: les constructions que Van Doorn et de Boulier.
+Elles généralisent le théorème de théorie des topoi affirmant que tout
+épimorphisme est la colimite de sa kernel pair. En théorie des topoi
+supérieurs, le résultat reste vrai en remplaçant ``kernel pair'' par
+``nerf de \v{C}ech''. Cependant, on ne sait pas définir en
+théorie des types les nerf de
+\v{C}ech, qui sont une version particulière d'objets simpliciaux. On
+va donc donner un autre diagramme dépendant d'une fonction dont la
+colimite est l'image de la fonction. On commence par la construction
+de Van Doorn, qui correspond à une fonction $A\to\one$, et donnant la
+$(-1)$-troncation comme colimite d'un diagramme.
+
+
+
+\begin{prop}[Construction de Van Doorn]
+
+  Soit $A:\Type$. On définit le type inductif supérieur $TA$ comme la
+  colimite (le coégaliseur) de
+  \[ \xymatrix{ A\times A \ar@<-.5ex>[r]_-{\pi_2}
+      \ar@<.5ex>[r]^-{\pi_1} & A }.\]
+  Alors la colimite de
+  \[ \xymatrix{
+      A \ar[r]^-q& TA \ar[r]^-q& TTA \ar[r]^-q& TTTA \ar[r]^-q& \dots
+    }\]
+  est $\|A\|_{-1}$.
+\end{prop}
+
+Maintenant, soient $A,B:\Type$ et $f:A\to B$. On définit la kernel pair de $f$
+comme la colimite de \[ \xymatrix{ A\times_B A \ar@<-.5ex>[r]_-{\pi_2}
+      \ar@<.5ex>[r]^-{\pi_1} & A }.\]
+en d'autres termes, $\KP(f)$ est le type inductif supérieur généré par
+\[\left|
+    \begin{array}{lll}
+      \kp &:& A\to \KP(f) \\
+      \alpha &:& \displaystyle{\prodD {x,y}{A}{f\, x = f\, y \to kp\,x=\kp\,y}}
+    \end{array}
+  \right.\]
+En utilisant l'éliminateur des colimites, on peut construire une
+fonction $\widehat
+f:\KP(f) \to B$, telle que le digramme suivant commute
+\[\xymatrix{
+    A \ar[r]^-{\kp} \ar[rd]_-f & \KP(f) \ar[d]^-{\widehat f} \\
+    &B
+}\]
+On peut alors construire
+$KP(\widehat f)$ et une fonction $\widehat{\widehat
+  f}:\KP(\widehat f) \to B$, \etc{}
+On a le résultat suivant
+\begin{prop}[Construction de Boulier]
+  Pour tout $f:A\to B$, $\im(f)$ est la colimite de la kernel pair
+  itérée de $f$
+\[\xymatrix{
+  A \ar[r] & \KP(f) \ar[r] & \KP\left(\widehat f\right) \ar[r]& \KP\left(\widehat{\widehat f}\right) \ar[r]& \cdots
+}\]
+En particulier, si $f$ est une surjection, la colimite de ce diagramme
+est $B$.
+\end{prop}
+
+Un problème de ces deux constructions est qu'ils ne préservent pas le
+niveau de troncation (resp. les plongements). Si $A$ est un $\HProp$,
+$TA$ peut avoir un niveau de troncation élevé (resp. si $f$ est un
+plongement, $\widehat f$ ne l'est pas forcément). Ce problème peut
+être résolu en considérant des graphes avec compositions, et en
+définissant les deux types suivants
+\[
+  TA~\left|
+    \begin{array}{lll}
+      q&:& A\to TA \\
+      \alpha&:& \displaystyle{\prodD {x,y} A {q\, x = q\, y}} \\
+      \alpha_1&:& \displaystyle{\prodD x A {\alpha(x,x) = 1}}
+    \end{array}
+  \right.
+  \quad ; \quad
+  \KP(f)~\left|
+    \begin{array}{lll}
+      \kp&:&A\to \KP(f) \\
+      \alpha&:& \displaystyle{\prodD {x,y} A {f\, x = f\, y \to q\, x = q\, y}} \\
+      \alpha_1&:& \displaystyle{\prodD x A {\alpha(x,x,1) = 1}}
+    \end{array}    
+  \right.
+\]
+Les deux résultats énoncés précédemment restent vrais. Cependant, les
+niveaux d'homotopie plus élevés ne sont pas préservés.
+Comme pour construire le foncteur de faisceautisation, nous travaillerons à
+niveau de troncation fixé, il nous faut un moyen de tronquer les
+colimites.
+
+On appelera $n$-colimite d'un diagramme $D$ un type $Q$ qui forme un
+cocone sur $D$ et qui est universel par rapport à tous les
+$n$-types. On a alors le résultat
+\begin{lemfr}
+  Soit $D$ un diagramme et $Q$ une colimite de $D$. Alors $\|Q\|_n$
+  est une $n$-colimite de $\|D\|_n$, le diagramme où on a $n$-tronqué
+  tous les types de $D$.
+\end{lemfr}
+
+\section{Modalités}
+
+Comme dit dans l'introduction, le but principal de notre travail est
+de construire, à partir d'un modèle $\mathfrak M$ de la théorie des
+types homotopique, un autre modèle $\mathfrak M'$ qui satisfait 
+de nouveaux principes.
+On va utiliser un analogue aux modèles internes~\cite{kunen} de la
+théorie des ensembles, représentés ici par des modalités exactes à
+gauche.
+
+
+
+\todo[inline]{Résumé modalités}
+
+\section{Faisceaux}
+
+\todo[inline]{Résumé faisceaux}
+
+\section{Conclusion}
+Commençons par un résumé de la thèse. La théorie des types homotopique
+est un nouveau domaine de recherche, et se compose de la théorie des
+types de Martin-Löf où on voit les types identité comme des
+homotopies, à laquelle on ajoute l'axiome d'univalence, liant les
+équivalences et les égalités, et les types inductifs supérieurs,
+permettant de construire des types avec des égalités non-triviales.
+Il semble exister un lien fort entre cette théorie et celle des topoi
+supérieurs. Plus précisément, il semble qu'on puisse voir la théorie
+des types homotopique comme le langage interne des $(\infty,1)$-topoi.
+
+En théorie des types homotopiques, les types sont classifiés par leur
+niveau de troncation, représentant la complexité de ses espaces de
+boucles itérés. En particulier, si $X$ est $(n+1)$-tronqué, alors tous
+les $x=y$ avec $x,y:X$ sont $n$-tronqués. On utilise cette propriété
+pour construire un opérateur sur tous les types tronqués par induction
+sur le niveau de troncation.
+
+L'opérateur qu'on veut construire est une modalité. Les modalités sont
+une version généralisée des localisations, qui sont elles-mêmes un
+moyen de caractériser de façon équivalence la notion de sous-topos ;
+cette équivalence est toujours vraie en théorie des topos
+supérieurs~\cite[Section 6.2.2]{lurie}. En théorie des types
+homotopique, une modalité est un opérateur $\modal$ sur $\Type$, muni
+d'unités $\eta:\prodD X \Type {X\to\modal X}$ satisfaisant de bonnes
+propriétés. Elles peuvent simplement être vue comme des monades
+idempotentes. En se basant sur l'équivalence entre la théorie des
+types et les $(\infty,1)$-topoi, on peut conjecturer que ces modalités
+-- en fait, les modalités accessibles et exacte à gauche -- induisent
+des sous-théories de types réflexives. Dans cette thèse, on veut
+décrire une théorie des types classique (\ie{} qui satisfait le
+principe du tiers-exclu) comme uns sous-théorie de la théorie des
+types homotopique, en utilisant une modalité. On sait déjà que c'est
+possible en théorie des topoi: en prenant n'importe quel topos
+$\mathcal T$, et la topologie de Lawvere-Tierney de la double
+négation, on peut construire le topos $\Sh{\lnot\lnot}(\mathcal T)$,
+qui est booléen.
+
+L'idée principale de notre travail est de remarquer que les topologies
+de Lawvere-Tierney sur un topos, qui sont des opérateurs sur le
+classifiant des sous-objets, peuvent être vues en théorie des types
+homotopique comme des modalités sur $\HProp$, la deuxième couche de la
+stratification des types. De plus, le foncteur de faisceautisation
+correspond à étendre cette modalité tronquée à $\HSet$, la couche
+suivante. On a donc cru possible d'étendre à nouveau à la couche
+suivante, \etc{} pour finalement donner une modalité sur tous les
+types tronqués. En fait, {\em modulo} quelque changements dans
+plusieurs preuves -- en particulier la preuve impliquant des {\em
+  kernel pair} de flèches -- et quelque sophistications dans les
+preuves, la méthode décrite dans le cadre des topoi peut être répétée
+indéfiniment pour construire une modalité sur tous les niveaux de
+notre stratification.
+
+Malheureusement, la gestion actuelle des univers par Coq ne nous
+permet pas de formaliser complètement ce résultat ; cependant, une
+grosse partie est vérifiée par ordinateur. Certaines parties ne
+peuvent être vérifiées qu'en utilisant l'option (inconsistante)
+\code{type-in-type} de Coq, autorisant à avoir $\Type^i : \Type^i$,
+mais la définition complète ne peut pas être vérifiée complètement. 
+
+\end{otherlanguage}
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "main"
+%%% End:
