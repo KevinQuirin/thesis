@@ -20,11 +20,11 @@ en mathématiques semblent inévitables~\cite{vv-univ-f}, et une preuve
 vérifiée par ordinateur peut inspirer plus confiance qu'une preuve
 vérifiée par un humain. Les exemples les plus célèbres de preuves
 vérifiées par ordinateur sont le {\em théorème des quatre couleurs}
-(pour colorier une carte telle qu'aucuns pays voisins aient la même
+(pour colorier une carte telle qu'aucuns pays voisins aient la même 
 couleur, il suffit de quatre couleurs) par Gonthier et
 Werner~\cite{gonthier-four-color} avec Coq, le {\em théorème de
 Feit-Thomson} (tout groupe fini d'ordre impair est résoluble) par
-Gonthier et al.~\cite{gonthier-feit} avec Coq, la preuve originelle du
+Gonthier et al.~\cite{gonthier-feit} avec Coq, la preuve originelle du 
 {\em théorème de Jordan} (toute courbe simple continue fermée divise le plan
 en une partie bornée ``intérieure'' et une partie non bornée
 ``extérieure'') par Hales~\cite{hales-jordan} avec Mizar, ou la {\em
@@ -566,13 +566,435 @@ On va utiliser un analogue aux modèles internes~\cite{kunen} de la
 théorie des ensembles, représentés ici par des modalités exactes à
 gauche.
 
+Le papier~\cite{RijkeShulmanSpitters} en préparation est une
+excellente référence pour les modalités en théorie des types homotopiques.
 
+\begin{defifr}
+  % \label{def:modality}
+  Une modalité exacte à gauche est la donnée de
+  \begin{enumerate}[(i)]
+  \item Un prédicat $P:\Type \to \HProp$
+  \item Pour tout type $A$, un type
+    $\modal A$ tel que $P(\modal A)$
+  \item Pour tout type $A$, une fonction $\eta_A:A \to
+    \modal A$
+  \end{enumerate}
+  tels que
+  \begin{enumerate}[(i)]
+    \setcounter{enumi}{3}
+  \item Pour tous types $A$ et $B$, si $P(B)$ alors
+    \[ \left\{
+        \begin{array}{rcl}
+          (\modal A \to B) & \to & (A \to B) \\
+          f & \mapsto & f \circ \eta_A
+        \end{array} \right. \] %
+    est une équivalence.
+  \item pour tous $A:\Type$ et $B:A \to \Type$ tels que $P(A)$
+    et $\prod_{x:A} P(B x)$, alors $P\left( \sum_{x:A} B(x)\right)$
+  \item pour tous $A:\Type$ et $x,y:A$, si $\modal A$ est
+    contractible, alors $\modal (x=y)$ est contractible.
+  \end{enumerate}
+  Les conditions (i) à (iv) définissent un {\em sous-univers réflexif}, (i) à
+  (v) une {\em modalité}.
+\end{defifr}
 
-\todo[inline]{Résumé modalités}
+Les modalités exactes à gauche ont de bonnes propriétés, notemment la
+stabilité par produit, produit dépendant, et une version dépendante de
+l'éliminateur (iv). De plus, elles préservent les niveaux de
+troncation, \ie{} si $P$ est un $n$-type, alors $\modal P$ aussi.
+
+Les troncations sont une classe d'exemples de modalités (mais pas
+exactes à gauche), de même que la modalité de la double-négation.
+
+De la même façon que pour les colimites, on définit aussi une version
+tronquée des modalités, \ie{} avec un réflecteur $\modal : \Type_n \to
+\Type_n$. La majorité des propriétés des modalités restent vérifiées.
+
+À toute modalité exacte à gauche et accessible (admettant une une petite
+famille de générateur), on peut associer une traduction de théorie des
+types, définie de la façon suivante~:
+
+\begin{itemize}
+\item Pour les types
+\[
+\begin{array}{lcl}
+  \left[ \Type\right] &\defeq& (\Type^\modal,\pi_{\Type^\modal})
+\end{array}
+\]
+où $\pi_{\Type^\modal}$ est une preuve que $\Type^\modal$ est lui-même modal.
+Pour simplifier, on introduit la notation
+  \[ 
+  \Lbrack A \Rbrack \defeq \pi_1 \left[ A \right]\]
+
+\item Pour les sommes dépendantes
+\[
+\begin{array}{lcl}
+\left[ \sumD x A B \right] &\defeq&  \left( \sumD x{\Lbrack A \Rbrack}
+                                  {\Lbrack B\Rbrack} , \pi_\Sigma^{[A],[B]}
+                                \right)\\[0.5em]
+  \left[  (x,y)\right] &\defeq& ([x],[y]) \\[0.5em]
+  \left[  \pi_i t\right] &\defeq& \pi_i [t] \\[0.5em]
+\end{array}
+\]
+où $\pi_{\Sigma}^{A,B}$ est une preuve que $\sumD x A B$ est modale quand
+$A$ et $B$ le sont.
+\item Pour les produits dépendants
+\[
+\begin{array}{lcl}
+ \left[ \prod_{x:A} B \right] &\defeq& \left( \prod_{x:\Lbrack A \Rbrack}
+                                   \Lbrack B\Rbrack , \pi_{\Pi}^{[A],[B]}
+                                  \right)\\[0.5em]
+\left[  \lambda\, x:A,~M \right] &\defeq&\lambda\,x:\Lbrack A
+                                     \Rbrack,~[ M ]
+  \\[0.5em]
+  \left[ t \, t' \right] &\defeq& [t] [t'] \\[0.5em]
+\end{array}
+\]
+où $\pi_{\Pi}^{A,B}$ est une preuve que $\prodD x A B$ est modal quand $B$ l'est.
+\item Pour les chemins
+\[
+\begin{array}{lcl}
+\left[  A=B \right] &\defeq& \left( [A] = [ B] , \pi_=^{[A],[B]}
+                             \right)\\[0.5em]
+\left[ 1 \right] &\defeq& 1\\[0.5em]
+\left[ J \right] &\defeq& J \\[0.5em]
+\end{array}
+\]
+où $\pi_{=}^{A,B}$ est une preuve que $A=B$ est modal quand
+$A$ et $B$ le sont, si $A,B:\Type$, ou une preuve que $A=B$ est modal
+dès que leur type est modal si $A,B:X$.
+\item Pour les types positifs (on traite le cas du coproduit comme exemple)
+\[
+\begin{array}{lcl}
+\left[  A+B \right] &\defeq& \left( \modal(\Lbrack A \Rbrack + \Lbrack B
+                        \Rbrack); \pi_\modal(\Lbrack A \Rbrack + \Lbrack B
+                        \Rbrack)\right)\\[0.5em]
+\left[  \mathrm{in}_\ell t \right] &\defeq& \eta (\mathrm{in}_\ell [t]) \\[0.5em]
+\left[  \mathrm{in}_r t \right] &\defeq& \eta (\mathrm{in}_r [t]) \\[0.5em]
+\left[ \langle f ,g\rangle\right] &\defeq& \modal_{\mathrm{rec}}^{\Lbrack A\Rbrack +
+                                      \Lbrack B\Rbrack} \langle
+                                      [f],[g]\rangle\\[0.5em]
+\end{array}
+\]
+\item Pour les troncations ($i\leqslant n$)
+\[
+\begin{array}{lcl}
+  \left[  \|A\|_i \right] &\defeq& (\modal \| \Lbrack A\Rbrack  \|_i;
+                                   \pi_\modal(\| \Lbrack A\Rbrack
+                                   \|_i)) \\[0.5em]
+  \left[ |t|_i \right] &\defeq& \eta |[t]|_i \\[0.5em]
+  \left[ |f|_i \right] &\defeq& \modal_{\mathrm{rec}}^{\| \Lbrack
+                                  A\Rbrack  \|_i} | [f] |_i
+\end{array}
+\]
+\end{itemize}
+
+Plus simplement, la traduction traverse les produits dépendants, les
+sommes dépendantes et les chemins, et modalise par 
+$\modal$ les autres types. Les contextes sont traduits
+points-à-points.
+
+On a alors un théorème de correction
+\begin{prop}
+  Soient $\Gamma$ un contexte valide, $A$ un type et $t$ un terme.
+  Si $\Gamma \vdash t : A$, alors 
+  \[\Lbrack \Gamma \Rbrack \vdash [t] : \Lbrack A \Rbrack. \]
+\end{prop}
+
+Une implémentation de cette traduction a été partiellement faite sous
+la forme d'une extension pour Coq, gérant automatiquement cette
+traduction. La traduction des inductifs et de leurs constructeurs
+reste incomplète.
 
 \section{Faisceaux}
 
-\todo[inline]{Résumé faisceaux}
+En théorie des topoi, la faisceautisation peut être vue comme un moyen
+de transformer un topos en un autre. Elle est utilisée, par exemple,
+pour construire à partir de n'importe quel topos $\mathcal T$ un topos
+booléen (\ie{} qui satisfait la propriété du tiers-exclu),
+satisfaisant l'axiome du choix et la négation de l'hypothèse du
+continu~\cite[Theorem VI.2.1]{maclanemoerdijk}.
+C'est en fait une adaptation d'une méthode un peu plus ancienne de
+théorie des ensembles, permettant de changer un modèle de ZFC en un
+autre satisfaisant de nouveaux principes, appelée {\em forcing}. Son
+application la plus connue est la preuve de consistance de ZFC avec la
+négation de l'hypothèse du continu, par Paul Cohen~\cite{cohen1966},
+résolvant (ni positivement, ni négativement) le premier problème de
+Hilbert. En effet, Gödel a prouvé en 1938 la consistance de ZFC avec
+l'hypothèse du continu~\cite{godel1938} en utilisant son modèle
+constructible.
+L'idée générae de cette méthode est d'ajouter à la théorie ZFC des
+informations partielles à propos du témoin de $\lnot$HC. Puis, en
+supposant que ZFC est cohérent, on peut prouver que ZFC avec un nombre
+fini de ces approximations est toujours cohérente. Finalement, le
+théorème de compacité nous permet de prouver que ZFC avec toutes les
+approximations, \ie{} avec le témoin désiré, est consistante.
+
+Le forcing a ensuite été adapté au contexte de la théorie des topoi
+par Myles Tierney~\cite{tierney1972}, à travers la notion de
+faisceau. On note qu'en théorie des topoi, il existe deux types de
+faisceaux~: les faisceaux de Grothendieck, qui n'existent que sur les
+topoi de préfaisceaux, et les faisceaux de Lawvere-Tierney. On peut
+prouver que les faisceaux de Lawvere-Tierney, quand ils sont pris sur
+un topos de préfaisceaux, correspondent exactement aux faisceaux de
+Grothendieck ; on peut donc voir les premiers comme une généralisation
+des seconds.
+Étant donné un topos $\mathcal T$, on peut construire un nouveau topos
+-- le topos des faisceaux $\Sh{}(\mathcal T)$ -- avec un plongement
+géométrique de $\Sh{}(\mathcal T)$ dans $\mathcal T$, appelé
+faisceautisation. Selon les faisceaux que l'on traite, le topos
+$\Sh{}(\mathcal T)$ satisfait de nouveaux principes. La construction
+du plongement géométriqe est faite dans~\cite[Section
+V.3]{maclanemoerdijk}.
+
+Le développement de la théorie des topoi supérieurs (et plus
+généralement de la théorie des catégories supérieures) amène à se
+demander si une notion de faisceautisation existe toujours dans ces
+structures. Cette question est répondue positivement
+dans~\cite{lurie}, où l'auteur construit un foncteur de
+faisceautisation, mais seulement pour les faisceaux de
+Grothendieck. Étonnamment, la faisceautisation dans un topos supérieur
+est juste une itération du processus de faisceautisation dans un
+topos. Il semble que les faisceaux de Lawvere-Tierney n'ont pas été
+traités dans ce nouveau contexte.
+
+Des questions similaires ont été considérées autour de l'isomorphisme
+de Curry-Howard, pour étendre un langage de programmation proche de la
+théorie des types avec de nouveaux principes logiques ou
+calculatoires, en gardant la consistance automatiquement.
+Par exemple, beaucoup de travaux ont été menés pour donner un contenu
+calculatoire à la loi du tiers-exclu pour donner une version
+constructive de la logique classique. Ces travaux ont mené à
+différents calculs, notemment le $\lambda\mu$-calcul de
+Parigot~\cite{parigot1993classical}, mais ces travaux n'ont pas porté
+leurs fruits pour définir une nouvelle version de la théorie des types
+avec des principes classiques.
+D'autres travaux ont essayé d'étendre les transformations CPS à la
+théorie des types, mais se sont confrontés au fait que ces
+transformations sont incompatibles avec les sommes
+dépendantes~\cite{barthe2002cps}, ce qui montre le lien étroit entre
+l'axiome du choix et la loi du tiers-exclu en théorie des
+types. Cependant, on a montré que l'axiome du choix est réalisable par
+des moyens calculatoires dans un contexte classique par des méthodes
+proches de la notion de l'''induction
+barre''~\cite{berardi1998computational}, la réalisabilté de
+Krivine~\cite{krivine2003dependent} et plus récemment avec la
+restrication sur l'élimination des sommes dépendantes et évaluation
+paresseuse~\cite{herbelin2012constructive}.
+Les travaux sur le forcing en théorie des
+types~\cite{jaber2012extending,forcing2016} 
+donnent aussi un contnue calculatoire à une théorie des types enrichie
+par de nouveaux principes logiques ou calculatoires.
+
+Notre idée dans cette partie est de considérer la faisceautisation
+dans les topoi seulement comme la première étape de la
+faisceautisation en théorie des types. Les axiomes d'une topologie de
+Lawvere-Tierney sont très proches de ceux d'une modalité. On utilisera
+cette idée en l'appliquant à chaque classifiant des sous-objets
+$\Type_n$.
+Le classifiant $\Omega$ d'un topos est vu comme l'ensemble des {\em
+  valeurs de vérité} du topos, ce qui correspond donc au type $\HProp$
+dans notre contexte ; le topos, considéré comme proof irrelevant,
+correspond à notre $\HSet$. La faisceautisation est donc un moyen
+d'étendre une modalité exacte à gauche sur $\HProp$ à $\HSet$. On va
+donc essayer d'itérer cette construction en l'appliquant au
+classifiant $\HSet$ pour étendre la modalité à $\Type_1$, \etc{}
+
+La première chose qu'on remarque est que cette construction ne peut
+pas atteindre tous les types : on sait qu'il existe des types qui
+n'ont pas un niveau de troncation fini~\cite[Example
+8.8.6]{hottbook}. Certains types ne sont même pas la limite de leurs
+troncations successives, même avec un axiome d'hypercomplétude. Ceci
+nous indique que définir un foncteur de faisceautisation pour tous les
+types tronqués ne donnera pas (facilement) un foncteur de
+faisceautisation sur tout $\Type$.
+On note aussi que les principes qu'on veut ajouter le sont directement
+depuis le niveau $\HProp$, l'extension à tous les types tronqués étant
+automatique. Le choix de la modalité exact à gauche sur $\HProp$ est
+donc crucial. Dans la suite, on en fixe une, notée $\modal_{-1}$.
+On va alors définir, par induction sur le niveau de troncation, des
+modalités exacte à gauche sur tous les $\Type_n$, prouvant le théorème
+suivant:
+
+\begin{thmfr}
+  La suite définie par induction par
+  \[ \begin{array}{l}
+    \modal : \forall \ (n : nat), \ \Type_n \to \Type_n 
+    \\
+    \modal_{-1\phantom{n}}(T) \defeq \mathop{j} T \\
+    
+    \displaystyle{\modal_{n+1}(T)} \defeq  
+    \displaystyle{\sum_{u:T \to \Type_n^\modal} \!\!\!\!\modal_{-1} 
+      \left\|
+        \sum_{a:T} u= (\lambda t,~\modal_n (a=t))
+      \right\|}
+  \end{array}
+  \]
+  définit une suite de modalités exactes à gauche, cohérentes les unes
+  avec les autres dans le sens où le diagramme suivant commute pour
+  tout $P:\Type_n$ ($\hat P$ est $P$ vu comme habitant de $\Type_{n+1}$)
+\[ \xymatrix{
+    P \ar@{->}^{\sim}[r] \ar[d]_{\eta_{n}} & \widehat P \ar[d]^{\eta_{n+1}} \\
+    \modal_{n} P \ar@{->}^{\sim}[r] & \modal_{n+1} \widehat P 
+  } \]
+\end{thmfr}
+
+Dans la suite, nous donnons une idée de la preuve. Soit donc
+$\modal_n$ une modalité exacte à gauche sur $\Type_n$, compatible avec
+$\modal_{-1}$. On commence par définir une notion de clôture par cette
+modalité.
+
+\begin{defifr}
+  Soit $E$ un type.
+  \begin{itemize}
+  \item La clôture d'un sous-objet de $E$ avec des fibres
+    $n$-tronquées (ou $n$-sous-objet) classifié par $\chi:
+    E\to\Type_n$ est le sous-objet de $E$ classifié par $\modal_n
+    \circ \chi$.
+  \item Un $n$-sous-objet de $E$ classifié par $\chi$ est clos dans
+    $E$ s'il est égal à sa clôture, \ie{} si $\modal_n \circ \chi =
+    \chi$.
+  \item Un $n$-sous-objet de $E$ classifié par $\chi$ est dense dans
+    $E$ si sa clôture est $E$, \ie{} si $\modal_n \circ \chi =
+    \lambda e,\one$.
+  \end{itemize}
+\end{defifr}
+
+Les faisceaux seront les objets dans lesquels les flèches peuvent
+n'être définies que sur un sous-objet dense. Commençons par définir
+les restrictions, puis les faisceaux.
+
+\begin{defifr}
+  Soient $E,F:\Type$ et $\chi:E\to\Type_i$. On définit la fonction de
+  restriction $\Phi_E^\chi$ par
+  \[
+  \fonction{\Phi_E^\chi}{E\to F}{\sumD e E {\chi e} \to F}{f}{f\circ \pi_1}.
+  \]
+\end{defifr}
+ 
+\begin{defifr}
+  \begin{itemize}
+  \item Un type $F$ de $\Type_{n+1}$ est séparé si pour tout type $E$,
+    et tout $n$-sous-objet dense de $E$ classifié par $\chi$,
+    $\Phi_E^\chi$ est un plongement.
+  \item Un type $F$ de $\Type_{n+1}$ est un faisceau s'il est séparé, et si pour tout type $E$,
+    et tout $(-1)$-sous-objet dense de $E$ classifié par $\chi$,
+    $\Phi_E^\chi$ est une équivalence.
+  \end{itemize}
+\end{defifr}
+
+En terme de diagrammes, un faisceau est donc un objet $F$ tel que pour
+tous $E:\Type$, $\chi_n:E\to\Type_n$, $\chi_{-1}:E\to\HProp$, $f_n:
+\sumD e E {\chi_n e} \to F$ et $f_{-1}:
+\sumD e E {\chi_{-1} e} \to F$, les diagrammes suivants commutent
+\[ \xymatrix{
+  \sumD e E {\chi_n e} \ar[r]^-{f_n} \ar[d]_{\pi_1} & F \\
+  E \ar@{-->}[ru]_{!}&
+}
+\qquad
+\xymatrix{
+  \sumD e E {\chi_{-1} e} \ar[r]^-{f_{-1}} \ar[d]_{\pi_1} & F \\
+  E \ar@{-->}[ru]_{\exists !}&
+}
+\]
+
+On a alors 
+\begin{prop}
+  \begin{itemize}
+  \item $\Type_n^\modal$ est un $(n+1)$-faisceau.
+  \item Si $A:\Type_{n+1}$ et $B:A \to \Type_{n+1}$ tels que pour tout
+    $a:A$, $(B~a)$ est un faisceau, alors $\prodD a A {B\, a}$ est un faisceau.
+\end{itemize}
+\end{prop}
+
+Comme dans le cas des topoi, on définit la faisceautisation en deux
+étapes: à partir de n'importe quel $(n+1)$-type, on construit un
+$(n+1)$-type séparé, puis à partir de n'importe quel séparé, un
+faisceau.
+
+Pour un $T:\Type_{n+1}$, on définit son séparé $\separated T$ comme
+l'image de $\modal_n^T \circ \{\cdot\}_T$, comme dans
+\[\xymatrix{
+    T \ar[r]^{\{\cdot\}_T} \ar[d]_{\mu_T} & \left(\Type_n\right)^T \ar[d]^{\modal_n^T} \\
+  \separated T \ar[r]& \left( \Type_n^\modal \right)^T
+}, \]%
+où $\{\cdot\}_T$ est la flèche singleton $\lambda (t:T),~\lambda
+(t':T),~t=t'$. 
+%
+$\separated T$ peut être donné explicitement par
+%
+\begin{align*}
+\separated T &\defeq \im (\lambda~t:T,~\lambda~ t',~ \modal_n (t = t')) \\
+          &\defeq \sumD u{T \to \Type_n^\modal} {\left\| \sumD a A
+            {(\lambda t,~\modal_n (a=t)) = u}\right\|}.
+\end{align*}
+%
+On prouve alors assez facilement que $\separated T$ est toujours
+séparé, et qu'il existe une flèche $\mu_T:T\to\separated T$. Il reste à
+montrer que $(\separated,\mu)$ définit une modalité. 
+Seule la preuve d'universalité par rapport aux objets séparés requiert
+plus d'attention, et utilise la constructiond de Boulier.
+Puisque $\mu_T$ est une surjection (elle est définit par la
+factorisation surjection-plongement), $\separated T$ est la colimite
+de sa kernel pair itérée. Donc, pour tout type $Q$ définissant un
+cocone sur $\KP(\mu_T)$, il existe une unique flèche $\separated T\to
+Q$. Il reste à montrer que tout objet séparé définit un cocone sur
+$\KP(\mu_T)$ ; on va en fait montrer que tout type séparé $Q$ définit
+un cocone sur $\|\KP(\mu_T)\|_{n+1}$, ce qui est suffisant. On le fait
+en définissant un autre diagramme $\mathring T$, équivalent à
+$\|\KP(\mu_T)\|_{n+1}$, pour lequel il est facile de définir un cocone
+dans $Q$.
+
+\begin{defifr}
+  Soit $X:\Type$. Soit $\mathring T_X$ le type inductif supérieur
+  défini par
+  \begin{itemize}
+  \item $\mathring t:~\|X\|_{n+1} \to \mathring T_X$
+  \item $\mathring \alpha:~\forall a\, b:\|X\|_{n+1},~\modal (a=b) \to
+    \mathring t(a) = \mathring t(b)$
+  \item $\mathring \alpha_1:~\forall a:\|X\|_{n+1},~
+    \mathring \alpha(a , a, \eta_{a=a} 1) = 1$
+  \end{itemize}
+
+  On voit $\mathring T$ comme le coégaliseur de
+  \[
+    \xymatrix{\displaystyle{\sumD {a,b}{\|X\|_{n+1}} {\modal (a=b)}} \ar@<-.5ex>[r]_-{\pi_2} \ar@<.5ex>[r]^-{\pi_1}
+      & \|X\|_{n+1}
+    }\]%
+  préservant $\eta_{a=a} 1$.
+
+  On considère alors le diagramme $\mathring T$ :
+  \[\xymatrix{\|X\|_{n+1} \ar[r] & \|\mathring T_{X}\|_{n+1} \ar[r] & \|\mathring
+  T_{\mathring T_X} \|_{n+1} \ar[r] & \cdots} \]%
+\end{defifr}
+
+Les diagrammes $\mathring T$ et $\|\KP(\mu_T)\|_{n+1}$ sont
+équivalents, et on a donc
+\begin{lemfr}
+  Soit $T:\Type_{n+1}$. Alors $\separated T$ est la $(n+1)$-colimite
+  du diagramme $\mathring T$.
+\end{lemfr}
+Cela suffit pour affirmer que $(\separated,\mu)$ est une modalité.
+
+Passons maintenant à la deuxième étape.
+Pour $T:\Type_{n+1}$, on définit $\modal_{n+1}T$ comme la clôture de
+$\separated T$ vu comme sous-objet de $T\to\Type_n^\modal$.
+$\modal_{n+1}T$ peut être donné explicitement par
+\[
+\modal_{n+1} T \ \defeq \sum_{u:T \to \Type_n^\modal} \modal_{-1}\left\| \sum_{a:T} 
+            (\lambda t,~\modal_n (a=t)) = u\right\|.
+\]%
+
+$\modal_{n+1}T$ est bien un faisceau, car objet clos dans un
+faisceau, et $\modal_{n+1}$ est bien une modalité car composée de deux
+modalités (la séparation, et la clôture).
+On peut facilement montrer que $\modal_{n+1}$ est exacte à gauche, et
+on a donc bien étendu notre modalité sur $\Type_n$ à une modalité sur $\Type_{n+1}$.
+
+On peut facilement étendre cette modalité à $\Type$ tout entier, en
+prenant la modalité $\modal_i$ au niveau désiré, et en composant avec
+la troncation $\|\cdot\|_i$. Cependant, on perd évidemment
+l'exactitude à gauche.
 
 \section{Conclusion}
 Commençons par un résumé de la thèse. La théorie des types homotopique
