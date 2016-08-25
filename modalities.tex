@@ -10,7 +10,7 @@ As said in the introduction, the main purpose of our work is to build,
 from a model $\mathfrak M$ of homotopy type theory, another model
 $\mathfrak M'$ satisfying new principles. Of course, $\mathfrak M'$
 should be describable {\em inside} $\mathfrak M$. In set theory, it
-corresponds to building {\em inner models} (\cite{kunen}).%
+corresponds to building {\em inner models} (\cite{kunen}). 
 %
 In type theory, it can be rephrased in terms of left-exact modalities:
 it consists of an operator $\modal$ on types such that for any type
@@ -21,7 +21,8 @@ forms a new model of homotopy type theory.
 
 Modalities are actually a generalization of {\em modal logics}~\cite{goldblatt-modal} and
 {\em modal type theories}~\cite{moggi-monad}. At the time we write this
-thesis, the only reference for modalities is~\cite[Section
+thesis, the only references for modalities
+are~\cite{shulman-higher-modalities} and~\cite[Section
 7.7]{hottbook}. 
 Most of the results presented here either are taken from the book,
 either are paper versions of results formalized in~\cite[{Folder
@@ -108,13 +109,13 @@ that
   \item[\labelitemi(M)] If $A,B:\Type$ are modal, then so are $\IsType
     n A$, $A\simeq B$ and $\IsEquiv f$ for all $f:A\to B$.
   \item[\labelitemi(L)] If $A:\Type_n$, then $\modal A:\Type_n$.
-  \item[\labelitemi(L)] If $X,Y:\Type$ and $f:X\to Y$, then the map
-    \[ \modal \left( \fib f y\right) \to \fib{\modal f}{\eta_B
-        y} \]
+  \item[\labelitemi(L)] If $A,B:\Type$ and $f:A\to B$, then the map
+    \[ \modal \left( \fib f b\right) \to \fib{\modal f}{\eta_B
+        b} \]
     is an equivalence, and the following diagram commutes
 \[ \xymatrix{
-  \fib f y \ar[r]^\eta \ar[d]_\gamma & \modal \left(\fib f y \right) \ar[dl]\\
-  \fib{\modal f}{\eta_B y} & }\] 
+  \fib f b \ar[r]^\eta \ar[d]_\gamma & \modal \left(\fib f b \right) \ar[dl]\\
+  \fib{\modal f}{\eta_B b} & }\] 
   \end{itemize}
 \end{prop}
 
@@ -136,8 +137,8 @@ that
   We will use the following lemma to prove that the function induced
   by $\phi$ defines an equivalence:
   \begin{lem}
-    Let $X:\Type$, $Y:\Type^\modal$ and $f:X\to Y$. If for all $y:Y$,
-    $\modal (\fib f y)$ is contractible, then $\modal X \simeq Y$.
+    Let $A:\Type$, $B:\Type^\modal$ and $f:A\to B$. If for all $b:Y$,
+    $\modal (\fib f b)$ is contractible, then $\modal A \simeq B$.
   \end{lem}
   % 
   Hence we just need to check that every $\modal$-fiber $\modal(\fib \phi {x;p})$ is contractible.
@@ -212,7 +213,7 @@ an equivalent characterization of left-exactness.
   \[ \Cover(y) \defeq \modal_{\mathrm{rec}} (\lambda y,\,\modal (x =
     y)). \]
   Note that for any $y:\modal A$, $\Cover(y)$ is always modal.
-  We will show that $\eta_A x = y \simeq Cover(y)$.
+  We will show that $\eta_A x = y \simeq \Cover(y)$.
   Now, let $\Encode : \prodD y {\modal A} {\eta_A x = y \to
     \Cover(y)}$ be defined by
   \[ \Encode(y,p) \defeq \transport_{\Cover}^p
@@ -227,7 +228,7 @@ an equivalent characterization of left-exactness.
   Then one can show, using $\modal$-induction and path-induction, that
   for any $y:\modal A$, $\Encode(y,-)$ and $\Decode(y,-)$
   are each other inverses. Then, taking $y' = \eta_A y$, we have just
-  shown that $\eta_A x = \eta_A y \simeq Cover(\eta_A y)$, which is
+  shown that $\eta_A x = \eta_A y \simeq \Cover(\eta_A y)$, which is
   itself equivalent, by $\modal_{\mathrm{rec}}^\beta$, to $\modal
   (x=y)$.
   It is straightforward to check that the composition $\modal (x=y)
@@ -325,7 +326,7 @@ modalities, seen in~\ref{ssec:trunc}.
   We define the modality with
   \begin{enumerate}[(i)]
   \item We will define the predicate $P$ later.
-  \item $\modal$ is defined by $\modal A = \lnot\lnot A$
+  \item $\modal$ is defined by $\modal A \defeq \lnot\lnot A$
   \item We want a term $\eta_A$ of type $A \to \lnot \lnot A$.
     Taking 
     \[ \eta_A\defeq \lambda \, x:A,\,\lambda\, y:\lnot A,\, y\, a\] 
@@ -540,15 +541,13 @@ where $\pi_{\Pi}^{A,B}$ is a proof that $\prodD x A B$ is modal when $B$ is.
 \item For paths
 \[
 \begin{array}{lcl}
-\left[  A=B \right] &\defeq& \left( [A] = [ B] , \pi_=^{[A],[B]}
+\left[  x=_A y \right] &\defeq& \left( [x] =_{\Lbrack A\Rbrack} [y] , \pi_=^{[x],[y]}
                              \right)\\[0.5em]
 \left[ 1 \right] &\defeq& 1\\[0.5em]
 \left[ J \right] &\defeq& J \\[0.5em]
 \end{array}
 \]
-where $\pi_{=}^{A,B}$ is a proof that $A=B$ is modal when
-$A$ and $B$ are, if $A,B:\Type$, or a proof that $A=B$ is modal as
-soon as their type is modal if $A,B:X$.
+where $\pi_{=}^{x,y}$ is a proof that $x=_A y$ is modal when $A$ is.
 \item For positive types (we only treat the case of the sum as an example)
 \[
 \begin{array}{lcl}
@@ -936,7 +935,8 @@ This allows to state the following theorem
   \begin{itemize}
   \item $\modal$ is left-exact
   \item $\Type^\modal$ is itself modal
-  \item For all $A,B,f,x$, $\modal_{\mathrm{rec}}^\beta (A,B,f,x)= 1$.
+  \item For all $A,B,f,x$, $\modal_{\mathrm{rec}}^\beta (A,B,f,x)$ is
+    a strict equality.
   \end{itemize}
   Then $\modal$ induces a new type theory.
 \end{thm}
@@ -944,7 +944,7 @@ This allows to state the following theorem
 
 \begin{rmq}
 Note that, for any (accessible) modality $\modal$, we can define an equivalent
-strict modality, by defining an inductive type $\modal^S$ generated by
+strict modality, by defining an inductive family $\modal^S$ generated by
 \[ \left.
     \begin{array}{lll}
       \eta^S & : & \prodD A \Type {A \to \modal^S A} \\
@@ -1011,7 +1011,7 @@ Note that univalence axiom remains true in the new theory:
     &= \mathrm{idtoequiv}_{\Lbrack A \Rbrack,\Lbrack B \Rbrack}
   \end{align*}
   As univalence is true in the original type theory, we have 
-  $A:\Type,B:\Type \vdash \IsEquiv(\mathrm{idtoequiv}_{A,B}$. By the
+  $A:\Type,B:\Type \vdash \IsEquiv(\mathrm{idtoequiv}_{A,B})$. By the
   soundness theorem, we have
   \[A : \Type^\modal,B:\Type^\modal \vdash
     \IsEquiv(\mathrm{\mathrm{idtoequiv}}_{A_1,B_1}). \]
