@@ -3,8 +3,6 @@ Package frenchb.ldf Warning: The definition of \@makecaption has been changed,
 Package hyperref Warning: Draft mode on.
 Class memoir Warning: The material used in the headers is too large
 LaTeX Warning: `h' float specifier changed to `ht'.
-LaTeX Warning: Command \texttwosuperior invalid in math mode on input line 748.
-LaTeX Warning: Command \texttwosuperior invalid in math mode on input line 748.
 Underfull \hbox (badness 1735) in paragraph at lines 756--760
 LaTeX Warning: `h' float specifier changed to `ht'.
 Overfull \vbox (12.7221pt too high) detected at line 633
