@@ -1,4 +1,4 @@
-\documentclass[draft, a4paper, 10pt]{memoir}
+\documentclass[a4paper, 10pt]{memoir}
 
 \let\leftbar\undefined
 \let\endleftbar\undefined
@@ -21,6 +21,7 @@
 \usepackage{todonotes}
 \PassOptionsToPackage{hyphens}{url}
 \usepackage[style=alphabetic,backref=true]{biblatex}
+\renewbibmacro{in:}{}
 \usepackage[colorlinks=true,linkcolor=black,urlcolor=blue,citecolor=gray]{hyperref}
 \usepackage{csquotes}
 \bibliography{biblio}
@@ -32,6 +33,8 @@
 
 \usepackage{adjustbox}
 \usepackage{graphicx}
+
+
 
 
 \tolerance 1414
