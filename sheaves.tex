@@ -8,7 +8,7 @@
 
 In topos theory, sheafification can be seen as a way to transform a
 topos into another one. It is used, for example, to build, from any
-topos $\mathcal T$, a boolean topos (\ie{} satisfying the excluded
+topos $\mathcal{T}$, a boolean topos (\ie{} satisfying the excluded
 middle property) satisfying the axiom of choice and negating the
 continuum hypothesis~\cite[Theorem VI.2.1]{maclanemoerdijk}.
 This is actually an adaptation of a slightly older method, in set
@@ -93,7 +93,7 @@ construction to the sheaf construction.
 \section{Sheaves in topoi}
 \label{sec:sheaf_topos}
 
-In this section, we will rather work in an arbitrary topos rather in type theory. The next section will present a
+In this section, we will work in an arbitrary topos rather than in type theory. The next section will present a
 generalization of the results presented here.
 
 Let us fix for the whole section a topos $\mathcal E$, with subobject
@@ -109,7 +109,7 @@ speak about {\em locally true} things instead of {\em true} things.
 
 A classical example of Lawvere-Tierney topology is given by double
 negation. Other examples are given by Grothendieck topologies, in the
-sense
+sense of the following theorem:
 \begin{thm}[{\cite[Theorem V.1.2]{maclanemoerdijk}}]
   Every Grothendieck topology $J$ on a small category $\mathbf C$ determines a
   Lawvere-Tierney topology $j$ on the presheaf topos
@@ -150,9 +150,9 @@ sheaves, is again a topos, with classifying object
 
 Lawvere-Tierney sheafification is a way to build a left adjoint $\mathbf{a}_j$ to the
 inclusion $\mathcal E \hookrightarrow \Sh(\mathcal E)$, exhibiting
-$\Sh(\mathcal E)$ as a reflective subcategory of $\mathcal E$. In
+$\Sh{}(\mathcal E)$ as a reflective subcategory of $\mathcal E$. In
 particular, that implies that logical principles valid in $\mathcal E$
-are still valid in $\Sh(\mathcal E)$.
+are still valid in $\Sh{}(\mathcal E)$.
 
 For any object $E$ of $\mathcal E$, $\mathbf{a}_j(E)$ is defined as in
 the following diagram
@@ -206,7 +206,7 @@ left-exact modality on $\Type_1$, and so on.
 The first thing we can
 note is that such a construction will not allow to reach every type:
 it is known that there exists types with no finite truncation
-level~\cite[Example 8.8.6]{hottbook}. Even worse, some types are not
+level~\cite[Example 8.8.6]{hottbook}. Even worse, it seems that some types are not
 even the limit of its successive truncations, even in a hypercomplete
 setting~\cite{morelvv}. It suggests that defining a sheafification
 functor for all truncated types won't give (at least easily) a
