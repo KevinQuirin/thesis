@@ -1,7 +1,8 @@
 Package biblatex Warning: No "backend" specified, using Biber backend.
 Package frenchb.ldf Warning: The definition of \@makecaption has been changed,
-Package hyperref Warning: Draft mode on.
+[4]) [5] [6] (./resume.texpdfTeX warning (ext4): destination with the same iden
 Class memoir Warning: The material used in the headers is too large
+pdfTeX warning (ext4): destination with the same identifier (name{page.2}) has 
 LaTeX Warning: `h' float specifier changed to `ht'.
 Underfull \hbox (badness 1735) in paragraph at lines 756--760
 LaTeX Warning: `h' float specifier changed to `ht'.
@@ -13,9 +14,8 @@ Overfull \hbox (94.64066pt too wide) in paragraph at lines 902--903
 Overfull \hbox (126.10086pt too wide) in paragraph at lines 926--927
 Underfull \hbox (badness 5847) in paragraph at lines 58--60
 Underfull \hbox (badness 2970) in paragraph at lines 1056--1059
-Underfull \hbox (badness 1515) in paragraph at lines 414--414
 Package biblatex Warning: No driver for entry type 'draft'.
-Underfull \hbox (badness 2772) in paragraph at lines 414--414
-Underfull \hbox (badness 1558) in paragraph at lines 414--414
+Underfull \hbox (badness 1558) in paragraph at lines 417--417
+Underfull \hbox (badness 1888) in paragraph at lines 417--417
 Class memoir Warning: The material used in the headers is too large
 LaTeX Font Warning: Size substitutions with differences
