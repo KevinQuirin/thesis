@@ -382,7 +382,7 @@
 
 \newcommand{\code}[1]{\texttt{#1}}
 
-\usepackage{geometry}
+\usepackage[a4paper]{geometry}
 
 \definecolor{@doctoratcolor}{RGB}{91, 91, 91}
       \definecolor{@verticalgreen}{RGB}{238, 238, 238}
@@ -739,125 +739,86 @@
 
 
 \newgeometry{margin=1.5cm}
-  \begin{titlingpage}
-    {
-      \singlespacing
-      \makeatletter
-      \@drawbackground
-      \renewcommand{\sfdefault}{phv}
-      \renewcommand{\rmdefault}{ptm}
-      \renewcommand{\ttdefault}{pcr}
-      \fontsize{12pt}{14pt}
-      \sffamily
-      \selectfont
-      
-      \vspace{-3.75\baselineskip}
-      \hspace{0.5\textwidth}
-      \raisebox{0pt}
-      [0pt]
-      [2\baselineskip]
-      {\parbox[t][][c]
-        {0.5\textwidth}
-        {\raggedright\textcolor{@doctoratcolor}{\begin{spacing}{0.75}\Hugecover{Kevin \textsc{Quirin}}\end{spacing}}}}
-      
-      \smallcover
-      \vspace{\baselineskip}
-
-      \noindent\textsl{M\'emoire pr\'esent\'e en vue de l'obtention du}\par
-      \noindent\textsl{\textbf{grade de Docteur
-          de \parbox[t]{0.79\textwidth}{l'École nationale supérieure
-            des Mines de Nantes}}}\par
-         \noindent\textsl{\textbf{\phantom{grade de }Label européen}}\par
-      \noindent\textsl{sous le label de l'Universit\'e de Nantes Angers Le Mans}\par
-
-      \vspace{\baselineskip}
-
-      \footnotesizecover
-      \noindent\textbf{\'Ecole doctorale : Sciences et technologies de
+\begin{titlingpage}
+  {
+    \singlespacing
+    \makeatletter
+    \@drawbackground
+    \renewcommand{\sfdefault}{phv}
+    \renewcommand{\rmdefault}{ptm}
+    \renewcommand{\ttdefault}{pcr}
+    \fontsize{12pt}{14pt}
+    \sffamily
+    \selectfont
+    
+    \vspace{-3.75\baselineskip}
+    \hspace{0.5\textwidth}
+    \raisebox{0pt}
+    [0pt]
+    [2\baselineskip]
+    {\parbox[t][][c]
+      {0.5\textwidth}
+      {\raggedright\textcolor{@doctoratcolor}{\begin{spacing}{0.75}\Hugecover{Kevin \textsc{Quirin}}\end{spacing}}}}
+    
+    \smallcover
+    \vspace{\baselineskip}
+    
+    \noindent\textsl{M\'emoire pr\'esent\'e en vue de l'obtention du}\par
+    \noindent\textsl{\textbf{grade de Docteur
+        de \parbox[t]{0.79\textwidth}{l'École nationale supérieure
+          des Mines de Nantes}}}\par
+    \noindent\textsl{\textbf{\phantom{grade de }Label européen}}\par
+    \noindent\textsl{sous le label de l'Universit\'e de Nantes Angers Le Mans}\par
+    
+    \vspace{\baselineskip}
+    
+    \footnotesizecover
+    \noindent\textbf{\'Ecole doctorale : Sciences et technologies de
       l'information, et mathématiques}\par
-
-      \vspace{\baselineskip}
-
-      \footnotesizecover
-      \noindent\textbf{Discipline : Informatique et applications,
-        section CNU 27}\par
-      \noindent\textbf{Unit\'e de recherche
-        : \parbox[t]{0.8\textwidth}{Laboratoire d'informatique de
-          Nantes-Atlantique (LINA)}}\par
-
-      \vspace{\baselineskip}
-
-      \footnotesizecover
-      \noindent\textbf{Soutenue le FIXME}\par
-      \noindent\textbf{Th\`ese n\textdegree\ : FIXME}\par
-
-      \vfill
-
-      \hfill
-      \parbox{0.75\textwidth}
-               {\begin{flushright}
-                  \Largecover\textcolor{@titlecolor}{\textbf{Lawvere-Tierney
-                    sheafification in \\ Homotopy Type Theory}}\\
-               \end{flushright}}
-
-      \vfill
-      \vfill
-      \vfill
-      
-      \newsavebox{\@committeebox}
-      \sbox{\@committeebox}{\@committee}
-      \newlength{\committeeboxwidth}
-      \settowidth{\committeeboxwidth}{\usebox{\@committeebox}}
-      \begin{center}
-        \textcolor{@titlecolor}{\textbf{\smallcover JURY}}\par
-        \vspace{1em}
-        {\centering\usebox{\@committeebox}}%
-      \end{center}
-    }
-  \end{titlingpage}%
-  \makeatother
-  \restoregeometry
+    
+    \vspace{\baselineskip}
+    
+    \footnotesizecover
+    \noindent\textbf{Discipline : Informatique et applications,
+      section CNU 27}\par
+    \noindent\textbf{Unit\'e de recherche
+      : \parbox[t]{0.8\textwidth}{Laboratoire d'informatique de
+        Nantes-Atlantique (LINA)}}\par
+    
+    \vspace{\baselineskip}
+    
+    \footnotesizecover
+    \noindent\textbf{Soutenue le FIXME}\par
+    \noindent\textbf{Th\`ese n\textdegree\ : FIXME}\par
+    
+    \vfill
+    
+    \hfill
+    \parbox{0.75\textwidth}
+    {\begin{flushright}
+        \Largecover\textcolor{@titlecolor}{\textbf{Lawvere-Tierney
+            sheafification in \\ Homotopy Type Theory}}\\
+      \end{flushright}}
+    
+    \vfill
+    \vfill
+    \vfill
+    
+    \newsavebox{\@committeebox}
+    \sbox{\@committeebox}{\@committee}
+    \newlength{\committeeboxwidth}
+    \settowidth{\committeeboxwidth}{\usebox{\@committeebox}}
+    \begin{center}
+      \textcolor{@titlecolor}{\textbf{\smallcover JURY}}\par
+      \vspace{1em}
+      {\centering\usebox{\@committeebox}}%
+    \end{center}
+  }
+\end{titlingpage}%
+\makeatother
+\restoregeometry
 
 \frontmatter%
-
-% \begin{titlingpage}{
-%   \makeatletter
-%   \@drawbackground
-%   \makeatother
-%   \raggedright
-%   \newgeometry{margin=1.5cm}
-%   \sffamily
-%   {\noindent\Huge\title{Foo}}  
-%   \vspace{1.5cm}  
-%   \LARGE
-%   \noindent
-%   Florent \textsc{Marchand de Kerchove}  
-%   \vfill  
-%   {\rmfamily\normalsize
-%     \itshape
-%     Thèse de doctorat présentée en vue de l'obtention du
-%     grade de docteur de l'université de Nantes
-%     sous le label de l'université de Nantes, Angers, Le Mans.
-    
-%     \vspace{1em}
-%     École doctorale: sciences et technologies de l'information et mathématiques\\
-%     Discipline: informatique, section CNU 27\\
-%     Unité de recherche: laboratoire d'informatique de Nantes-Atlantique (LINA)\\
-    
-%     \vspace{1em}
-%     Soutenue le 27 octobre 2016, devant le jury composé de:
-    
-%     \vspace{0.5em}
-%     M. Hulu Berlu, professeur, Tartifrice, rapporteur;\\
-%     M. Ali Barli, professeur, Hamilcar, rapporteur;\\
-%     M. Po Nan, professeur, Asifond, examinateur;\\
-%     M. Jacques Noyé, maître-assistant, Mines Nantes, encadrant de thèse;\\
-%     M. Mario Südholt, professeur, Mines Nantes, directeur de thèse.\\
-%   }
-%   \restoregeometry}
-% \end{titlingpage}
-% %\maketitle 
-
 
 \include{abstract}
 \include{acknowlegdments}
