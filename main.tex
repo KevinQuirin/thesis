@@ -329,44 +329,43 @@
 
 %% Titlepage
 
-\newlength\dropp
-\makeatletter
-\newcommand*{\titleDS}{\begingroup% DS Thesis
-\dropp=0.1\textheight
-%\vspace*{\drop}
-\centering
-{\Large\bfseries Lawvere-Tierney Sheafification in Homotopy Type Theory}\par
-\vspace{0.6\baselineskip}
-{By}\\[0.6\baselineskip]
-{Kevin~Quirin\\[0.6\baselineskip]
-%A Thesis Submitted to the Graduate\\[0.5\baselineskip]
-%Faculty of The University\\[0.5\baselineskip]
-%in Partial Fulfillment of the\\[0.5\baselineskip]
-%Requirements for the Degree of\\[0.5\baselineskip]
-%DEGREE\\[0.5\baselineskip]
-Major Subject: Computer Science}\par
-\flushleft
-{Approved by the \\
-Examining Committee:}\par
-\vspace{1.5\baselineskip}
-\rule{15em}{0.4pt}\\
-Pierre Cointe, Thesis Advisor \\[1\baselineskip]
-\rule{15em}{0.4pt}\\
-Nicolas Tabareau, Thesis Advisor \\[1\baselineskip]
-\rule{15em}{0.4pt}\\
-Carl F. Gau\ss, Göttingen\\[1\baselineskip]
-\rule{15em}{0.4pt}\\
-Euclid, Athens \\[1\baselineskip]
-\centering
-\vspace{1\baselineskip}
-Mines de Nantes \\
-[\baselineskip]
-2016\par 
-\vfill
-\endgroup}
-\makeatother
+% \newlength\dropp
+% \makeatletter
+% \newcommand*{\titleDS}{\begingroup% DS Thesis
+% \dropp=0.1\textheight
+% %\vspace*{\drop}
+% \centering
+% {\Large\bfseries Lawvere-Tierney Sheafification in Homotopy Type Theory}\par
+% \vspace{0.6\baselineskip}
+% {By}\\[0.6\baselineskip]
+% {Kevin~Quirin\\[0.6\baselineskip]
+% %A Thesis Submitted to the Graduate\\[0.5\baselineskip]
+% %Faculty of The University\\[0.5\baselineskip]
+% %in Partial Fulfillment of the\\[0.5\baselineskip]
+% %Requirements for the Degree of\\[0.5\baselineskip]
+% %DEGREE\\[0.5\baselineskip]
+% Major Subject: Computer Science}\par
+% \flushleft
+% {Approved by the \\
+% Examining Committee:}\par
+% \vspace{1.5\baselineskip}
+% \rule{15em}{0.4pt}\\
+% Pierre Cointe, Thesis Advisor \\[1\baselineskip]
+% \rule{15em}{0.4pt}\\
+% Nicolas Tabareau, Thesis Advisor \\[1\baselineskip]
+% \rule{15em}{0.4pt}\\
+% Carl F. Gau\ss, Göttingen\\[1\baselineskip]
+% \rule{15em}{0.4pt}\\
+% Euclid, Athens \\[1\baselineskip]
+% \centering
+% \vspace{1\baselineskip}
+% Mines de Nantes \\
+% [\baselineskip]
+% 2016\par 
+% \vfill
+% \endgroup}
+% \makeatother
 
-%\includeonly{modalities}   
 
 \def\pullbackcorner{%
     \ar@{-}[]+R+<6pt,-1pt>;[]+RD+<6pt,-6pt>%
@@ -375,18 +374,482 @@ Mines de Nantes \\
 
 \newcommand{\code}[1]{\texttt{#1}}
 
-% \let\ORIGxymatrix\xymatrix
-% \def\xymatrix#1#{\begingroup\shorthandoff{?!;:}\INNERxymatrix{#1}}
-% \def\INNERxymatrix#1#2{\ORIGxymatrix#1{#2}\endgroup}
+\usepackage{geometry}
+
+\definecolor{@doctoratcolor}{RGB}{91, 91, 91}
+      \definecolor{@verticalgreen}{RGB}{238, 238, 238}
+      \definecolor{@horizontalgray}{gray}{0.97265}
+      \definecolor{@textgray}{gray}{0.5}
+      \definecolor{@bandeaucolor}{RGB}{190, 190, 190}
+      \definecolor{@titlecolor}{RGB}{116, 116, 116}
+\newcommand{\Hugecover}{\fontsize{25}{30}\selectfont}
+\newcommand{\hugecover}{\fontsize{25}{30}\selectfont}
+\newcommand{\LARGEcover}{\fontsize{20}{25}\selectfont}
+\newcommand{\Largecover}{\fontsize{17}{22}\selectfont}
+\newcommand{\normalsizecover}{\fontsize{12}{14.5}\selectfont}
+\newcommand{\smallcover}{\fontsize{11}{13.6}\selectfont}
+\newcommand{\footnotesizecover}{\fontsize{10}{12}\selectfont}
+\newcommand{\scriptsizecover}{\fontsize{8}{9.5}\selectfont}
+\newcommand{\tinysizecover}{\fontsize{6}{7}\selectfont}
+
+\DisemulatePackage{setspace}
+\usepackage{setspace}
+
+\makeatletter
+\newcommand{\@drawbackground}
+   { % Horizontal grey-green box
+   \noindent\raisebox{0pt}[0pt][0pt]
+                     {\colorbox{@verticalgreen}
+                               {\makebox[0.5\textwidth]
+                                        {\raisebox{-\textheight}
+                                                  {~}}}}
+
+   \vspace{4\baselineskip}
+
+   {
+   \noindent\hspace{0.45\textwidth}
+            \raisebox{0pt}[0pt][0pt]
+                     {\color{@horizontalgray}
+                      \rule{0.55\textwidth}
+                           {2.5\baselineskip}}
+            \hspace{-0.45\textwidth}
+   }
+
+   \renewcommand{\sfdefault}{phv}
+   \renewcommand{\rmdefault}{ptm}
+   \renewcommand{\ttdefault}{pcr}
+   \sffamily
+   \fontsize{12pt}{14pt}
+   \selectfont
+
+   \noindent\makebox[0.55\textwidth][r]
+                    {\Hugecover\textbf{\textcolor{@doctoratcolor}
+                                                 {Th\`ese de Doctorat}}}
+
+   {
+   \noindent\color{@bandeaucolor}
+            \rule{0.55\textwidth}
+                 {2.5\baselineskip}
+            \color{@horizontalgray}
+            \rule{0.45\textwidth}
+                 {2.5\baselineskip}
+   }
+
+   \vspace{3\baselineskip}
+
+   {
+   \noindent\hspace{0.45\textwidth}
+            \raisebox{0pt}[0pt][0pt]
+                     {\color{@horizontalgray}
+                      \rule{0.55\textwidth}
+                           {2.5\baselineskip}}
+            \hspace{-0.45\textwidth}
+   }
+
+   \vspace{-15\baselineskip}
+   \includegraphics[width=4.5cm]{logos/LUNAM-CUE}
+   \hfill
+   \hfill
+   \hfill
+   \ifx\@cosupervisingforeigninstitution\@empty
+   \else
+   %    \raisebox{\@cosupervisingforeigninstitutionlogovoffset}[0pt][0pt]{\includegraphics[width=\@cosupervisingforeigninstitutionlogowidth]{logos/\@cosupervisingforeigninstitutionlogo}}~
+   %    \hfill
+   % \fi
+   % \ifx\@coinstitution\@empty
+   % \else
+   % \global\let\@coinstitutionlogovoffset{10pt}
+   % \raisebox{\@coinstitutionlogovoffset}[0pt][0pt]{\includegraphics[width=\@coinstitutionlogowidth]{logos/MinesNantes}}~
+   % \hfill
+   % \fi
+   \raisebox{0pt}[0pt][0pt]{\includegraphics[width=2.4cm]{logos/MinesNantes}}~
+   \vspace{11\baselineskip}
+ }
+\makeatother
+
+\makeatletter
+\newcommand{\@committee}{%
+  \noindent
+  \begin{tabular}{ll}
+    \footnotesizecover%
+    {Rapporteurs}  &  {\textbf{M. John Doe}, Professor, University of Mordor} \\
+                   &  {\textbf{M. John Doe}, Professor, University of Mordor} \\
+    {Examinateurs} &  {\textbf{M. John Doe}, Professor, University of Mordor} \\
+                   &  {\textbf{M. John Doe}, Professor, University of Mordor} \\
+    {Directeur de thèse} & {\textbf{M. Pierre Cointe}, Professeur,
+                           École des Mines de Nantes} \\
+    {Co-directeur de thèse} & {\textbf{M. Nicolas Tabareau}, Chargé de
+                              recherche, Inria Rennes-Bretagne-Atlantique}
+   \end{tabular}}
+\makeatother
+
+
+
+\makeatletter
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% R'esum'e en franc,ais
+%
+
+\newsavebox{\@resumeBox}
+\newbox{\@resumeBoxGlobal}
+
+\newenvironment{resume}
+   {
+   \newgeometry{margin=1.5cm}
+   \begin{lrbox}{\@resumeBox}%
+      \renewcommand{\sfdefault}{phv}
+      \renewcommand{\rmdefault}{ptm}
+      \renewcommand{\ttdefault}{pcr}
+      \smallcover\sffamily
+      \begin{minipage}{0.47\textwidth}
+         \begin{flushleft}
+            \selectlanguage{french}
+            \textbf{R\'esum\'e}\par
+   }
+   {
+         \end{flushleft}
+      \end{minipage}
+   \end{lrbox}
+   \restoregeometry
+   \global\setbox\@resumeBoxGlobal=\vbox{\copy\@resumeBox}
+   }
+
+%%%%%%%%%%%%%%%%%%%%%%%%
+% R'esum'e en anglais
+%
+
+\newsavebox{\@abstractBox}
+\newbox{\@abstractBoxGlobal}
+
+\newenvironment{abstract_}
+   {
+   \newgeometry{margin=1.5cm}
+   \begin{lrbox}{\@abstractBox}%
+      \renewcommand{\sfdefault}{phv}
+      \renewcommand{\rmdefault}{ptm}
+      \renewcommand{\ttdefault}{pcr}
+      \smallcover\sffamily
+      \begin{minipage}{0.47\textwidth}
+         \begin{flushleft}
+            \selectlanguage{english}
+            \textbf{Abstract}\par
+   }
+   {
+         \end{flushleft}
+      \end{minipage}
+   \end{lrbox}
+   \restoregeometry
+   \global\setbox\@abstractBoxGlobal=\vbox{\copy\@abstractBox}
+   }
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Mots cl'es en franc,ais
+%
+
+\newsavebox{\@keywordsBox}
+\newbox{\@keywordsBoxGlobal}
+
+\newenvironment{keywords}
+   {
+   \newgeometry{margin=1.5cm}
+   \begin{lrbox}{\@keywordsBox}%
+      \renewcommand{\sfdefault}{phv}
+      \renewcommand{\rmdefault}{ptm}
+      \renewcommand{\ttdefault}{pcr}
+      \smallcover\sffamily
+      \begin{minipage}{0.47\textwidth}
+         \begin{flushleft}
+            \selectlanguage{english}
+            \textbf{Key Words}\par
+   }
+   {
+         \end{flushleft}
+      \end{minipage}
+   \end{lrbox}
+   \restoregeometry
+   \global\setbox\@keywordsBoxGlobal=\vbox{\copy\@keywordsBox}
+   }
+
+%%%%%%%%%%%%%%%%%%%%%%%%%
+% Mots cl'es en anglais
+%
+
+\newsavebox{\@motsclesBox}
+\newbox{\@motsclesBoxGlobal}
+
+\newenvironment{motscles}
+   {
+   \newgeometry{margin=1.5cm}
+   \begin{lrbox}{\@motsclesBox}%
+      \renewcommand{\sfdefault}{phv}
+      \renewcommand{\rmdefault}{ptm}
+      \renewcommand{\ttdefault}{pcr}
+      \smallcover\sffamily
+      \begin{minipage}{0.47\textwidth}
+         \begin{flushleft}
+            \selectlanguage{french}
+            \textbf{Mots cl\'es}\par
+   }
+   {
+         \end{flushleft}
+      \end{minipage}
+   \end{lrbox}
+   \restoregeometry
+   \global\setbox\@motsclesBoxGlobal=\vbox{\copy\@motsclesBox}
+   }
+
+\global\newcount\@startingPage
+
+\newcommand{\makecover}{%
+   \singlespacing
+   \newgeometry{margin=1.5cm}
+   \cleardoublepage % go to odd page
+   \phantom{placeholder} % doesn't appear on page
+   \newpage % on even page
+   \thispagestyle{empty} % no numbering
+   \@startingPage\thepage\relax
+      {
+      \@drawbackground
+      \vspace{-5.5\baselineskip}
+      \renewcommand{\sfdefault}{phv}
+      \renewcommand{\rmdefault}{ptm}
+      \renewcommand{\ttdefault}{pcr}
+      \sffamily
+      \fontsize{12pt}{14pt}
+      \selectfont
+      \begin{quote}
+         \begin{flushleft}
+            \textbf{\Largecover\textcolor{@textgray}{Kevin\textsc{Quirin}}}
+         \end{flushleft}
+
+         \begin{flushleft}
+            \textbf{\textcolor{@textgray}{Faisceautisation de
+                Lawvere-Tierney en théorie des types homotopiques}}
+         \end{flushleft}
+         \begin{flushleft}
+            \textbf{\textcolor{@textgray}{Lawvere-Tierney
+                sheafification in Homotopy Type Theory}}
+         \end{flushleft}
+      \end{quote}
+
+      \vfill
+
+      \noindent
+      \hfill\parbox[t][][b]
+            {0.47\textwidth}
+            {\makebox[0.47\textwidth]{\usebox{\@resumeBoxGlobal}}}
+      \hfill
+      \hfill\parbox[t][][b]
+            {0.47\textwidth}
+            {\makebox[0.47\textwidth]{\usebox{\@abstractBoxGlobal}}}
+      \hfill
+
+      \vfill
+
+      \noindent
+      \hfill\parbox[t][][b]
+            {0.47\textwidth}
+            {\makebox[0.47\textwidth]{\usebox{\@motsclesBoxGlobal}}}
+      \hfill
+      \hfill\parbox[t][][b]
+            {0.47\textwidth}
+            {\makebox[0.47\textwidth]{\usebox{\@keywordsBoxGlobal}}}
+      \hfill
+
+      \vfill
+
+      \hspace{0.45\textwidth}\raisebox{-2.2\baselineskip}
+                                      [0pt][0pt]
+                                      {\colorbox{@bandeaucolor}
+                                                {\parbox[s]
+                                                        [2\baselineskip]
+                                                        [c]
+                                                        {0.55\textwidth}
+                                                        {~\hfill
+                                                         \textcolor{white}
+                                                                   {L'UNIVERSIT\'E NANTES ANGERS LE MANS}
+                                                         \hfill~}}}%
+      }%
+   \restoregeometry%
+} % \makecover
+\makeatother
+
+\AtEndDocument{\makecover}
+
 
 \begin{document}
 
-\begin{titlingpage}
-  \titleDS
-\end{titlingpage}
-%\maketitle 
+\begin{resume}
+  Le but principal de cette thèse est de définir une extension de la
+  traduction de double-négation de Gödel à tous les types tronqués,
+  dans le contexte de la théorie des types homotopique.
+  Ce but utilisera des théories déjà existantes, comme la théorie des
+  faisceaux de Lawvere-Tierney, que nous adapterons à la théorie des
+  types homotopiques. En particulier, on définira le fonction de
+  faisceautisation de Lawvere-Tierney, qui est le principal théorème
+  présenté dans cette thèse.
+
+  Pour le définir, nous aurons besoin de concepts soit déjà définis
+  en théorie des types, soit non existants pour l'instant. En
+  particulier, on définira une théorie des colimits sur des graphes,
+  ainsi que leur version tronquée, et une notion de modalités
+  tronquées basée sur la définition existante de modalité.
+
+  Presque tous les résultats présentés dans cette thèse sont
+  formalisée avec l'assistant de preuve Coq, muni de la
+  librairie~\cite{hottlib}.
+\end{resume}
+
+\begin{abstract_}
+  The main goal of this thesis is to define an extension of Gödel
+  not-not translation to all truncated types, in the setting of
+  homotopy type theory. 
+  This goal will use some existing theories, like Lawvere-Tierney
+  sheaves theory in toposes, we will adapt in the setting of homotopy
+  type theory. In particular, we will define a Lawvere-Tierney
+  sheafification functor, which is the main theorem presented in this
+  thesis.
+
+  To define it, we will need some concepts, either already defined in
+  type theory, either not existing yet. In particular, we will define
+  a theory of colimits over graphs as well as their truncated version,
+  and the notion of truncated modalities, based on the existing
+  definition of modalities.
+
+  Almost all the result presented in this thesis are formalized with
+  the proof assistant Coq together with the library~\cite{hottlib}.
+\end{abstract_}
+
+\begin{motscles}
+  Théorie des types, homotopie, faisceautisation, Coq
+\end{motscles}
+
+\begin{keywords}
+  Type theory, homotopy, sheafification, Coq
+\end{keywords}
+
+
+\newgeometry{margin=1.5cm}
+  \begin{titlingpage}
+    {
+      \singlespacing
+      \makeatletter
+      \@drawbackground
+      \renewcommand{\sfdefault}{phv}
+      \renewcommand{\rmdefault}{ptm}
+      \renewcommand{\ttdefault}{pcr}
+      \fontsize{12pt}{14pt}
+      \sffamily
+      \selectfont
+      
+      \vspace{-3.75\baselineskip}
+      \hspace{0.5\textwidth}
+      \raisebox{0pt}
+      [0pt]
+      [2\baselineskip]
+      {\parbox[t][][c]
+        {0.5\textwidth}
+        {\raggedright\textcolor{@doctoratcolor}{\begin{spacing}{0.75}\Hugecover{Kevin \textsc{Quirin}}\end{spacing}}}}
+      
+      \smallcover
+      \vspace{\baselineskip}
+
+      \noindent\textsl{M\'emoire pr\'esent\'e en vue de l'obtention du}\par
+      \noindent\textsl{\textbf{grade de Docteur
+          de \parbox[t]{0.79\textwidth}{l'École nationale supérieure
+            des Mines de Nantes}}}\par
+         \noindent\textsl{\textbf{\phantom{grade de }Label européen}}\par
+      \noindent\textsl{sous le label de l'Universit\'e de Nantes Angers Le Mans}\par
+
+      \vspace{\baselineskip}
+
+      \footnotesizecover
+      \noindent\textbf{\'Ecole doctorale : Sciences et technologies de
+      l'information, et mathématiques}\par
+
+      \vspace{\baselineskip}
+
+      \footnotesizecover
+      \noindent\textbf{Discipline : Informatique et applications,
+        section CNU 27}\par
+      \noindent\textbf{Unit\'e de recherche
+        : \parbox[t]{0.8\textwidth}{Laboratoire d'informatique de
+          Nantes-Atlantique (LINA)}}\par
+
+      \vspace{\baselineskip}
+
+      \footnotesizecover
+      \noindent\textbf{Soutenue le FIXME}\par
+      \noindent\textbf{Th\`ese n\textdegree\ : FIXME}\par
+
+      \vfill
+
+      \hfill
+      \parbox{0.75\textwidth}
+               {\begin{flushright}
+                  \Largecover\textcolor{@titlecolor}{\textbf{Lawvere-Tierney
+                    sheafification in \\ Homotopy Type Theory}}\\
+               \end{flushright}}
+
+      \vfill
+      \vfill
+      \vfill
+      
+      \newsavebox{\@committeebox}
+      \sbox{\@committeebox}{\@committee}
+      \newlength{\committeeboxwidth}
+      \settowidth{\committeeboxwidth}{\usebox{\@committeebox}}
+      \begin{center}
+        \textcolor{@titlecolor}{\textbf{\smallcover JURY}}\par
+        \vspace{1em}
+        {\centering\usebox{\@committeebox}}%
+      \end{center}
+    }
+  \end{titlingpage}%
+  \makeatother
+  \restoregeometry
 
 \frontmatter%
+
+% \begin{titlingpage}{
+%   \makeatletter
+%   \@drawbackground
+%   \makeatother
+%   \raggedright
+%   \newgeometry{margin=1.5cm}
+%   \sffamily
+%   {\noindent\Huge\title{Foo}}  
+%   \vspace{1.5cm}  
+%   \LARGE
+%   \noindent
+%   Florent \textsc{Marchand de Kerchove}  
+%   \vfill  
+%   {\rmfamily\normalsize
+%     \itshape
+%     Thèse de doctorat présentée en vue de l'obtention du
+%     grade de docteur de l'université de Nantes
+%     sous le label de l'université de Nantes, Angers, Le Mans.
+    
+%     \vspace{1em}
+%     École doctorale: sciences et technologies de l'information et mathématiques\\
+%     Discipline: informatique, section CNU 27\\
+%     Unité de recherche: laboratoire d'informatique de Nantes-Atlantique (LINA)\\
+    
+%     \vspace{1em}
+%     Soutenue le 27 octobre 2016, devant le jury composé de:
+    
+%     \vspace{0.5em}
+%     M. Hulu Berlu, professeur, Tartifrice, rapporteur;\\
+%     M. Ali Barli, professeur, Hamilcar, rapporteur;\\
+%     M. Po Nan, professeur, Asifond, examinateur;\\
+%     M. Jacques Noyé, maître-assistant, Mines Nantes, encadrant de thèse;\\
+%     M. Mario Südholt, professeur, Mines Nantes, directeur de thèse.\\
+%   }
+%   \restoregeometry}
+% \end{titlingpage}
+% %\maketitle 
+
 
 \include{abstract}
 \include{acknowlegdments}
@@ -406,6 +869,8 @@ Mines de Nantes \\
 % \listoftodos[What remains to be done]
 \printnomenclature[10em]
 \printbibliography
+
+
 \end{document}
 
 %%% Local Variables:
