@@ -91,8 +91,8 @@ of a cocone.
 If $Q$ and $Q'$ are type with an arrow $f:Q\to Q'$, and if $C$ is a
 cocone over $D$ into $Q$, one can easily build a cocone on $D$ into
 $Q'$ by postcomposing all maps of the cocone by $f$, giving a map
-\newcommand{\postcomposecocone}{\mathrm{postcompose}\_{\mathrm{cocone}}}
-\newcommand{\precomposecocone}{\mathrm{precompose}\_{\mathrm{cocone}}}
+\newcommand{\postcomposecocone}{\mathrm{cocone}_{\mathrm{post}}}
+\newcommand{\precomposecocone}{\mathrm{cocone}_{\mathrm{pre}}}
 \[\postcomposecocone : \cocone_D(Q) \to (Q':\Type) \to (Q \to Q') \to \cocone_D(Q') \]
 The other way around (from a cocone into $Q'$, give a map $Q\to Q'$)
 is exactly the second condition we seek:
@@ -524,7 +524,7 @@ with a $P:\HProp$, the diagram should be the constant diagram $P\to
 P \to P\to \cdots$. The Boulier counterpart of this is, when starting
 with an embedding $f$, all $\widehat f$ are embeddings. 
 
-This can be achieve by changing operators $T$ and $\KP$, by asking
+This can be achieved by changing operators $T$ and $\KP$, by asking
 them to preserve identities:
 \[
   TA~\left|
@@ -534,7 +534,7 @@ them to preserve identities:
       \alpha_1&:& \displaystyle{\prodD x A {\alpha(x,x) = 1}}
     \end{array}
   \right.
-  \quad ; \quad
+  \quad \quad
   \KP(f)~\left|
     \begin{array}{lll}
       \kp&:&A\to \KP(f) \\

@@ -2,7 +2,7 @@
 branch=master
 if [ `git rev-parse --abbrev-ref HEAD` == "$branch" ]; then
     latexmk -pdf main.tex #compile the project if needed
-    pdflatex main.tex | grep -i -f errors.grep > errors.txt #compile to catch the errors
+    pdflatex --file-line-error main.tex | grep -i -f errors.grep > errors.txt #compile to catch the errors
     cp main.pdf ../thesis_page/thesis/main.pdf #copy the generated pdf to the gh-pages folder
     cp errors.txt ../thesis_page/thesis/errors.txt #copy the list of errors to the gh-pages folder
     cd ../thesis_page/thesis/ #go to the gh-pages folder
