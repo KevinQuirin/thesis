@@ -1,14 +1,16 @@
 Package biblatex Warning: No "backend" specified, using Biber backend.
-Overfull \hbox (1.93999pt too wide) in paragraph at lines 746--746
-Underfull \hbox (badness 10000) in paragraph at lines 746--746
-Overfull \hbox (2.54398pt too wide) in paragraph at lines 746--746
-Overfull \hbox (2.54398pt too wide) in paragraph at lines 746--746
-Underfull \hbox (badness 10000) in paragraph at lines 746--746
-Overfull \hbox (17.54399pt too wide) in paragraph at lines 755--762
+Overfull \hbox (1.93999pt too wide) in paragraph at lines 747--747
+Underfull \hbox (badness 10000) in paragraph at lines 747--747
+Overfull \hbox (2.54398pt too wide) in paragraph at lines 747--747
+Overfull \hbox (2.54398pt too wide) in paragraph at lines 747--747
+Underfull \hbox (badness 10000) in paragraph at lines 747--747
+Overfull \hbox (17.54399pt too wide) in paragraph at lines 756--763
 pdfTeX warning: pdflatex (file ./logos/MinesNantes.pdf): PDF inclusion: multipl
 (./main.toc [4]) [5] [6] (./resume.texpdfTeX warning (ext4): destination with t
 Class memoir Warning: The material used in the headers is too large
 pdfTeX warning (ext4): destination with the same identifier (name{page.2}) has 
+LaTeX Warning: `h' float specifier changed to `ht'.
+LaTeX Warning: `h' float specifier changed to `ht'.
 Underfull \hbox (badness 1735) in paragraph at lines 203--206
 Underfull \vbox (badness 10000) detected at line 633
 Overfull \hbox (2.95062pt too wide) in paragraph at lines 884--885
@@ -17,16 +19,16 @@ Overfull \hbox (49.14717pt too wide) in paragraph at lines 926--927
 Underfull \hbox (badness 3471) in paragraph at lines 1013--1017
 Underfull \vbox (badness 10000) detected at line 283
 Underfull \hbox (badness 5036) in paragraph at lines 471--477
-Underfull \hbox (badness 6047) in paragraph at lines 841--841
+Underfull \hbox (badness 6047) in paragraph at lines 842--842
 Package biblatex Warning: No driver for entry type 'draft'.
-Underfull \hbox (badness 2326) in paragraph at lines 841--841
+Underfull \hbox (badness 2326) in paragraph at lines 842--842
 Class memoir Warning: The material used in the headers is too large
-Overfull \hbox (1.93999pt too wide) in paragraph at lines 843--843
-Underfull \hbox (badness 10000) in paragraph at lines 843--843
-Overfull \hbox (2.54398pt too wide) in paragraph at lines 843--843
-Overfull \hbox (2.54398pt too wide) in paragraph at lines 843--843
-Underfull \hbox (badness 10000) in paragraph at lines 843--843
-Overfull \hbox (20.99998pt too wide) in paragraph at lines 843--843
+Overfull \hbox (1.93999pt too wide) in paragraph at lines 844--844
+Underfull \hbox (badness 10000) in paragraph at lines 844--844
+Overfull \hbox (2.54398pt too wide) in paragraph at lines 844--844
+Overfull \hbox (2.54398pt too wide) in paragraph at lines 844--844
+Underfull \hbox (badness 10000) in paragraph at lines 844--844
+Overfull \hbox (20.99998pt too wide) in paragraph at lines 844--844
 LaTeX Font Warning: Size substitutions with differences
 (see the transcript file for additional information)pdfTeX warning (dest): name
 pdfTeX warning (dest): name{Hfootnote.3} has been referenced but does not exist

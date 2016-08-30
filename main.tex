@@ -611,10 +611,11 @@
 
 \newcommand{\makecover}{%
    \singlespacing
-   \newgeometry{margin=1.5cm}
    \cleardoublepage % go to odd page
+   \thispagestyle{empty} % no numbering
    \phantom{placeholder} % doesn't appear on page
    \newpage % on even page
+   \newgeometry{margin=1.5cm}
    \thispagestyle{empty} % no numbering
    \@startingPage\thepage\relax
       {
@@ -628,12 +629,12 @@
       \selectfont
       \begin{quote}
          \begin{flushleft}
-            \textbf{\Largecover\textcolor{@textgray}{Kevin\textsc{Quirin}}}
+            \textbf{\Largecover\textcolor{@textgray}{Kevin \textsc{Quirin}}}
          \end{flushleft}
 
          \begin{flushleft}
             \textbf{\textcolor{@textgray}{Faisceautisation de
-                Lawvere-Tierney en théorie des types homotopiques}}
+                Lawvere-Tierney en théorie des types homotopique}}
          \end{flushleft}
          \begin{flushleft}
             \textbf{\textcolor{@textgray}{Lawvere-Tierney
