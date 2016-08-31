@@ -729,9 +729,8 @@ The usual result we want about any translation is its soundness:
   the predicate ``is modal''.
   
   \begin{itemize}
-
   \item $\Pi$-\textsc{form}: 
-
+    {\footnotesize
     \begin{center}
       \AxiomC{$[\Gamma] \vdash [A]:\Lbrack \Type \Rbrack$}
       \RightLabel{$\Sigma$-\textsc{elim}}
@@ -744,7 +743,9 @@ The usual result we want about any translation is its soundness:
         {\Lbrack B \Rbrack} : \Type$}
       \DisplayProof
     \end{center}
-    together with
+  }
+  together with
+  {\footnotesize
     \begin{center}
       \AxiomC{$[\Gamma] \vdash [A]:\Lbrack \Type \Rbrack$}
       \RightLabel{$\Sigma$-\textsc{elim}}
@@ -756,12 +757,13 @@ The usual result we want about any translation is its soundness:
         M\left(\prodD x {\Lbrack A \Rbrack}{\Lbrack B \Rbrack} \right)$}
       \DisplayProof
     \end{center}
+  }
     yields 
     \[[\Gamma] \vdash \prodD x {\Lbrack A \Rbrack}{\Lbrack B \Rbrack}
       : [\Type] \]
     
   \item $\Pi$-\textsc{intro}:
-    
+    {\footnotesize
     \begin{center}
       \AxiomC{$[\Gamma,x:A] \vdash [b]:\Lbrack B \Rbrack$}
       \RightLabel{$\Pi$-\textsc{intro}}
@@ -769,9 +771,10 @@ The usual result we want about any translation is its soundness:
         : \prodD x {\Lbrack A\Rbrack}{\Lbrack B\Rbrack}$}
       \DisplayProof
     \end{center}
+  }
     
   \item $\Pi$-\textsc{elim}:
-
+    {\footnotesize
     \begin{center}
       \AxiomC{$[\Gamma] \vdash [f] : \prodD x {\Lbrack
           A\Rbrack}{\Lbrack B\Rbrack}$}
@@ -780,13 +783,14 @@ The usual result we want about any translation is its soundness:
       \BinaryInfC{$[\Gamma] \vdash [f][a] : \Lbrack B \Rbrack [[a]/x]$}
       \DisplayProof
     \end{center}
+  }
   \item As the translation go through dependent sums as well, the
     proof trees for $\Sigma$-\textsc{form}, $\Sigma$-\textsc{intro},
     $\Sigma$-\textsc{elim} and $\Sigma$-\textsc{comp} are similar.
 
 
   \item $\Pi$-\textsc{comp}:
-    
+    {\footnotesize
     \begin{center}
       \AxiomC{$[\Gamma,x:A] \vdash [b]:\Lbrack B\Rbrack$}
       \AxiomC{$[\Gamma] \vdash [a]:\Lbrack A\Rbrack$}
@@ -795,9 +799,10 @@ The usual result we want about any translation is its soundness:
         A\Rbrack,\,[b])([a]) \equiv [b][[a]/x] : \Lbrack B\Rbrack [[a]/x]$}
       \DisplayProof
     \end{center}
-
+  }
 
   \item $+$-\textsc{form}:
+    {\footnotesize
     \begin{center}
       \AxiomC{$[\Gamma] \vdash [A]:\Lbrack \Type \Rbrack$}
       \RightLabel{$\Sigma$-\textsc{elim}}
@@ -813,9 +818,10 @@ The usual result we want about any translation is its soundness:
         {\Lbrack B \Rbrack}\right) : \Lbrack \Type \Rbrack$}
       \DisplayProof
     \end{center}
+  }
 
   \item $+$-\textsc{intro${}_{1,2}$}:
-
+    {\footnotesize
     \begin{center}
       \AxiomC{$[\Gamma] \vdash [A]:\Lbrack \Type \Rbrack$}
       \RightLabel{$\Sigma$-\textsc{elim}}
@@ -830,9 +836,11 @@ The usual result we want about any translation is its soundness:
       \UnaryInfC{$[\Gamma] \vdash \eta (\inl([a])) : \Lbrack A + B\Rbrack$}
       \DisplayProof
     \end{center}
+  }
 
     and 
-    
+   
+    {\footnotesize 
     \begin{center}
       \AxiomC{$[\Gamma] \vdash [A]:\Lbrack \Type \Rbrack$}
       \RightLabel{$\Sigma$-\textsc{elim}}
@@ -847,10 +855,12 @@ The usual result we want about any translation is its soundness:
       \UnaryInfC{$[\Gamma] \vdash \eta (\inl([b])) : \Lbrack A + B\Rbrack$}
       \DisplayProof
     \end{center}
+  }
 
  \item $+$-\textsc{elim}:
    We treat the non-dependent case.
 
+   {\footnotesize
    \begin{center}
      \AxiomC{$[\Gamma]\vdash [C]:\Lbrack \Type \Rbrack$}
      \AxiomC{$[\Gamma] \vdash [f]:\Lbrack A \to C\Rbrack $}
@@ -859,16 +869,18 @@ The usual result we want about any translation is its soundness:
      \TrinaryInfC{$[\Gamma] \vdash \langle [f],[g]\rangle : \Lbrack A
        \Rbrack + \Lbrack B \Rbrack \to \Lbrack C\Rbrack$}
      \UnaryInfC{$[\Gamma] \vdash \modal_{\mathrm{rec}}^{\Lbrack A
-       \Rbrack + \Lbrack B}  \langle [f],[g]\rangle :
+       \Rbrack + \Lbrack B \Rbrack}  \langle [f],[g]\rangle :
      \modal \left( \Lbrack A
        \Rbrack + \Lbrack B \Rbrack \right) \to \Lbrack C \Rbrack$}
      % \AxiomC{$[\Gamma]\vdash [e]:\Lbrack A + B \Rbrack $}
      % \BinaryInfC{Foo}
      \DisplayProof
    \end{center}
+ }
 
  \item $+$-\textsc{comp}${}_{1,2}$:
    Again, we only treat the non-dependent case.
+   {\footnotesize
    \begin{center}
      \AxiomC{$[\Gamma]\vdash [C]:\Lbrack \Type \Rbrack$}
      \AxiomC{$[\Gamma] \vdash [f]:\Lbrack A \to C\Rbrack $}
@@ -883,9 +895,11 @@ The usual result we want about any translation is its soundness:
      [a])) \equiv [f][a] : \Lbrack C \Rbrack$}
      \DisplayProof
    \end{center}
+ }
    $+$-\textsc{comp}${}_{2}$ is done in the same way.
 
  \item $=$-\textsc{form}:
+   {\footnotesize
    \begin{center}
      \AxiomC{$[\Gamma] \vdash [A]:\Lbrack \Type \Rbrack$}
      \RightLabel{$\Sigma$-\textsc{elim}}
@@ -901,8 +915,10 @@ The usual result we want about any translation is its soundness:
      \BinaryInfC{$[\Gamma] \vdash [a]=[b] : \Lbrack \Type \Rbrack$}
      \DisplayProof
    \end{center}
+ }
     
  \item $=$-\textsc{intro}:
+   {\footnotesize
    \begin{center}
      \AxiomC{$[\Gamma] \vdash [A]:\Lbrack \Type \Rbrack$}
      \AxiomC{$[\Gamma] \vdash [a]:\Lbrack A \Rbrack$}
@@ -910,9 +926,11 @@ The usual result we want about any translation is its soundness:
      \BinaryInfC{$[\Gamma] \vdash 1_{[a]} : [a] = [a]$}
      \DisplayProof
    \end{center}
+ }
 
  \item $=$-\textsc{elim}: 
    We only treat $\transport$.
+   {\footnotesize
    \begin{center}
      \AxiomC{$[\Gamma,x:A] \vdash [P]:\Lbrack \Type \Rbrack $}
      \RightLabel{$\Sigma$-\textsc{elim}}
@@ -925,6 +943,7 @@ The usual result we want about any translation is its soundness:
        [P][b]$}
      \DisplayProof
    \end{center}
+ }
    
 
   \end{itemize}
