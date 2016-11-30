@@ -9,7 +9,7 @@
 
 \usepackage{amsmath}
 \usepackage{amssymb,amsthm,amsfonts}
-
+\usepackage{mathbbol}
 
 \newtheorem{thm}{Theorem}
 \newtheorem{cor}[thm]{Corollary}
@@ -38,7 +38,7 @@
 \usepackage{wasysym}
 
 \mode<beamer>{%
-  \usetheme[right,width=22mm]{Goettingen}
+  \usetheme[right,width=18mm]{Goettingen}
 }
 
 \AtBeginSection[]{
@@ -120,18 +120,23 @@
 \newcommand{\baseS}{\mathrm{base}}
 \newcommand{\loopS}{\mathrm{loop}}
 \newcommand{\coeq}[2]{\mathrm{Coeq}^{#1,#2}}
+\newcommand{\nType}[1]{\Type_{#1}}
 
 \DeclareMathOperator{\issep}{IsSeparated}
 \DeclareMathOperator{\issheaf}{IsSheaf}
 \DeclareMathOperator{\KP}{KP}
 \DeclareMathOperator{\kp}{kp}
 
-\title{Lawvere-Tierney Sheafification\\ in Homotopy Type Theory}
+\addtobeamertemplate{footline}{\insertframenumber/\inserttotalframenumber}
 
-\author{{Kevin Quirin} \\ 
+\title[Sheafification in HoTT]{Lawvere-Tierney Sheafification\\ in Homotopy Type Theory}
+
+\author[]{{Kevin Quirin} \\ 
   {Mines de Nantes \\ Nantes, France}}
 
-\date{29 June 2015}
+\date{13 December 2016}
+
+\usepackage{tikz}
 
 \begin{document}
 
@@ -161,20 +166,21 @@
   \frametitle{Errors in mathematics}
   
   One issue with mathematics: it is hard to check proofs.
-  \begin{center}
+  \onslide<2->{
+    \begin{center}
     
 
   % \begin{center}
     \frame{
-      \includegraphics<2,3>[scale=0.3]{spencer_bloch}}
+      \includegraphics[scale=0.3]{spencer_bloch}}
     \note[item]{In a paper by Spencer Bloch, Suslin found an error in lemma
       1.1. Almost all the paper ws relying on this lemma}
   % \end{center}
   \llap{%
     % \begin{center}
-    \frame{\includegraphics<3>[scale=0.35]{bloch_lemma}}
+    \frame{\includegraphics<3,4>[scale=0.35]{bloch_lemma}}
     % \end{center}
-  }
+  }}
   \end{center}
   \note<2->[item]{While the original - false - proof was only a few lines long,
     the new proof is about thirty pages long, and contains complex arguments.}
@@ -184,33 +190,33 @@
 
 \end{frame}
 
-\begin{frame}[c]
-  \centering
+% \begin{frame}[c]
+%   \centering
 
 
-  \note<1->[item]{If you give a proof to the best mathematician}
-  \note<2->[item]{He will probably don't know if it is true or not}
-  \note<3->[item]{Our hope is to give to rather to a computer}
-  \note<4->[item]{Who can decide if it is right or wrong, and in the
-    latter case, where is the error}
-  \begin{tabular}{ccc}
-  % \begin{center}
-    \onslide<1,3>{\includegraphics[scale=0.15]{bloch_lemma}} &
-    \only<1,2>{\includegraphics[scale=0.7]{gauss}}
-    \only<3,4>{\includegraphics[scale=0.25]{computer}
+%   \note<1->[item]{If you give a proof to the best mathematician}
+%   \note<2->[item]{He will probably don't know if it is true or not}
+%   \note<3->[item]{Our hope is to give to rather to a computer}
+%   \note<4->[item]{Who can decide if it is right or wrong, and in the
+%     latter case, where is the error}
+%   \begin{tabular}{ccc}
+%   % \begin{center}
+%     \onslide<1,3>{\includegraphics[scale=0.15]{bloch_lemma}} &
+%     \only<1,2>{\includegraphics[scale=0.7]{gauss}}
+%     \only<3,4>{\includegraphics[scale=0.25]{computer}
       
-}
-      &
-      \begin{overprint}
-        \onslide<2>{\quad\Large Ich wei\ss{} nicht }
-        \onslide<4>{\hspace{-8em}\begin{tabular}[x]{@{}c@{}}False\\Error
-            on line 4\end{tabular}}
-      \end{overprint}
+% }
+%       &
+%       \begin{overprint}
+%         \onslide<2>{\quad\Large Ich wei\ss{} nicht }
+%         \onslide<4>{\hspace{-8em}\begin{tabular}[x]{@{}c@{}}False\\Error
+%             on line 4\end{tabular}}
+%       \end{overprint}
 
     
-  % \end{center}
-  \end{tabular}
-\end{frame}
+%   % \end{center}
+%   \end{tabular}
+% \end{frame}
 
 \subsection[Curry-Howard]{The Curry-Howard isomorphism}
 \label{sec:curry-howard-isom}
@@ -254,6 +260,12 @@
     \UnaryInfC{$\Gamma\vdash A\lor B$}
     \DisplayProof
   \end{center}
+  \begin{center}
+    \AxiomC{$\Gamma\vdash A$}
+    \AxiomC{$\Gamma\vdash A\Rightarrow B$}
+    \BinaryInfC{$\Gamma\vdash B$}
+    \DisplayProof
+  \end{center}
 \end{frame}
 
 \begin{frame}
@@ -284,21 +296,615 @@
     \UnaryInfC{$\Gamma\vdash \onslide<2>{\inr b\,:\,}A\lor B$}
     \DisplayProof
   \end{center}
+  \begin{center}
+    \AxiomC{$\Gamma\vdash\onslide<2>{a\,:\,} A$}
+    \AxiomC{$\Gamma\vdash\onslide<2>{f\,:\,} A\Rightarrow B$}
+    \BinaryInfC{$\Gamma\vdash\onslide<2>{f\,a\,:\,} B$}
+    \DisplayProof
+  \end{center}
 \end{frame}
 
 \begin{frame}
-  The Curry-Howard isomorphism states that if a term of a type can be
-  seen as a program, it can also be seen as a proof of a formula.
+  The Curry-Howard isomorphism states that there are correspondances:
+  \begin{itemize}
+  \item Type $\leftrightsquigarrow$ Formula
+    \only<2->{$\leftrightsquigarrow$ Type of a program}
+  \item Term $\leftrightsquigarrow$ Proof
+    \only<2->{$\leftrightsquigarrow$ Program}
+  \item Type-checking $\leftrightsquigarrow$ Verification of proof
+    \only<3>{\color{blue}{$\leftrightsquigarrow$ Compilation}}
+  \end{itemize}
 \end{frame}
 
-\section[Forcing]{Forcing and Sheafification}
+\section[Forcing]{Forcing, Sheafification and Translation}
 \label{sec:forc-sheaf}
 
+\subsection[ZFC]{Forcing in set theory}
+\label{sec:forcing-set-theory}
+
+\begin{frame}{Forcing in set theory}
+  \note<1->[item]{I'll explain it briefly on a schema}
+  \note<2->[item]{Let M be a model of ZFC, with its ordinal numbers}
+  \note<3->[item]{We want a new model MG, sharing the same ordinals as
+  M, but containing a witness of the desired property}
+  \note<4->[item]{We reach it from within M with approximations of it,
+  contained in a set P (called the forcing condition). 
+
+  In MG, P contains a subset G, called a generic element, and its
+  limit is the desired witness}
+
+
+  In set theory, forcing is a way to extend a model of ZF(C) with new
+  witnesses for formulas, \eg{} {\em continuum hypothesis}.
+  \begin{center}
+  \begin{tikzpicture}
+    \onslide<2->{
+      \draw (0,0) -- (-2,5);
+      \draw (0,0) -- (2,5) node[right] {$\mathfrak M$};
+      \draw[color=blue] (0,0) -- (0,5) node[right] {Ord};}
+    \onslide<3->{
+      \draw[color=red] (0,0) -- (-4,5) node[left] {$\mathfrak M[G]$};;
+      \draw[color=red] (0,0) -- (4,5);}
+    \onslide<4->{
+      \draw [green] plot [smooth cycle] coordinates {(0.5,1) (0.5,4)
+        (2,3)};
+      \draw (1,4.5) node {$\mathfrak p^{\mathfrak M} (P)$};
+      \draw (2.6,3.7) node {$\mathfrak p^{\mathfrak M[G]} (P)$};
+      \draw (1,3) node {\textbullet};
+      \draw (1,3) node[above] {$P$};
+      \draw (1.2,2) node {\textbullet};
+      \draw (1.2,2) node[above] {$G$};
+      \draw (1.5,3) node {\textbullet};
+      \draw (1.5,3) node[right] {witness = $\lim G$};}
+    \onslide<3>{
+      \draw (1.5,3) node {\textbullet};
+      \draw (1.5,3) node[right] {witness};}
+  \end{tikzpicture}
+  \end{center}
+\end{frame}
+
+\subsection[Sheafification]{Sheafification in a topos}
+\label{sec:sheafification-topos}
+
+\begin{frame}{Recall: Sheafification in topos}
+  \note{ }
+  Let $j$ be a Lawvere-Tierney topology on a topos $\mathcal T$, with
+  subobject classifier $\Omega$.
+
+  \only<5>{
+  $$\xymatrix @!0 @C=4pc @R=3pc {
+    T \ar[rr]^{\{\cdot\}_T} \ar@{->>}[d]_-{\mu_T} && \Omega^T \ar[d]^-{j^T}  &
+    \\
+    \im \left(j^T \circ \{\cdot\}_T \right) \ar@{^{(}->}[rr]^-{\text{mono}} \ar[rd] && \left( \Omega_j
+    \right)^T & \ar@{~>}@*{[blue]}[l] \text{\textcolor{blue}{sheaf}}\\
+    & \mathfrak a
+    (T) \defeq \overline{\im \left(j^T \circ \{\cdot\}_T \right)} \ar[ur] & & \ar@{~>}@*{[blue]}[ll] \text{\textcolor{blue}{sheaf}} \\
+    \text{\textcolor{blue}{separated}} \ar@/^2pc/@{~>}@*{[blue]}[uu]
+  } $$}
+
+  \only<2>{
+  $$\xymatrix @!0 @C=4pc @R=3pc {
+    T \ar[rr]^{\{\cdot\}_T} && \Omega^T \ar[d]^-{j^T}  &
+    \\
+    && \left( \Omega_j
+    \right)^T &\\
+    &\\
+  } $$}
+
+  \only<3>{
+  $$\xymatrix @!0 @C=4pc @R=3pc {
+    T \ar[rr]^{\{\cdot\}_T} \ar@{->>}[d]_-{\mu_T} && \Omega^T \ar[d]^-{j^T}  &
+    \\
+    \im \left(j^T \circ \{\cdot\}_T \right) \ar@{^{(}->}[rr]^-{\text{mono}} && \left( \Omega_j
+    \right)^T & \\
+    & \\
+  } $$}
+
+  \only<4>{
+  $$\xymatrix @!0 @C=4pc @R=3pc {
+    T \ar[rr]^{\{\cdot\}_T} \ar@{->>}[d]_-{\mu_T} && \Omega^T \ar[d]^-{j^T}  &
+    \\
+    \im \left(j^T \circ \{\cdot\}_T \right) \ar@{^{(}->}[rr]^-{\text{mono}} \ar[rd] && \left( \Omega_j
+    \right)^T & \\
+    & \mathfrak a
+    (T) \defeq \overline{\im \left(j^T \circ \{\cdot\}_T \right)} \ar[ur] & & \\
+  } $$}
+
+
+  \only<2>{Send $T$ to $\Omega^T$ via the singleton map, then postcompose with
+    $j:\Omega \to \Omega_j$}
+  \only<3>{Compute the image of this map: it is a subobject of $\left(
+      \Omega_j \right)^T$ \phantom{xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx}}
+  \only<4>{Close this subobject \phantom{xxxxxxxxxxxxxxx
+      xxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxx }}
+  \only<5>{Key points:
+  \begin{itemize}
+  \item $\left( \Omega_j \right)^T$ has to be a sheaf.
+  \item A closed subobject of a sheaf should be a sheaf.
+  \end{itemize}
+}
+\end{frame}
+
+\begin{frame}
+  \begin{center}
+    \[
+    \begin{array}{ccc}
+      \text{Topos }\mathcal T &
+      \onslide<2->{\xrightarrow{\qquad\mathfrak a\qquad}} &
+      \onslide<2->{\text{Sheaf topos } \Sh{\lnot\lnot}(T)} \\
+        && \\
+        \text{Axioms of topos} & \onslide<2->{\xrightarrow{\qquad~\qquad}}
+        &\onslide<2->{
+          \begin{array}{l}
+            \text{Axioms of topos} \\ \text{+ Law of Excluded Middle}
+            \\ \text{+ Axiom of Choice}
+          \end{array}
+          }
+    \end{array}
+    \]
+  \end{center}
+\end{frame}
+
+\subsection{Translations}
+\label{sec:translations}
+
+\begin{frame}
+  \frametitle{Gödel-Gentzen translation}
+  \only<1>{
+    From classical logic to intuitionistic logic:
+    \begin{center}
+      \[
+      \begin{array}{rcl}
+        \phi^N & \mapsto & \lnot\lnot \phi \\
+        && \\
+        (\phi\land\psi)^N &\mapsto & \phi^N \land \psi^N \\
+        &&\\
+        (\phi \lor \psi)^N & \mapsto & \lnot (\lnot \phi^N \land
+        \lnot\psi^N) \\
+        && \\
+        (\forall x,\, \theta(x))^N &\mapsto & \forall x,\,
+        (\theta(x))^N \\
+        && \\
+        (\exists x,\, \theta(x))^N & \mapsto & \lnot (\forall x,\, \lnot(\theta(x))^N)
+      \end{array}
+      \]
+    \end{center}
+  }
+  \only<2>{
+    \begin{center}
+      \[
+      \begin{array}{rcl}
+        \phi & \mapsto & \phi^N \\
+        && \\
+        \text{Classical Logic} & \to & \text{Intuitionistic Logic}
+        \\
+        &&\\
+        \text{LJ + LEM} & \to & \text{LJ}
+      \end{array}
+      \]    
+    \begin{thm}[Soundness]
+      If $\vdash_{\mathrm{LK}} \phi$ then $\vdash_{\mathrm{LJ}} \phi^N$.
+    \end{thm}
+    \end{center}
+}
+\note<1->{We change inductively the formulas of first-order logic, so
+  that we obtain the Glivenko theorem : if phi is provable in
+  classical logic, its translation is provable in intuitionistic logic}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Translations of Type Theories}
+ We want to do the same with type theories.
+ \begin{center}
+      \[
+      \begin{array}{rcl}
+        t & \mapsto & [t] \\
+        T & \mapsto & \Lbrack T \Rbrack \\
+        && \\
+        \onslide<1>{\text{Complex Type Theory} & \to & \text{Simple
+            Type Theory}} \\
+        \onslide<2>{\text{Coq+$\lnot$ UA} & \to & \text{Coq}}
+      \end{array}
+      \]
+    \end{center}
+
+    \begin{thm}[Soundness]
+      \only<1>{If $\Gamma \vdash_{CTT} t:T$ then $[\Gamma]\vdash_{STT} [t] : \Lbrack T
+        \Rbrack$.}
+      \only<2>{If $\Gamma\vdash_{\text{Coq+$\lnot$UA}} t:T$ then $[\Gamma]\vdash_{\text{Coq}} [t] : \Lbrack T \Rbrack$.}
+    \end{thm}
+
+\note<1>{We want to do the same thing with type theories: we translate
+  terms and types of a complex type theory into terms and types of a
+  simpler type theory, to obtain the soundness theorem}
+\note<2>{For example, the complex TT can be Coq+negation of
+  univalence, and the simple TT can be Coq. In the definitional side
+  of forcing, Tabareau and al. obtained this translation}
+    
+
+%  \only<2>{ We want to do the same with type theories.
+%  \begin{center}
+%       \[
+%       \begin{array}{rcl}
+%         t & \mapsto & [t] \\
+%         T & \mapsto & \Lbrack T \Rbrack \\
+%         && \\
+%         \text{Coq+$\lnot$ UA} & \to & \text{Coq}
+        
+%       \end{array}
+%       \]
+%     \end{center}
+
+%     \begin{thm}[Soundness]
+%       If $\vdash_{\text{Coq+$\lnot$UA}} t:T$ then $\vdash_{\text{Coq}} [t] : \Lbrack T \Rbrack$.
+%     \end{thm}
+% }
+\end{frame}
+
+\begin{frame}
+  \frametitle{Claim}
+  \begin{center}
+    \Large{Forcing in set theory, sheafification in a topos and
+      type theory translation are analogous.}
+  \end{center}
+\end{frame}
 \section[Sheafification]{Lawvere-Tierney Sheafification in Type Theory}
 \label{sec:sheaf-type-theory}
 
 
 
+\begin{frame}{Questions}
+  
+  When generalizing construction in topos, several questions arises:
+  \begin{itemize}[<+(1)->]
+  \item Do we generalize subobjects as $n$-subobjects (maps with
+    $n$-truncated fibers) or $(-1)$-subobjects (embeddings)? \onslide<6>{\textcolor{blue}{Solved}}
+  \item The proof involves kernel pair of a surjection. How to
+    generalize it ? \only<6>{\textcolor{blue}{Solved}}
+  \item Do we use usual image, or a $n$-image arising from
+    $n$-connected/$n$-truncated factorization system?
+    \onslide<6>{\textcolor{blue}{Solved}}
+  \item How to reach not truncated types? \only<6>{\textcolor{red}{In progress}}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Requirements}
+  \note<2>{We change slightly the last requirement to ask stability by
+  dependent product instead of only arrows}
+  We want a predicate on $\Type_{n+1}$, which we call {\em sheaf
+    property}, satisfying:
+  \begin{itemize}
+  \item if $\modal_n$ is the identity modality, then everybody should
+    be a sheaf
+  \item a closed $(-1)$-subobject of a sheaf should be a sheaf
+  \item the type of modal $\Type_n$ should be a sheaf
+  \item \only<1>{if $T$ is a sheaf, then $X\to T$ should be a sheaf, for any
+    $X$}
+    \only<2>{if $T:X\to\Type_{n+1}$ such that any $T\,x$ is a sheaf, then $\prod_{x:X} T\,x$
+    should be a sheaf.}
+  \end{itemize}
+\end{frame}
+
+\subsection{Definitions}
+\label{sec:definitions}
+
+\begin{frame}[allowframebreaks]{Dense subobject}
+  \note{ }
+  \begin{defi}
+    Let $E$ be a type. The {\em closure} of a subobject of $E$ with
+    $m$-truncated homotopy fibers (or $m$-subobject of $E$, for short),
+    classified by $\chi : E \to \nType m$, is the $m$-subobject of $E$
+    classified by $\modal_m \circ \chi$.
+
+    \note[item]{The closure operator is just postcomposition of characteristic
+      with the modality.}
+
+    An $m$-subobject of $E$ classified by $\chi$ is said to be {\em
+      closed in $E$} if it is equal to its closure, \ie
+    $\chi = \modal_m \circ \chi$.
+    \note[item]{$A$ is closed in $E$ if its closure is $E$.}
+  \end{defi}
+
+  Practically, a $m$-subobject of $E$ is just $\{e:E ~\&~ \chi~e\}$, and
+  its closure is $\{e:E~\&~\modal_m(\chi~e)\}$.
+  \framebreak
+  \begin{defi}
+    Let $E$ be a type, and $\chi:E \to \nType m$. The $m$-subobject of $E$
+    classified by $\chi$ is {\em dense} in $E$ when its $\modal_m$-closure
+    is equivalent to $\chi_E$, \ie
+    % 
+    $$\forall e:E,~ \modal_m  (\chi~e) \simeq \one.$$
+  \end{defi}
+
+  Practically, a $m$-subobject $A$ of $E$ is dense if, from the $\modal_m$ point of
+  view, you cannot make a difference between $A$ and $E$.
+  
+\end{frame}
+
+\begin{frame}{Restriction}
+  \note{ }
+  \begin{defi}
+    For any type $E$, characteristic map $\chi : E \to \nType m$ and $F:\nType {(n+1)}$, we define
+    $$
+    \Phi_E^{\chi,m} : (E \to F) \to (\{e:E~\&~\chi~e\} \to F) 
+    $$
+    % 
+    as the map sending an
+    arrow $f:E\to F$ to its restriction $f \circ \pi_1$.
+  \end{defi}
+\end{frame}
+
+\begin{frame}{Sheaves}
+  Following the topos-theoretic idea, we use:
+  \begin{defi}[Sheaves]
+    A type $F$ of $\nType {(n+1)}$ is a {\em $(n+1)$-sheaf} \only<2>{if \textcolor{red}{it is
+    separated}, and }for any type $E$ and all dense \textcolor{blue}{$(-1)$-subobject}
+    $\chi : E \to \nType {(-1)}$, $\Phi_E^{\chi,-1}$ is an
+    equivalence. In other words, the dotted arrow exists and is unique.
+
+    $$\xymatrix{
+      \{e:E~\&~\chi~e\}  \ar[r]^-f \ar[d]_{\pi_1} & F \\
+      E \ar@{-->}[ru]_{\exists !}&
+    }$$
+  \end{defi}
+  \note[item]{Here, we take (-1)-subobjects, because we want every type
+    to be a sheaf for the identity modality.}
+  \note[item]{The conditions are not satisfied that way; sheaves are
+    not stable by dependent products.}
+\end{frame}
+
+
+\begin{frame}{Separated type}
+  \begin{defi}[Separated Type]
+    A type $F$ in $\nType {(n+1)}$ is {\em separated} if for any type $E$, and
+    all dense \textcolor{blue}{$n$-subobject} $\chi : E \to \nType n$,
+    $\Phi_E^{\chi,n}$ is an embedding. In other words, the dotted arrow,
+    if exists, is unique.
+
+    $$\xymatrix{
+      \{e:E~\&~\chi~e\}  \ar[r]^-f \ar[d]_{\pi_1} & F \\
+      E \ar@{-->}[ru]_{!}&
+    }$$
+  \end{defi}
+\end{frame}
+
+
+\begin{frame}{Two steps}
+  \note{ }
+
+  We will proceed in two steps: 
+  \begin{enumerate}[(i)]
+  \item {\em separation:} From any $T$ in $\nType {(n+1)}$, we construct
+    its {\em free} separated object $\separated T$.
+  \item {\em completion:} We add what is missing for the free 
+    separated type to be a sheaf by using closure.
+  \end{enumerate}
+  \note[item]{Not equivalent with + construction. We define the free
+    separated object, while Grothendieck not.}
+\end{frame}
+
+
+\subsection[Separation]{From types to separated types}
+\label{sec:from-types-separated}
+
+\begin{frame}{}{Separation}
+  \note{ }
+  Let $T : \nType {(n+1)}$. We define $\separated T$ as the image of
+  $\modal_n^T \circ \{\cdot\}_T$, as in
+  $$\xymatrix{
+    T \ar[r]^{\{\cdot\}_T} \ar[d]_{\mu_T} & \nType n^T \ar[d]^{\modal_n^T} \\
+    \separated T \ar[r]& \left( \nType n^\modal \right)^T
+  }$$
+  where $\{\cdot\}_T$ is the singleton map $\lambda (t:T),~\lambda
+  (t':T),~t=t'$.
+  \note{We note that, as $\mu_T$ is the surjection-embedding
+    factorization, $\mu_T$ is indeed a surjection.}
+  % 
+  \pause
+  $\separated T$ can be given explicitly by
+  % 
+  $$
+  \begin{array}{rcl}
+    \separated T &\defeq & \im (\lambda~t:T,~\lambda~ t',~ \modal_n (t = t')) \\
+                 & \defeq & \sum_{u:T \to \nType n^\modal} \left\| \sum_{a:T} 
+                            (\lambda t,~\modal_n (a=t)) = u\right\|.
+  \end{array}
+  $$
+\end{frame}
+
+\begin{frame}{}{Separation is a modality}
+  \note{ }
+  At first, we prove that:
+  \note[item]{That's indeed the least we can ask.}
+  \begin{prop}
+    For any $T:\nType {(n+1)}$, $\separated T$ is separated.  
+  \end{prop}
+  \pause
+  \vspace{1em}
+  
+  Then, we want
+  \note<2>[item]{This actually is the hard part of the construction ;
+    especially the universal property for the reflective subuniverse.}
+  \begin{thm}
+    $(\separated,\mu)$ defines a modality on $\nType {(n+1)}$.
+  \end{thm}
+\end{frame}
+
+\begin{frame}{Sketch of proof}
+  In topoi, the proof goes this way:
+  \begin{itemize}[<+(1)->]
+  \item $\mu_T$ is a surjection, thus it coequalizes its kernel pair
+    $$\xymatrix{
+      T \times_{\separated T} T \dar[r]{2pt}^-{\pi_1}_-{\pi_2}& T \ar[r]^-{\mu_T} & \separated T
+    }$$
+  \item Then $T \times_{\separated T} T = \overline \Delta$, where
+    $\Delta = \{(x,y):T^2~\&~x=y\}$. The following is a coequalizer
+    $$\xymatrix{
+      \overline \Delta\dar[r]{2pt}^-{\pi_1}_-{\pi_2}& T \ar[r]^-{\mu_T} & \separated T
+    }$$
+
+  \end{itemize}
+\end{frame}
+\begin{frame}{Sketch of proof}
+  Then, if $Q$ is any separated type and $f:T\to Q$, it makes the diagram
+  $$\xymatrix{
+    \overline \Delta\dar[r]{2pt}^-{\pi_1}_-{\pi_2}& T \ar[r]^f & Q}$$
+  commute, thus $f$ factors through $\separated T$.
+\end{frame}
+
+\begin{frame}
+  In HoTT, it gets harder. We use the following HITs:
+  \begin{align*}    
+    \KP(f)&\left|
+      \begin{array}{lll}
+        \kp &:& A\to \KP(f) \\
+        \alpha &:& \displaystyle{\prodD {x,y}{A}{f\, x = f\, y \to
+            \kp\,x=\kp\,y}}\\
+        \alpha_1&:& \displaystyle{\prodD x A {\alpha(x,x,1) = 1}}
+      \end{array}
+    \right. 
+    \\
+    \onslide<2->{\mathring T_X&\left|
+      \begin{array}{lll}
+        \mathring t&:&\|X\|_{n+1} \to \mathring T_X \\
+        \mathring \alpha&:&\forall a\, b:\|X\|_{n+1},~\modal (a=b) \to
+        \mathring t(a) = \mathring t(b) \\
+        \mathring \alpha_1&:&\forall a:\|X\|_{n+1},~
+        \mathring \alpha(a , a, \eta_{a=a} 1) = 1
+      \end{array}
+    \right.}
+  \end{align*}
+\end{frame}
+
+\begin{frame}
+  \only<1>{\small{
+    \[
+    \xymatrix{%
+     \|\KP^0(\mu_T)\|_{n+1} \ar[r] \ar[d]^*[@]{\hbox to 0pt{\hss$\sim$\hss}}&
+     \|\KP^1(\mu_T)\|_{n+1} \ar[r] \ar[d]^*[@]{\hbox to
+       0pt{\hss$\sim$\hss}} & 
+     \|\KP^2(\mu_T)\|_{n+1} \ar[r] \ar[d]^*[@]{\hbox to
+       0pt{\hss$\sim$\hss}} & \cdots \\
+     \mathring T_0 \ar[r] & \mathring T_1 \ar[r] &  \mathring T_2
+     \ar[r] &\cdots
+    }
+  \]
+  }}
+\only<2>{\small{\[
+    \xymatrix{%
+      &\separated T&& \\
+     \|\KP^0(\mu_T)\|_{n+1} \ar[r] \ar[d]^*[@]{\hbox to
+       0pt{\hss$\sim$\hss}} \ar[ur]&
+     \|\KP^1(\mu_T)\|_{n+1} \ar[r] \ar[d]^*[@]{\hbox to
+       0pt{\hss$\sim$\hss}} \ar[u]& 
+     \|\KP^2(\mu_T)\|_{n+1} \ar[r] \ar[d]^*[@]{\hbox to
+       0pt{\hss$\sim$\hss}} \ar[ul]& \cdots \ar[ull]\\
+     \mathring T_0 \ar[r] & \mathring T_1 \ar[r] &  \mathring T_2
+     \ar[r] &\cdots
+    }
+  \]}}
+\end{frame}
+
+\subsection[Sheafification]{From separated types to sheaves}
+\label{sec:from-separated-sheaves}
+
+\begin{frame}{}{Sheafification}
+  \note{ }
+  For any $T$ in $\nType {(n+1)}$, 
+  $\modal_{n+1}T$ is defined as the closure of $\separated T$,
+  seen as a subobject of $T \to \nType n^\modal$. 
+  % 
+  $\modal_{n+1}T$ can be given explicitly by
+  $$
+  \modal_{n+1} T \ \defeq \sum_{u:T \to \nType n^\modal} \modal_{-1}\left\| \sum_{a:T} 
+    (\lambda t,~\modal_n (a=t)) = u\right\|.
+  $$
+\end{frame}
+
+\begin{frame}[Sheafification is a lex modality]
+  \note{ }
+  As above, we first prove that:
+  \note[item]{Again, we need this.}
+  \begin{prop}
+    For any $T:\nType {(n+1)}$, $\modal_{n+1}T$ is a sheaf.
+  \end{prop}
+  It is true because of the requirement we asked about sheaves:
+  \begin{lem}
+    Let $X:\nType {(n+1)}$ and $U$ be a sheaf. If $X$ embeds
+    in $U$, and is closed in $U$, then $X$ is a sheaf.
+  \end{lem}
+
+  \pause
+  \vspace{1em}
+
+  Then:
+  \begin{thm}
+    $(\modal_{n+1},\nu)$ defines a left-exact modality.
+  \end{thm}
+  \note<2>[item]{This time, it's pretty easy\dots}
+\end{frame}
+
+\begin{frame}{Sketch of proof}
+  \note{ }
+  Let $T,Q:\nType {(n+1)}$ such that $Q$ is a sheaf. Let $f:T\to Q$.
+  Because $Q$ is a sheaf, it is in particular separated;
+  % 
+  thus we can extend $f$ to $\separated f:\separated T\to Q$.
+  \pause
+  \vspace{1em}
+
+  But as $\modal_{n+1} T$ is the closure of $\separated T$, $\separated T$ is dense
+  into $\modal_{n+1} T$, so the sheaf property of $Q$ allows to extend
+  $\separated f$ to $\modal_{n+1} f:\modal_{n+1} T \to Q$.
+
+  As all these steps are universal, the composition is.
+  \note<3>{again, the modality thing is just technical, and the
+    left-exactness comes from the compatibility.}
+\end{frame}
+
+\subsection{Consequences}
+\label{sec:consequences}
+
+\begin{frame}
+
+  \note{ }
+  Starting from the left-exact modality $\modal_{-1} P = \lnot\lnot
+  P$, this allows us to build a model satisfying excluded middle for
+  $\HProp$, without axiom.
+
+  \pause
+
+  \vspace{2em}
+  
+  With the same modality $\lnot\lnot$, we hope to be able to formalize
+  the proof of independance of continuum hypothesis (actually, just
+  the consistance of $\lnot\textrm{HC}$).
+
+\end{frame}
+
+\section{Future works}
+\label{sec:fw}
+\begin{frame}{Universes}
+  
+  The construction can be written inductively:
+  \[ \begin{array}{l}
+       \modal : \forall \ (n : nat), \ \nType n \to \nType n 
+       \\
+       \bullet~\modal_{-1\phantom{n}} \text{ is a left exact modality on
+       $\HProp$} \\
+       \bullet~\displaystyle{\modal_{n+1} \defeq  \lambda T:\nType {(n+1)}},\\
+       \hspace{5em} \displaystyle{\sum_{u:T \to \nType n^\modal} \modal_{-1} 
+       \left\|
+       \sum_{a:T} u= (\lambda t,~\modal_n (a=t))
+       \right\|}
+     \end{array}
+     \]
+
+     Here , the universe level increases strictly at each step, hence it is
+     impossible to take the fixpoint: we would need universes to be
+     indexed by (non-finite) ordinals.
+
+   \end{frame}
 
 
 \end{document}
