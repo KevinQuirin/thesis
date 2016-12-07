@@ -10,7 +10,7 @@
 \usepackage{amsmath}
 \usepackage{amssymb,amsthm,amsfonts}
 \usepackage{mathbbol}
-
+\usepackage{pgfplots}
 \newtheorem{thm}{Theorem}
 \newtheorem{cor}[thm]{Corollary}
 \newtheorem{prop}[thm]{Proposition}
@@ -38,7 +38,7 @@
 \usepackage{wasysym}
 
 \mode<beamer>{%
-  \usetheme[right,width=18mm]{Goettingen}
+  \usetheme[right,width=0mm]{Goettingen}
 }
 
 \AtBeginSection[]{
@@ -154,11 +154,6 @@
 \section[Type Theory]{Introduction to type theory}
 \label{sec:intr-type-theory}
 
-\begin{frame}
-  \frametitle{Foo}
-  Bar
-\end{frame}
-
 \subsection[Proof]{Formalizing proofs}
 \label{sec:formalizing-proofs}
 
@@ -183,7 +178,10 @@
   }}
   \end{center}
   \note<2->[item]{While the original - false - proof was only a few lines long,
-    the new proof is about thirty pages long, and contains complex arguments.}
+    the new proof is about thirty pages long, and contains complex
+    arguments.}
+  \note<4->[item]{We would like the proof to be checked by an
+    automatic process, by computers, to avoid human mistakes}
   \onslide<4>{
     Proofs are more and more complicated.
   }
@@ -308,11 +306,8 @@
   The Curry-Howard isomorphism states that there are correspondances:
   \begin{itemize}
   \item Type $\leftrightsquigarrow$ Formula
-    \only<2->{$\leftrightsquigarrow$ Type of a program}
-  \item Term $\leftrightsquigarrow$ Proof
-    \only<2->{$\leftrightsquigarrow$ Program}
+  \item Term/program $\leftrightsquigarrow$ Proof
   \item Type-checking $\leftrightsquigarrow$ Verification of proof
-    \only<3>{\color{blue}{$\leftrightsquigarrow$ Compilation}}
   \end{itemize}
 \end{frame}
 
@@ -542,16 +537,117 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Claim}
+  \frametitle{Idea}
   \begin{center}
     \Large{Forcing in set theory, sheafification in a topos and
       type theory translation are analogous.}
   \end{center}
 \end{frame}
+
+\begin{frame}
+  \frametitle{Question}
+
+  {\Large How to build a translation of type theories, giving sense to
+    one desired principle?}
+
+  \vspace{3em}
+
+  \onslide<2->{We proved that any modality
+  induces a translation of type theories\onslide<3>{, when it is left-exact, accessible}}
+  \note{We will recall what is a modality in the next section.
+
+We need some assumptions on the modality, not to break up the
+    conversion rule and universes level}
+
+\end{frame}
+
 \section[Sheafification]{Lawvere-Tierney Sheafification in Type Theory}
 \label{sec:sheaf-type-theory}
 
+\begin{frame}
+  \frametitle{Extension of sheafification}
+  We want to see sheafification in a topos as the first step of a more
+  general construction.
+  \only<2>{
+    \begin{center}
+      
+    \begin{tikzpicture}
+      % Création du tableau dans un nœud
+      \node[anchor=east,rectangle,inner sep=0pt,outer sep=0pt]%
+      (Tbl) {%
+        \renewcommand{\arraystretch}{2}%
+        \begin{tabular}{|l||c|c|}%
+          \hline%
+          \textbf{Space}&$\Omega$ & $\mathcal T$ \\%
+          \hline%
+          \textbf{Operator} & $j$ & $\mathfrak a$ \\
+          \hline
+        \end{tabular}%
+      };
 
+      % % Positionnement des points d'ancrage des flèches
+      % \path (Tbl.north east) -- (Tbl.south east) %
+      % node[pos=0.10](Fl_R){}% départ flèche rectangulaire
+      % node[pos=0.25](Fl_C){}% départ flèche courbe
+      % node[pos=0.75](C_lF){}% pointe flèche rectangulaire
+      % node[pos=0.9](R_lF){};% pointe  flèche courbe
+
+      % % % Flèche courbe
+      % % \draw[->,line width=.8pt,blue!80](Fl_C) .. controls +(1.5cm,.1cm) and +(1.5cm,-.1cm)..
+      % % node[ellips,fill=white,draw]{$\times\,0{,}02$} (C_lF);
+      % % % Flèche rectangulaire
+      % \draw[<-,line width=.8pt,red!80](Fl_C) -| (2.8cm,0cm)
+      % node[circle,fill=white,draw]{sheafification}|-(R_lF) ;
+    \end{tikzpicture}
+
+    \end{center}
+  }
+  \only<3>{
+    \begin{center}
+      
+    \begin{tikzpicture}
+      % Création du tableau dans un nœud
+      \node[anchor=east,rectangle,inner sep=0pt,outer sep=0pt]%
+      (Tbl) {%
+        \renewcommand{\arraystretch}{2}%
+        \begin{tabular}{|l||c|c|c|c|c|}%
+          \hline%
+          \textbf{Type}&$\HProp$ & $\HSet$ & $\Type_1$ & $\Type_2$ & $\cdots$ \\%
+          \hline%
+          \textbf{Operator} & $\modal_{-1}$ & $\modal_0$ & $\modal_1$
+          & $\modal_2$ & $\cdots$ \\
+          \hline
+        \end{tabular}%
+      };
+
+      % % Positionnement des points d'ancrage des flèches
+      % \path (Tbl.north east) -- (Tbl.south east) %
+      % node[pos=0.10](Fl_R){}% départ flèche rectangulaire
+      % node[pos=0.25](Fl_C){}% départ flèche courbe
+      % node[pos=0.75](C_lF){}% pointe flèche rectangulaire
+      % node[pos=0.9](R_lF){};% pointe  flèche courbe
+
+      % % Flèche courbe
+      % \draw[->,line width=.8pt,blue!80](Fl_C) .. controls +(1.5cm,.1cm) and +(1.5cm,-.1cm)..
+      % node[ellipse,fill=white,draw]{$\times\,0{,}02$} (C_lF);
+      % % Flèche rectangulaire
+      % \draw[<-,line width=.8pt,red!80](Fl_R) -| (2.8cm,0cm)
+      % node[circle,fill=white,draw]{$\times\,50$}|-(R_lF) ;
+    \end{tikzpicture}
+
+    \end{center}
+  }
+\end{frame}
+
+\begin{frame}
+  From a modality on $\HProp$, how can we extend it into a sequence of
+  modalities ?
+
+  \bigskip
+
+  \onslide<2>{Inductively~: from a modality $\modal_n$ on $\Type_n$,
+    we build a modality $\modal_{n+1}$ on $\Type_{n+1}$.}
+\end{frame}
 
 \begin{frame}{Questions}
   
@@ -567,6 +663,48 @@
   \item How to reach not truncated types? \only<6>{\textcolor{red}{In progress}}
   \end{itemize}
 \end{frame}
+
+\begin{frame}
+  We notice that axioms of a Lawvere-Tierney topology are similar with
+  the ones of a truncated modality on $\HProp$.
+
+  \bigskip
+
+  A modality is an operator changing slighlty the truth values of a
+  subobject classifier.
+
+  \note{We know that the type of n truncated types defines a subobject classifier}
+\end{frame}
+
+\begin{frame}
+  \note{ }
+  \frametitle{Recall : Modalities}
+  We use the same notion of modalities as in the book, but restricted to be on $n$-truncated types.
+\begin{defi}
+  \label{sec:defin-basic-prop-1}
+  Let $n\geq -1$ be a truncation index. A left exact modality at level
+  $n$ is the data of
+  \begin{enumerate}[(i)]
+  \item A predicate $P:\Type_n \to \HProp$
+  \item For every $n$-truncated type $A$, a $n$-truncated type
+    $\modal A$ such that $P(\modal A)$
+  \item For every $n$-truncated type $A$, a map $\eta_A:A \to
+    \modal A$
+  \end{enumerate}
+  such that
+  \begin{enumerate}[(i)]
+    \setcounter{enumi}{3}
+  \item For every $n$-truncated types $A$ and $B$, if $P(B)$ then
+    $$\left\{
+      \begin{array}{rcl}
+        (\modal A \to B) & \to & (A \to B) \\
+        f & \mapsto & f \circ \eta_A
+      \end{array} \right.$$
+    is an equivalence.
+  \end{enumerate}
+\end{defi}
+\end{frame}
+
 
 \begin{frame}{Requirements}
   \note<2>{We change slightly the last requirement to ask stability by
@@ -637,7 +775,7 @@
 \begin{frame}{Sheaves}
   Following the topos-theoretic idea, we use:
   \begin{defi}[Sheaves]
-    A type $F$ of $\nType {(n+1)}$ is a {\em $(n+1)$-sheaf} \only<2>{if \textcolor{red}{it is
+    A type $F$ of $\nType {(n+1)}$ is a {\em $(n+1)$-sheaf} if \onslide<2>{\textcolor{red}{it is
     separated}, and }for any type $E$ and all dense \textcolor{blue}{$(-1)$-subobject}
     $\chi : E \to \nType {(-1)}$, $\Phi_E^{\chi,-1}$ is an
     equivalence. In other words, the dotted arrow exists and is unique.
@@ -754,30 +892,52 @@
 
 \begin{frame}
   In HoTT, it gets harder. We use the following HITs:
-  \begin{align*}    
-    \KP(f)&\left|
-      \begin{array}{lll}
-        \kp &:& A\to \KP(f) \\
-        \alpha &:& \displaystyle{\prodD {x,y}{A}{f\, x = f\, y \to
-            \kp\,x=\kp\,y}}\\
-        \alpha_1&:& \displaystyle{\prodD x A {\alpha(x,x,1) = 1}}
-      \end{array}
-    \right. 
-    \\
-    \onslide<2->{\mathring T_X&\left|
-      \begin{array}{lll}
-        \mathring t&:&\|X\|_{n+1} \to \mathring T_X \\
-        \mathring \alpha&:&\forall a\, b:\|X\|_{n+1},~\modal (a=b) \to
-        \mathring t(a) = \mathring t(b) \\
-        \mathring \alpha_1&:&\forall a:\|X\|_{n+1},~
-        \mathring \alpha(a , a, \eta_{a=a} 1) = 1
-      \end{array}
-    \right.}
-  \end{align*}
+  \only<1,2>{\begin{align*}    
+      \KP(f)&\left|
+        \begin{array}{lll}
+          \kp &:& A\to \KP(f) \\
+          \alpha &:& \displaystyle{\prodD {x,y}{A}{f\, x = f\, y \to
+              \kp\,x=\kp\,y}}\\
+          \alpha_1&:& \displaystyle{\prodD x A {\alpha(x,x,1) = 1}}
+        \end{array}
+      \right. 
+      \\
+      \bigskip &
+      \\
+      \onslide<2->{\mathring T_X&\left|
+          \begin{array}{lll}
+            \mathring t&:&\|X\|_{n+1} \to \mathring T_X \\
+            \mathring \alpha&:& \displaystyle{\prodD{a, b}{\|X\|_{n+1}}{\modal (a=b) \to
+                \mathring t(a) = \mathring t(b)}} \\
+            \mathring \alpha_1&:&\displaystyle{\prodD a {\|X\|_{n+1}}{
+                \mathring \alpha(a , a, \eta_{a=a} 1) = 1}}
+          \end{array}
+        \right.}
+    \end{align*}}
+
+  \only<3>{
+    \[ 
+  \xymatrix{
+    \displaystyle{\sumD{a,b}X {f x = f y}} \ar@<-.5ex>[r]_-{\pi_2}
+    \ar@<.5ex>[r]^-{\pi_1} & A \ar@/_2pc/[l]_\delta \ar[r] & \KP(f)
+  }
+\]
+\bigskip
+ \[
+    \xymatrix{\displaystyle{\sumD {a,b}{\|X\|_{n+1}} {\modal (a=b)}} \ar@<-.5ex>[r]_-{\pi_2} \ar@<.5ex>[r]^-{\pi_1}
+      & \|X\|_{n+1}\ar@/_2pc/[l] \ar[r] & \mathring T_X
+    }\]
+  }
 \end{frame}
 
 \begin{frame}
-  \only<1>{\small{
+\note<1->[item]{We know that the n+1 colimit of the truncated iterated kernel
+  pair of muT is its image, thus the separation of T}
+\note<2->[item]{We can prove that the truncated iterated kernel pair
+  is equivalent to the iteration of T rings}
+\note<3->[item]{Thus the separation of T is the n+1 colimit of the
+  bottom diagram}
+  \only<2>{\small{
     \[
     \xymatrix{%
      \|\KP^0(\mu_T)\|_{n+1} \ar[r] \ar[d]^*[@]{\hbox to 0pt{\hss$\sim$\hss}}&
@@ -790,19 +950,25 @@
     }
   \]
   }}
-\only<2>{\small{\[
+\only<1>{\small{\[
     \xymatrix{%
+      & \text{$(n+1)$-colimit} && \\
       &\separated T&& \\
-     \|\KP^0(\mu_T)\|_{n+1} \ar[r] \ar[d]^*[@]{\hbox to
-       0pt{\hss$\sim$\hss}} \ar[ur]&
-     \|\KP^1(\mu_T)\|_{n+1} \ar[r] \ar[d]^*[@]{\hbox to
-       0pt{\hss$\sim$\hss}} \ar[u]& 
-     \|\KP^2(\mu_T)\|_{n+1} \ar[r] \ar[d]^*[@]{\hbox to
-       0pt{\hss$\sim$\hss}} \ar[ul]& \cdots \ar[ull]\\
-     \mathring T_0 \ar[r] & \mathring T_1 \ar[r] &  \mathring T_2
-     \ar[r] &\cdots
+     \|\KP^0(\mu_T)\|_{n+1} \ar[r]  \ar[ur]&
+     \|\KP^1(\mu_T)\|_{n+1} \ar[r] \ar[u]& 
+     \|\KP^2(\mu_T)\|_{n+1} \ar[r] \ar[ul]& \cdots \ar[ull]\\
     }
   \]}}
+\only<3>{\small{
+    \[
+    \xymatrix{%
+     \mathring T_0 \ar[r] \ar[dr] & \mathring T_1 \ar[r]\ar[d] &  \mathring T_2
+     \ar[r] \ar[dl]&\cdots \ar[dll]\\
+     &\separated T&& \\
+     & \text{$(n+1)$-colimit} &&
+    }
+  \]
+  }}
 \end{frame}
 
 \subsection[Sheafification]{From separated types to sheaves}
@@ -845,7 +1011,8 @@
 \end{frame}
 
 \begin{frame}{Sketch of proof}
-  \note{ }
+  \note{First, we use the universality of separation. Then we use
+    universality of closure}
   Let $T,Q:\nType {(n+1)}$ such that $Q$ is a sheaf. Let $f:T\to Q$.
   Because $Q$ is a sheaf, it is in particular separated;
   % 
@@ -862,30 +1029,38 @@
     left-exactness comes from the compatibility.}
 \end{frame}
 
-\subsection{Consequences}
+\subsection{Summary}
 \label{sec:consequences}
+
+\begin{frame}
+  From any left-exact modality on $\Type_n$,
+  \[\displaystyle{\modal_{n+1} \defeq  \lambda T:\nType {(n+1)}},
+  \sum_{u:T \to \nType n^\modal} \modal_{-1} 
+  \left\|
+    \sum_{a:T} u= (\lambda t,~\modal_n (a=t))
+  \right\|\]
+  defines a modality on $\Type_{n+1}$.
+
+  \bigskip
+
+  Thus, starting from a modality on $\HProp$, we can build a modality
+  on any $\Type_n$ for any $n$.
+\end{frame}
 
 \begin{frame}
 
   \note{ }
   Starting from the left-exact modality $\modal_{-1} P = \lnot\lnot
-  P$, this allows us to build a model satisfying excluded middle for
-  $\HProp$, without axiom.
-
-  \pause
-
-  \vspace{2em}
-  
-  With the same modality $\lnot\lnot$, we hope to be able to formalize
-  the proof of independance of continuum hypothesis (actually, just
-  the consistance of $\lnot\textrm{HC}$).
+  P$, when working only with $n$-truncated types, it allows to use the
+  law of excluded middle.
 
 \end{frame}
 
 \section{Future works}
 \label{sec:fw}
 \begin{frame}{Universes}
-  
+  \note{Universes are indeed an issue in our construction ; we need to
+    use type-in-type even for just the inductive step}
   The construction can be written inductively:
   \[ \begin{array}{l}
        \modal : \forall \ (n : nat), \ \nType n \to \nType n 
@@ -904,6 +1079,16 @@
      impossible to take the fixpoint: we would need universes to be
      indexed by (non-finite) ordinals.
 
+   \end{frame}
+
+   \begin{frame}{Extension to type}
+     The modalities are defined just for truncated type.
+
+     \bigskip
+
+     How to extend it to all types ?
+     \note{We know that there are non-truncated types. In a general
+       setting, some types are not even the limit of their successive truncations}
    \end{frame}
 
 
