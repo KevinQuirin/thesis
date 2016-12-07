@@ -13,10 +13,8 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 LaTeX Warning: `h' float specifier changed to `ht'.
 Underfull \hbox (badness 1735) in paragraph at lines 203--206
 Underfull \vbox (badness 10000) detected at line 633
-Overfull \hbox (2.95062pt too wide) in paragraph at lines 884--885
-Overfull \hbox (17.65097pt too wide) in paragraph at lines 902--903
-Overfull \hbox (49.14717pt too wide) in paragraph at lines 926--927
-Underfull \hbox (badness 3471) in paragraph at lines 1013--1017
+Overfull \vbox (3.67595pt too high) detected at line 995
+Underfull \hbox (badness 3471) in paragraph at lines 1032--1036
 Underfull \vbox (badness 10000) detected at line 283
 Underfull \hbox (badness 5036) in paragraph at lines 471--477
 Underfull \hbox (badness 6047) in paragraph at lines 842--842
