@@ -1063,33 +1063,125 @@ We need some assumptions on the modality, not to break up the
     use type-in-type even for just the inductive step}
   The construction can be written inductively:
   \[ \begin{array}{l}
-       \modal : \forall \ (n : nat), \ \nType n \to \nType n 
-       \\
-       \bullet~\modal_{-1\phantom{n}} \text{ is a left exact modality on
-       $\HProp$} \\
-       \bullet~\displaystyle{\modal_{n+1} \defeq  \lambda T:\nType {(n+1)}},\\
-       \hspace{5em} \displaystyle{\sum_{u:T \to \nType n^\modal} \modal_{-1} 
-       \left\|
-       \sum_{a:T} u= (\lambda t,~\modal_n (a=t))
-       \right\|}
-     \end{array}
-     \]
+    \modal : \forall \ (n : nat), \ \nType n \to \nType n 
+    \\
+    \bullet~\modal_{-1\phantom{n}} \text{ is a left exact modality on
+      $\HProp$} \\
+    \bullet~\displaystyle{\modal_{n+1} \defeq  \lambda T:\nType {(n+1)}},\\
+    \hspace{5em} \displaystyle{\sum_{u:T \to \nType n^\modal} \modal_{-1} 
+      \left\|
+        \sum_{a:T} u= (\lambda t,~\modal_n (a=t))
+      \right\|}
+  \end{array}
+  \]
 
-     Here , the universe level increases strictly at each step, hence it is
-     impossible to take the fixpoint: we would need universes to be
-     indexed by (non-finite) ordinals.
+  Here , the universe level increases strictly at each step, hence it is
+  impossible to take the fixpoint: we would need universes to be
+  indexed by (non-finite) ordinals.
 
-   \end{frame}
+\end{frame}
 
-   \begin{frame}{Extension to type}
-     The modalities are defined just for truncated type.
+\begin{frame}{Extension to type}
+  The modalities are defined just for truncated type.
 
-     \bigskip
+  \bigskip
 
-     How to extend it to all types ?
-     \note{We know that there are non-truncated types. In a general
-       setting, some types are not even the limit of their successive truncations}
-   \end{frame}
+  How to extend it to all types ?
+  \note{We know that there are non-truncated types. In a general
+    setting, some types are not even the limit of their successive truncations}
+\end{frame}
 
+\begin{frame}
+  \begin{itemize}
+  \item<1-> First idea: Write any type as the limit of its
+    truncation. \onslide<2->{\textcolor{red}{False !}}
+  \item<3-> Second idea: Suppose that every type is the limit of
+    its truncations, and use Postnikov towers
+    \[ T = T_\infty \to \cdots \to \|T\|_0 \to \|T_{-1}\|.\]
+    But
+    \[  \cdots \to \modal_0\|T\|_0 \to \modal_{-1} \|T_{-1}\|\]
+    is not a Postnikov pretower, because
+    \[  \left\|\modal_{n+1} \|T\|_{n+1}\right\|_{n} \not= \modal_n
+    \|T\|_n.\]
+    \onslide<4->{\textcolor{red}{False !}}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[allowframebreaks]
+  \frametitle{Translation}
+  \begin{itemize}
+  \item For types
+    \[
+    \begin{array}{lcl}
+      \left[ \Type\right] &\defeq& (\Type^\modal,\pi_{\Type^\modal})
+    \end{array}
+    \]
+    where $\pi_{\Type^\modal}$ is a proof that $\Type^\modal$ is itself
+    modal.
+    To ease the reading in what follows, we introduce the notation  \[ 
+    \Lbrack A \Rbrack \defeq \pi_1 \left[ A \right]\]
+
+  \item For dependent sums
+    \[
+    \begin{array}{lcl}
+      \left[ \sumD x A B \right] &\defeq&  \left( \sumD x{\Lbrack A \Rbrack}
+        {\Lbrack B\Rbrack} , \pi_\Sigma^{[A],[B]}
+      \right)\\[0.5em]
+      \left[  (x,y)\right] &\defeq& ([x],[y]) \\[0.5em]
+      \left[  \pi_i t\right] &\defeq& \pi_i [t] \\[0.5em]
+    \end{array}
+    \]
+    where $\pi_{\Sigma}^{A,B}$ is a proof that $\sumD x A B$ is modal when
+    $A$ and $B$ are.
+  \item For dependent products
+    \[
+    \begin{array}{lcl}
+      \left[ \prod_{x:A} B \right] &\defeq& \left( \prod_{x:\Lbrack A \Rbrack}
+        \Lbrack B\Rbrack , \pi_{\Pi}^{[A],[B]}
+      \right)\\[0.5em]
+      \left[  \lambda\, x:A,~M \right] &\defeq&\lambda\,x:\Lbrack A
+      \Rbrack,~[ M ]
+      \\[0.5em]
+      \left[ t \, t' \right] &\defeq& [t] [t'] \\[0.5em]
+    \end{array}
+    \]
+    where $\pi_{\Pi}^{A,B}$ is a proof that $\prodD x A B$ is modal when $B$ is.
+  \item For paths
+    \[
+    \begin{array}{lcl}
+      \left[  x=_A y \right] &\defeq& \left( [x] =_{\Lbrack A\Rbrack} [y] , \pi_=^{[x],[y]}
+      \right)\\[0.5em]
+      \left[ 1 \right] &\defeq& 1\\[0.5em]
+      \left[ J \right] &\defeq& J \\[0.5em]
+    \end{array}
+    \]
+    where $\pi_{=}^{x,y}$ is a proof that $x=_A y$ is modal when $A$ is.
+  \item For positive types (we only treat the case of the sum as an example)
+    \[
+    \begin{array}{lcl}
+      \left[  A+B \right] &\defeq& \left( \modal(\Lbrack A \Rbrack + \Lbrack B
+        \Rbrack); \pi_\modal(\Lbrack A \Rbrack + \Lbrack B
+        \Rbrack)\right)\\[0.5em]
+      \left[  \mathrm{in}_\ell t \right] &\defeq& \eta (\mathrm{in}_\ell [t]) \\[0.5em]
+      \left[  \mathrm{in}_r t \right] &\defeq& \eta (\mathrm{in}_r [t]) \\[0.5em]
+      \left[ \langle f ,g\rangle\right] &\defeq& \modal_{\mathrm{rec}}^{\Lbrack A\Rbrack +
+        \Lbrack B\Rbrack} \langle
+      [f],[g]\rangle\\[0.5em]
+    \end{array}
+    \]
+  \item For truncations ($i\leqslant n$)
+    \[
+    \begin{array}{lcl}
+      \left[  \|A\|_i \right] &\defeq& (\modal \| \Lbrack A\Rbrack  \|_i;
+      \pi_\modal(\| \Lbrack A\Rbrack
+      \|_i)) \\[0.5em]
+      \left[ |t|_i \right] &\defeq& \eta |[t]|_i \\[0.5em]
+      \left[ |f|_i \right] &\defeq& \modal_{\mathrm{rec}}^{\| \Lbrack
+        A\Rbrack  \|_i} | [f] |_i
+    \end{array}
+    \]
+
+  \end{itemize}
+\end{frame}
 
 \end{document}
