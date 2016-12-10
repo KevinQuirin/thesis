@@ -47,7 +47,7 @@
 
 \AtBeginSection[]{
   \begin{frame}<beamer>{}
-    \tableofcontents[currentsection,currentsubsection]
+    \tableofcontents[currentsection]
     \note{ }
   \end{frame}
 }
@@ -306,9 +306,12 @@
   \note<3->[item]{We want a witness of our property, typically not
     living in our model. But inside the model, we can build a set $P$
     containing potential approximations of the witness}
-  \note<4->[item]{The theorem of forcing states that there is a model
-    MG with a set G in the power set of P, such that G is the actual
-    set of approximations of the witness
+  \note<4->[item]{The theorem of forcing states that there is :
+    \begin{itemize}
+    \item a set $G$ in the power set of $P$ (outside M), which is the actual
+      approximation of the witness
+    \item a model MG induced by G
+    \end{itemize}
 
   Forcing is very similar to field extension in algebra, where we add
   some root of a polynomial. Analogy : P <-> polynomial. G <-> zero of
@@ -325,21 +328,23 @@
       \draw[color=blue] (0,0) -- (0,5) node[right] {Ord};}
     \onslide<3->{
       \draw (2.2,3) node {\textbullet};
-      \draw (2.2,3) node[right] {witness};
-      \draw (1,3) node {\textbullet};
-      \draw (1,3) node[above] {$P$};}
-    \onslide<4->{
-      \draw[color=red] (0,0) -- (-4,5) node[left] {$\mathfrak M[G]$};;
-      \draw[color=red] (0,0) -- (4,5);}
+      \draw (2.2,3) node[right] {witness};}
     \onslide<4->{
       \draw [green] plot [smooth cycle] coordinates {(0.5,1) (0.5,4)
         (2,3)};
-      \draw (1,4.5) node {$\mathfrak p^{\mathfrak M} (P)$};
-      \draw (2.6,3.7) node {$\mathfrak p^{\mathfrak M[G]} (P)$};
-      \draw (1.2,2) node {\textbullet};
-      \draw (1.2,2) node[above] {$G$};
+      \draw[color=green] (1,4.5) node {$\mathfrak p (P)$};
+      \draw (1,3) node {\textbullet};
+      \draw (1,3) node[above] {$P$};
+      \draw[color=red] (1.2,2) node {\textbullet};
+      \draw[color=red] (1.2,2) node[above] {$G$};
+    }
+    \onslide<5->{
+      \draw[color=red] (0,0) -- (-4,5) node[left] {$\mathfrak M[G]$};;
+      \draw[color=red] (0,0) -- (4,5);}
+    \onslide<6->{
+      % \draw (2.6,3.7) node {$\mathfrak p^{\mathfrak M[G]} (P)$};
       % \draw (1.5,3) node {\textbullet};
-      \draw (2.5,3) node[right] {\phantom{witness} = $\lim G$};}
+      \draw (2.2,3) node[right] {\phantom{witness} = $\lim G$};}
   \end{tikzpicture}
   \end{center}
 \end{frame}
