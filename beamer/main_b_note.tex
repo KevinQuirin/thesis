@@ -732,7 +732,7 @@ We need some assumptions on the modality, not to break up the
 \label{sec:definitions}
 
 \begin{frame}[allowframebreaks]{Dense subobject}
-  \note{ }
+  \note{m will be either n or -1}
   \begin{defi}
     Let $E$ be a type. The {\em closure} of a subobject of $E$ with
     $m$-truncated homotopy fibers (or $m$-subobject of $E$, for short),
@@ -953,18 +953,21 @@ We need some assumptions on the modality, not to break up the
   }
   \]
   \vfill
-  \small{{\em Floris Van Doorn: Constructing the Propositional
-      Truncation using Non-recursive HITs
-
+  \small{{\em S. Boulier, K. Quirin, E. Rijke, N. Tabareau: Colimits
+      in HoTT
+      
       \smallskip
-
-      S. Boulier, K. Quirin, E. Rijke, N. Tabareau: Colimits in HoTT
+      
+      Floris Van Doorn: Constructing the Propositional
+      Truncation using Non-recursive HITs
 
       \smallskip
 
       Nicolai Kraus: Truncation Levels in Homotopy Type Theory
     }}
-
+  \note{This is a joint work with Simon, Egbert and Nicolas, based on
+    the work of Floris Van Doorn. It is closely related to the work of
+    Nicolai Kraus}
 \end{frame}
 
 \begin{frame}
@@ -1032,11 +1035,11 @@ We need some assumptions on the modality, not to break up the
   As above, we first prove that:
   \note[item]{Again, we need this.}
   \begin{prop}
-    For any $T:\nType {(n+1)}$, $\modal_{n+1}T$ is a sheaf.
+    For any $T:\nType {n+1}$, $\modal_{n+1}T$ is a sheaf.
   \end{prop}
   It is true because of the requirement we asked about sheaves:
   \begin{lem}
-    Let $X:\nType {(n+1)}$ and $U$ be a sheaf. If $X$ embeds
+    Let $X:\nType {n+1}$ and $U$ be a sheaf. If $X$ embeds
     in $U$, and is closed in $U$, then $X$ is a sheaf.
   \end{lem}
 
@@ -1053,7 +1056,7 @@ We need some assumptions on the modality, not to break up the
 \begin{frame}{Sketch of proof}
   \note{First, we use the universality of separation. Then we use
     universality of closure}
-  Let $T,Q:\nType {(n+1)}$ such that $Q$ is a sheaf. Let $f:T\to Q$.
+  Let $T,Q:\nType {n+1}$ such that $Q$ is a sheaf. Let $f:T\to Q$.
   Because $Q$ is a sheaf, it is in particular separated;
   % 
   thus we can extend $f$ to $\separated f:\separated T\to Q$.
@@ -1065,14 +1068,16 @@ We need some assumptions on the modality, not to break up the
   $\separated f$ to $\modal_{n+1} f:\modal_{n+1} T \to Q$.
 
   As all these steps are universal, the composition is.
-  \note<3>{again, the modality thing is just technical, and the
+  \note<2>{
+    
+     again, the modality thing is just technical, and the
     left-exactness comes from the compatibility.}
 \end{frame}
 
 \subsection{Summary}
 \label{sec:consequences}
 
-\begin{frame}
+\begin{frame}{Summary}
   From any left-exact modality on $\Type_n$,
   \[\displaystyle{\modal_{n+1} \defeq  \lambda T:\nType {(n+1)}},
   \sum_{u:T \to \nType n^\modal} \modal_{-1} 
